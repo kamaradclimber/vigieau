@@ -156,6 +156,13 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             if "VIGIEAU_DEBUG" in os.environ:
                 data = DEBUG_DATA
             _LOGGER.debug(f"Data fetched from vigieau: {data}")
+
+            for usage in data["usages"]:
+                if usage["usage"] not in SENSOR_DEFINITIONS:
+                    _LOGGER.warn(
+                        f"The following restriction is unknown from this integration, please report it as an issue: {usage['usage']}"
+                    )
+
             return data
         except Exception as err:
             raise UpdateFailed(f"Error communicating with API: {err}")
