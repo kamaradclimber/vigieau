@@ -188,7 +188,7 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
 
     @property
     def unique_id(self) -> str:
-        return f"sensor-vigieau-{self.coordinator.lat}-{self.coordinator.lon}-{self._attr_name}"
+        return f"sensor-vigieau-{self._attr_name}"
 
     def enrich_attributes(self, data: dict, key_source: str, key_target: str):
         if key_source in data:
@@ -250,7 +250,7 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
 
     @property
     def unique_id(self) -> str:
-        return f"sensor-vigieau-{self.coordinator.lat}-{self.coordinator.lon}-{self._usage_id}"
+        return f"sensor-vigieau-{self._usage_id}"
 
     def enrich_attributes(self, usage: dict, key_source: str, key_target: str):
         if key_source in usage:
