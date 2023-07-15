@@ -1,6 +1,6 @@
 # Vigieau for home-assistant
 
-Component to expose Vigieau status for the foreseable future. See https://vigieau.gouv.fr/ for web access.
+Component to expose water restrictions in France through Vigieau api. See https://vigieau.gouv.fr/ for web access.
 
 This integration share location via a 3rd party (government) website (as the website does).
 
