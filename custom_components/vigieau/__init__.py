@@ -216,6 +216,12 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
             self.coordinator.data, "cheminFichierArreteCadre", "source2"
         )
 
+        restrictions = [
+            restriction["usage"] for restriction in self.coordinator.data["usages"]
+        ]
+        self._attr_state_attributes = self._attr_state_attributes or {}
+        self._attr_state_attributes["current_restrictions"] = ", ".join(restrictions)
+
         self.async_write_ha_state()
 
     @property
