@@ -88,15 +88,23 @@ DEBUG_DATA = {
 }
 
 SENSOR_DEFINITIONS = {
-    "Alimentation des fontaines publiques et privées d'ornement ": {},
-    "Arrosage des jardins potagers": {},
-    "Arrosage des pelouses, massifs fleuris": {},
-    "Lavage de véhicules par les particuliers": {},
-    "Lavage de véhicules par les professionnels avec portique à rouleaux": {},
-    "Lavage de véhicules par les professionnels avec du matériel haute pression": {},
+    "Alimentation des fontaines publiques et privées d'ornement ": {
+        "icon": "mdi:fountain"
+    },
+    "Arrosage des jardins potagers": {"icon": "mdi:watering-can"},
+    "Arrosage des pelouses, massifs fleuris": {"icon": "mdi:sprinkler-variant"},
+    "Lavage de véhicules par les particuliers": {"icon": "mdi:car-wash"},
+    "Lavage de véhicules par les professionnels avec portique à rouleaux": {
+        "icon": "mdi:car-wash"
+    },
+    "Lavage de véhicules par les professionnels avec du matériel haute pression": {
+        "icon": "mdi:car-wash"
+    },
     "Nettoyage des façades, toitures, trottoirs et autres surfaces imperméabilisées": {},
-    "Remplissage et vidange de piscines privées (de plus d'1 m3)": {},
+    "Remplissage et vidange de piscines privées (de plus d'1 m3)": {"icon": "mdi:pool"},
     "Remplissage / vidange des plans d'eau": {},
-    "Manoeuvre d’ouvrage sur le cours d’eau et affluents (biefs de moulin) hors plan d'eau": {},
+    "Manoeuvre d’ouvrage sur le cours d’eau et affluents (biefs de moulin) hors plan d'eau": {
+        "icon": "mdi:hydro-power"
+    },
     "Travaux en cours d'eau": {},
 }

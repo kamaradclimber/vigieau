@@ -25,7 +25,7 @@ from homeassistant.helpers.httpx_client import get_async_client
 from homeassistant.components.sensor import RestoreSensor, SensorEntity
 from homeassistant.components.calendar import CalendarEntity, CalendarEvent
 
-from .const import BASE_URL, DOMAIN, DEBUG_DATA
+from .const import BASE_URL, DOMAIN, DEBUG_DATA, SENSOR_DEFINITIONS
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -225,6 +225,7 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         self._attr_native_value = None
         self._attr_state_attributes = None
         self._attr_entity_category = EntityCategory.DIAGNOSTIC
+        self._config = SENSOR_DEFINITIONS[usage_name]
 
     @property
     def unique_id(self) -> str:
@@ -234,6 +235,10 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         if key_source in usage:
             self._attr_state_attributes = self._attr_state_attributes or {}
             self._attr_state_attributes[key_target] = usage[key_source]
+
+    @property
+    def icon(self):
+        return self._config.get("icon", None)
 
     @callback
     def _handle_coordinator_update(self) -> None:
