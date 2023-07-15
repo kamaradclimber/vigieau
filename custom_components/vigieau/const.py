@@ -88,23 +88,32 @@ DEBUG_DATA = {
 }
 
 SENSOR_DEFINITIONS = {
-    "Alimentation des fontaines publiques et privées d'ornement ": {
-        "icon": "mdi:fountain"
+    "fountains": {
+        "match": "alimentation des fontaines publiques et privées",
+        "icon": "mdi:fountain",
     },
-    "Arrosage des jardins potagers": {"icon": "mdi:watering-can"},
-    "Arrosage des pelouses, massifs fleuris": {"icon": "mdi:sprinkler-variant"},
-    "Lavage de véhicules par les particuliers": {"icon": "mdi:car-wash"},
-    "Lavage de véhicules par les professionnels avec portique à rouleaux": {
-        "icon": "mdi:car-wash"
+    "potagers": {
+        "match": "Arrosage des jardins potagers",
+        "icon": "mdi:watering-can",
     },
-    "Lavage de véhicules par les professionnels avec du matériel haute pression": {
-        "icon": "mdi:car-wash"
+    "lawn": {"match": "pelouses", "icon": "mdi:sprinkler-variant"},
+    "self_car_wash": {"match": "lavage.+particuliers", "icon": "mdi:car-wash"},
+    "self_car_wash_station": {"match": "lavage.+station", "icon": "mdi:car-wash"},
+    "portique_car_wash": {
+        "match": "lavage.+professionnels.+portique",
+        "icon": "mdi:car-wash",
     },
-    "Nettoyage des façades, toitures, trottoirs et autres surfaces imperméabilisées": {},
-    "Remplissage et vidange de piscines privées (de plus d'1 m3)": {"icon": "mdi:pool"},
-    "Remplissage / vidange des plans d'eau": {},
-    "Manoeuvre d’ouvrage sur le cours d’eau et affluents (biefs de moulin) hors plan d'eau": {
-        "icon": "mdi:hydro-power"
+    "high_pressure_car_wash": {
+        "match": "lavage.+professionnels.+haute pression",
+        "icon": "mdi:car-wash",
     },
-    "Travaux en cours d'eau": {},
+    "roof_clean": {
+        "match": "toitures",
+    },
+    "private_pool": {"match": "remplissage et vidange.+piscines", "icon": "mdi:pool"},
+    "ponds": {"match": "remplissage.+plans d.eau"},
+    "river_rate": {"match": "ouvrage.+cours d.eau", "icon": "mdi:hydro-power"},
+    "misc_operations_rivers": {"match": "travaux en cours d.eau"},
+    "golfs": {"match": "arrosage des golfs", "icon": "mdi:golf"},
+    "canals": {"match": "Prélèvement en canaux", "icon": "mdi:water-pump"},
 }

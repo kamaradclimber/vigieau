@@ -34,8 +34,8 @@ async def async_setup_entry(
     vigieau_coordinator = hass.data[DOMAIN][entry.entry_id]["vigieau_coordinator"]
     sensors = []
     sensors.append(AlertLevelEntity(vigieau_coordinator, hass))
-    for sensor_name in SENSOR_DEFINITIONS:
-        sensors.append(UsageRestrictionEntity(vigieau_coordinator, hass, sensor_name))
+    for sensor_id in SENSOR_DEFINITIONS:
+        sensors.append(UsageRestrictionEntity(vigieau_coordinator, hass, sensor_id))
 
     async_add_entities(sensors)
     _LOGGER.info("We finished the setup of vigieau *sensors*")

@@ -158,7 +158,15 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             _LOGGER.debug(f"Data fetched from vigieau: {data}")
 
             for usage in data["usages"]:
-                if usage["usage"] not in SENSOR_DEFINITIONS:
+                found = False
+                for usage_id in SENSOR_DEFINITIONS:
+                    if re.search(
+                        SENSOR_DEFINITIONS[usage_id]["match"],
+                        usage["usage"],
+                        re.IGNORECASE,
+                    ):
+                        found = True
+                if not found:
                     _LOGGER.warn(
                         f"The following restriction is unknown from this integration, please report it as an issue: {usage['usage']}"
                     )
@@ -223,20 +231,20 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
     """Expose a restriction for a given usage"""
 
     def __init__(
-        self, coordinator: VigieauAPICoordinator, hass: HomeAssistant, usage_name: str
+        self, coordinator: VigieauAPICoordinator, hass: HomeAssistant, usage_id: str
     ):
         super().__init__(coordinator)
         self.hass = hass
-        self._usage_name = usage_name
-        self._attr_name = usage_name
+        self._usage_id = usage_id
+        self._attr_name = f"{usage_id}_restrictions"  # temporary
         self._attr_native_value = None
         self._attr_state_attributes = None
         self._attr_entity_category = EntityCategory.DIAGNOSTIC
-        self._config = SENSOR_DEFINITIONS[usage_name]
+        self._config = SENSOR_DEFINITIONS[usage_id]
 
     @property
     def unique_id(self) -> str:
-        return f"sensor-vigieau-{self.coordinator.lat}-{self.coordinator.lon}-{self._attr_name}"
+        return f"sensor-vigieau-{self.coordinator.lat}-{self.coordinator.lon}-{self._usage_id}"
 
     def enrich_attributes(self, usage: dict, key_source: str, key_target: str):
         if key_source in usage:
@@ -254,7 +262,8 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
             _LOGGER.debug("Last coordinator failed, assuming state has not changed")
             return
         for usage in self.coordinator.data["usages"]:
-            if usage["usage"] == self._usage_name:
+            if re.search(self._config["match"], usage["usage"], re.IGNORECASE):
+                self._attr_name = usage["usage"]
                 if self._attr_native_value != usage["niveauRestriction"]:
                     _LOGGER.debug(
                         f"Setting native value to {usage['niveauRestriction']}"
