@@ -107,10 +107,18 @@ SENSOR_DEFINITIONS = {
         "match": "lavage.+professionnels.+haute pression",
         "icon": "mdi:car-wash",
     },
+    "nautical_vehicules": {
+        "match": "lavage.+engins nautiques.+professionnels",
+        "icon": "mdi:sail-boat",
+    },
     "roof_clean": {
         "match": "toitures",
     },
-    "private_pool": {"match": "remplissage et vidange.+piscines", "icon": "mdi:pool"},
+    "private_pool": {
+        "match": "remplissage.+piscines.+(familiales|privées)",
+        "icon": "mdi:pool",
+    },
+    "pool": {"match": "vidange.+piscines.+", "icon": "mdi:pool"},
     "ponds": {"match": "remplissage.+plans d.eau"},
     "river_rate": {"match": "ouvrage.+cours d.eau", "icon": "mdi:hydro-power"},
     "misc_operations_rivers": {"match": "travaux en cours d.eau"},
