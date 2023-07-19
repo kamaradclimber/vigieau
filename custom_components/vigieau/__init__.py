@@ -120,14 +120,14 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
 
     @property
     def lat(self) -> float:
-        if "VIGIEAU_DEBUG" in os.environ:
-            return 48.841
+        if "VIGIEAU_DEBUG_LOC_LAT" in os.environ:
+            return float(os.environ["VIGIEAU_DEBUG_LOC_LAT"])
         return self.hass.config.as_dict()["latitude"]
 
     @property
     def lon(self) -> float:
-        if "VIGIEAU_DEBUG" in os.environ:
-            return 2.3332
+        if "VIGIEAU_DEBUG_LOC_LONG" in os.environ:
+            return float(os.environ["VIGIEAU_DEBUG_LOC_LONG"])
         return self.hass.config.as_dict()["longitude"]
 
     async def update_method(self):
