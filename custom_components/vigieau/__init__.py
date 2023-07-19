@@ -150,9 +150,17 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             url = f"{BASE_URL}/reglementation?lat={self.lat}&lon={self.lon}&commune={city_code}&profil=particulier"
             _LOGGER.debug(f"Requesting restrictions from {url}")
             r = await client.get(url)
-            if not r.is_success:
+            if (
+                r.status_code == 404
+                and "message" in r.json()
+                and re.match("Aucune zone.+en vigueur", r.json()["message"])
+            ):
+                _LOGGER.debug(f"Vigieau replied with no restriction, faking data")
+                data = {"usages": [], "niveauAlerte": "vigilance"}
+            elif r.is_success:
+                data = r.json()
+            else:
                 raise UpdateFailed(f"Failed fetching vigieau data: {r.text}")
-            data = r.json()
             if "VIGIEAU_DEBUG" in os.environ:
                 data = DEBUG_DATA
             _LOGGER.debug(f"Data fetched from vigieau: {data}")
