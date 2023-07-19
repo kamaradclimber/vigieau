@@ -98,7 +98,6 @@ SENSOR_DEFINITIONS = {
     },
     "lawn": {"match": "pelouses", "icon": "mdi:sprinkler-variant"},
     "self_car_wash": {"match": "lavage.+particuliers", "icon": "mdi:car-wash"},
-    "self_car_wash_station": {"match": "lavage.+station", "icon": "mdi:car-wash"},
     "portique_car_wash": {
         "match": "lavage.+professionnels.+portique",
         "icon": "mdi:car-wash",
@@ -107,21 +106,26 @@ SENSOR_DEFINITIONS = {
         "match": "lavage.+professionnels.+haute pression",
         "icon": "mdi:car-wash",
     },
+    # we default to "car wash"
+    "self_car_wash_station": {
+        "match": "lavage.+(station|véhicules)",
+        "icon": "mdi:car-wash",
+    },
     "nautical_vehicules": {
-        "match": "lavage.+engins nautiques.+professionnels",
+        "match": "(lavage.+engins nautiques.+professionnels)|(Nettoyage.+embarcation)",
         "icon": "mdi:sail-boat",
     },
     "roof_clean": {
         "match": "toitures",
     },
     "private_pool": {
-        "match": "remplissage.+piscines.+(familiales|privées)",
+        "match": "remplissage.+piscines.+(familial|privé)",
         "icon": "mdi:pool",
     },
-    "pool": {"match": "vidange.+piscines.+", "icon": "mdi:pool"},
-    "ponds": {"match": "remplissage.+plans d.eau"},
+    "pool": {"match": "vidange.+piscines", "icon": "mdi:pool"},
+    "ponds": {"match": "remplissage.+plan.* d.eau"},
     "river_rate": {"match": "ouvrage.+cours d.eau", "icon": "mdi:hydro-power"},
-    "misc_operations_rivers": {"match": "travaux en cours d.eau"},
+    "misc_operations_rivers": {"match": "travaux.+cours d.eau"},
     "golfs": {"match": "arrosage des golfs", "icon": "mdi:golf"},
     "canals": {"match": "Prélèvement en canaux", "icon": "mdi:water-pump"},
 }
