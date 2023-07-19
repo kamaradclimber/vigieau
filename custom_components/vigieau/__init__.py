@@ -168,12 +168,13 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             for usage in data["usages"]:
                 found = False
                 for usage_id in SENSOR_DEFINITIONS:
-                    if re.search(
-                        SENSOR_DEFINITIONS[usage_id]["match"],
-                        usage["usage"],
-                        re.IGNORECASE,
-                    ):
-                        found = True
+                    for i in range(10):
+                        if f"match{i}" in SENSOR_DEFINITIONS[usage_id] and re.search(
+                            SENSOR_DEFINITIONS[usage_id][f"match{i}"],
+                            usage["usage"],
+                            re.IGNORECASE,
+                        ):
+                            found = True
                 if not found:
                     _LOGGER.warn(
                         f"The following restriction is unknown from this integration, please report it as an issue: {usage['usage']}"
@@ -275,20 +276,43 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         if not self.coordinator.last_update_success:
             _LOGGER.debug("Last coordinator failed, assuming state has not changed")
             return
+        self._restrictions = []
+        self._attr_name = self._config["name"]
         for usage in self.coordinator.data["usages"]:
-            if re.search(self._config["match"], usage["usage"], re.IGNORECASE):
-                self._attr_name = usage["usage"]
-                if self._attr_native_value != usage["niveauRestriction"]:
-                    _LOGGER.debug(
-                        f"Setting native value to {usage['niveauRestriction']}"
-                    )
-                self._attr_native_value = usage["niveauRestriction"]
-                self.enrich_attributes(usage, "details", "details")
-                self.enrich_attributes(usage, "thematique", "thematique")
-                self.enrich_attributes(usage, "heureDebut", "heureDebut")
-                self.enrich_attributes(usage, "heureFin", "heureFin")
+            for i in range(10):
+                if f"match{i}" in self._config and re.search(
+                    self._config[f"match{i}"], usage["usage"], re.IGNORECASE
+                ):
+                    self._attr_state_attributes = self._attr_state_attributes or {}
+                    self._attr_state_attributes[f"Categorie: {usage['usage']}"] = usage[
+                        "niveauRestriction"
+                    ]
+                    self._restrictions.append(usage["niveauRestriction"])
 
+                    self.enrich_attributes(
+                        usage, "details", f"{usage['usage']} (details)"
+                    )
+                    self.enrich_attributes(
+                        usage, "heureDebut", f"{usage['usage']} (heureDebut)"
+                    )
+                    self.enrich_attributes(
+                        usage, "heureFin", f"{usage['usage']} (heureFin)"
+                    )
+
+        self._attr_native_value = self.compute_native_value()
         self.async_write_ha_state()
+
+    def compute_native_value(self) -> Optional[str]:
+        """This method extract the most relevant restriction level to display as aggregate"""
+        if len(self._restrictions) == 0:
+            return "Aucune restriction"
+        if "Interdiction sur plage horaire" in self._restrictions:
+            return "Interdiction sur plage horaire"
+        if "Interdiction sauf exception" in self._restrictions:
+            return "Interdiction sauf exception"
+        if "Interdiction" in self._restrictions:
+            return "Interdiction"
+        return None
 
     @property
     def device_info(self):

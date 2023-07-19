@@ -89,43 +89,61 @@ DEBUG_DATA = {
 
 SENSOR_DEFINITIONS = {
     "fountains": {
-        "match": "alimentation des fontaines publiques et privées",
+        "match0": "alimentation des fontaines publiques et privées",
         "icon": "mdi:fountain",
+        "name": "Alimentation des fontaines",
     },
     "potagers": {
-        "match": "Arrosage des jardins potagers",
+        "match0": "Arrosage des jardins potagers",
         "icon": "mdi:watering-can",
+        "name": "Arrosage des jardins potagers",
     },
-    "lawn": {"match": "pelouses", "icon": "mdi:sprinkler-variant"},
-    "self_car_wash": {"match": "lavage.+particuliers", "icon": "mdi:car-wash"},
-    "portique_car_wash": {
-        "match": "lavage.+professionnels.+portique",
-        "icon": "mdi:car-wash",
+    "lawn": {
+        "match0": "pelouses",
+        "icon": "mdi:sprinkler-variant",
+        "name": "Arrosage des pelouses",
     },
-    "high_pressure_car_wash": {
-        "match": "lavage.+professionnels.+haute pression",
+    "car_wash": {
         "icon": "mdi:car-wash",
-    },
-    # we default to "car wash"
-    "self_car_wash_station": {
-        "match": "lavage.+(station|véhicules)",
-        "icon": "mdi:car-wash",
+        "name": "Lavage des véhicules",
+        "match0": "lavage.+particuliers",
+        "match1": "lavage.+professionnels.+portique",
+        "match2": "lavage.+professionnels.+haute pression",
+        "match3": "lavage.+(station|véhicules)",
     },
     "nautical_vehicules": {
-        "match": "(lavage.+engins nautiques.+professionnels)|(Nettoyage.+embarcation)",
+        "match0": "(lavage.+engins nautiques.+professionnels)|(Nettoyage.+embarcation)",
         "icon": "mdi:sail-boat",
+        "name": "Lavage des engins nautiques",
     },
     "roof_clean": {
-        "match": "toitures",
+        "match0": "toitures",
+        "name": "Lavage des toitures",
     },
-    "private_pool": {
-        "match": "remplissage.+piscines.+(familial|privé)",
+    "pool": {
+        "match0": "remplissage.+piscines.+(familial|privé)",
+        "match1": "vidange.+piscines",
         "icon": "mdi:pool",
+        "name": "Vidange et remplissage des piscines",
     },
-    "pool": {"match": "vidange.+piscines", "icon": "mdi:pool"},
-    "ponds": {"match": "remplissage.+plan.* d.eau"},
-    "river_rate": {"match": "ouvrage.+cours d.eau", "icon": "mdi:hydro-power"},
-    "misc_operations_rivers": {"match": "travaux.+cours d.eau"},
-    "golfs": {"match": "arrosage des golfs", "icon": "mdi:golf"},
-    "canals": {"match": "Prélèvement en canaux", "icon": "mdi:water-pump"},
+    "ponds": {
+        "match0": "remplissage.+plan.* d.eau",
+        "name": "Remplissage des plans d'eau",
+    },
+    "river_rate": {
+        "match0": "ouvrage.+cours d.eau",
+        "match1": "travaux.+cours d.eau",
+        "icon": "mdi:hydro-power",
+        "name": "Travaux sur cours d'eau",
+    },
+    "golfs": {
+        "match0": "arrosage des golfs",
+        "icon": "mdi:golf",
+        "name": "Arrosage des golfs",
+    },
+    "canals": {
+        "match0": "Prélèvement en canaux",
+        "icon": "mdi:water-pump",
+        "name": "Prélèvement en canaux",
+    },
 }
