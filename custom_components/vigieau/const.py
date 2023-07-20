@@ -95,11 +95,13 @@ SENSOR_DEFINITIONS = {
     },
     "potagers": {
         "match0": "Arrosage des jardins potagers",
+        "match1": "Arrosage des potagers",
         "icon": "mdi:watering-can",
         "name": "Arrosage des jardins potagers",
     },
     "lawn": {
         "match0": "pelouses",
+        "match1": "jardins d'agrément",
         "icon": "mdi:sprinkler-variant",
         "name": "Arrosage des pelouses",
     },
