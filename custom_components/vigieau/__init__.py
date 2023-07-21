@@ -105,7 +105,7 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             return self._insee_city_code
         client = await self.async_client()
         r = await client.get(
-            f"https://api-adresse.data.gouv.fr/reverse/?lat={self.lat}&lon={self.lon}&type=citycode"
+            f"https://api-adresse.data.gouv.fr/reverse/?lat={self.lat}&lon={self.lon}&type=housenumber"
         )
         if not r.is_success:
             raise UpdateFailed(
