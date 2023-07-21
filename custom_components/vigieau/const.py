@@ -126,7 +126,8 @@ SENSOR_DEFINITIONS = {
     "pool": {
         "match0": "remplissage.+piscines.+(familial|privé)",
         "match1": "vidange.+piscines",
-        "match1": "piscines privées",  # "Piscines privées et bains à remous de plus de 1m3"
+        "match2": "piscines privées",  # "Piscines privées et bains à remous de plus de 1m3"
+        "match3": "piscines non collectives",  # "Remplissage et vidange de piscines non collectives (de plus de 1 m3)"
         "icon": "mdi:pool",
         "name": "Vidange et remplissage des piscines",
     },
