@@ -14,3 +14,11 @@ It must be used as a custom repository via hacs.
 
 Once the custom integration has been added, add "vigieau" integration through the UI.
 
+## Known issues and workaround
+
+### Error communicating with API: Impossible to find approximate address of the current HA instance. API returned no result.
+
+This integration uses a geocoding API to get the city code from INSEE (used as a input by Vigieau API). It is based on governement data which is still incomplete in some France areas.
+
+A workaround can be used by setting the `VIGIEAU_FORCED_INSEE_CITY_CODE` environment variable with the city code as value.
+⚠ Value of city code is not necessarily city "postal code". You can find it easily of wikipedia under the name [code commune](https://fr.wikipedia.org/wiki/Code_officiel_g%C3%A9ographique#Code_commune).

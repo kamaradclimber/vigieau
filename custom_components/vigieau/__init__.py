@@ -86,6 +86,9 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
         self.config = config
         self.hass = hass
         self._async_client = None
+        self._insee_city_code = None
+        if "VIGIEAU_FORCED_INSEE_CITY_CODE" in os.environ:
+            self._insee_city_code = os.environ["VIGIEAU_FORCED_INSEE_CITY_CODE"]
 
     # FIXME(kamaradclimber): why so much complexity to get the client? We could simply add it in the constructor
     async def async_client(self):
@@ -98,6 +101,8 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
         return tz.gettz(timezone)
 
     async def fetch_insee_code(self) -> str:
+        if self._insee_city_code is not None:
+            return self._insee_city_code
         client = await self.async_client()
         r = await client.get(
             f"https://api-adresse.data.gouv.fr/reverse/?lat={self.lat}&lon={self.lon}&type=citycode"
