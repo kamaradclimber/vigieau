@@ -121,6 +121,7 @@ SENSOR_DEFINITIONS = {
     "roof_clean": {
         "match0": "toitures",
         "name": "Lavage des toitures",
+        "icon": "mdi:home-roof",
     },
     "pool": {
         "match0": "remplissage.+piscines.+(familial|privé)",
@@ -132,6 +133,7 @@ SENSOR_DEFINITIONS = {
     "ponds": {
         "match0": "remplissage.+plan.* d.eau",
         "name": "Remplissage des plans d'eau",
+        "icon": "mdi:waves",
     },
     "river_rate": {
         "match0": "ouvrage.+cours d.eau",
