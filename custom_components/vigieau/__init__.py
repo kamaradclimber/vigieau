@@ -97,10 +97,10 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
         timezone = self.hass.config.as_dict()["time_zone"]
         return tz.gettz(timezone)
 
-    async def fetch_street_and_insee_code(self) -> Tuple[str, str]:
+    async def fetch_insee_code(self) -> str:
         client = await self.async_client()
         r = await client.get(
-            f"https://api-adresse.data.gouv.fr/reverse/?lat={self.lat}&lon={self.lon}&type=housenumber"
+            f"https://api-adresse.data.gouv.fr/reverse/?lat={self.lat}&lon={self.lon}&type=citycode"
         )
         if not r.is_success:
             raise UpdateFailed(
@@ -110,13 +110,13 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
         _LOGGER.debug(f"Data received from api-adresse.data.gouv.fr: {data}")
         if len(data["features"]) == 0:
             _LOGGER.warn(
-                f"Data received from api-adresse.data.gouv.fr is empty for those coordinates: ({self.lat}, {self.lon}). Are you sure they are located in France?"
+                f"Data received from api-adresse.data.gouv.fr is empty for those coordinates: ({self.lat}, {self.lon}). Either coordinates are not located in France or the governement geocoding database has no record for them."
             )
             raise UpdateFailed(
-                "Impossible to find approximate address of the current HA instance"
+                "Impossible to find approximate address of the current HA instance. API returned no result."
             )
         properties = data["features"][0]["properties"]
-        return (properties["street"], properties["citycode"])
+        return properties["citycode"]
 
     @property
     def lat(self) -> float:
@@ -143,8 +143,7 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             _LOGGER.debug("Starting collecting data")
             client = await self.async_client()
 
-            (street, city_code) = await self.fetch_street_and_insee_code()
-            encoded_street = urllib.parse.quote_plus(street)
+            city_code = await self.fetch_insee_code()
 
             # TODO(kamaradclimber): there 4 supported profils: particulier, entreprise, collectivite and exploitation
             url = f"{BASE_URL}/reglementation?lat={self.lat}&lon={self.lon}&commune={city_code}&profil=particulier"
