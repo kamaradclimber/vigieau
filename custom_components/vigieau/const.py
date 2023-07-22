@@ -99,9 +99,15 @@ SENSOR_DEFINITIONS = {
         "icon": "mdi:watering-can",
         "name": "Arrosage des jardins potagers",
     },
+    "roads": {
+        "match0": "trottoirs",
+        "icon": "mdi:road",
+        "name": "Arrosage voirie et trottoirs",
+    },
     "lawn": {
         "match0": "pelouses",
         "match1": "jardins d'agrément",
+        "match2": "massifs fleuris",
         "icon": "mdi:sprinkler-variant",
         "name": "Arrosage des pelouses",
     },
