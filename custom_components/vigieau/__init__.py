@@ -222,7 +222,7 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
             "alerte": "mdi:water-alert",
             "alerte_renforcee": "mdi:water-remove",
             "crise": "mdi:water-off",
-        }[self._attr_native_value.lower()]
+        }[self._attr_native_value.lower().replace(' ', '_')]
 
         self.enrich_attributes(self.coordinator.data, "cheminFichier", "source")
         self.enrich_attributes(
