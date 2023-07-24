@@ -222,7 +222,7 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
             "alerte": "mdi:water-alert",
             "alerte_renforcée": "mdi:water-remove",
             "crise": "mdi:water-off",
-        }[self._attr_native_value.lower().replace(' ', '_')]
+        }[self._attr_native_value.lower().replace(" ", "_")]
 
         self.enrich_attributes(self.coordinator.data, "cheminFichier", "source")
         self.enrich_attributes(
@@ -288,10 +288,15 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
                     self._config[f"match{i}"], usage["usage"], re.IGNORECASE
                 ):
                     self._attr_state_attributes = self._attr_state_attributes or {}
-                    self._attr_state_attributes[f"Categorie: {usage['usage']}"] = usage[
-                        "niveauRestriction"
-                    ]
-                    self._restrictions.append(usage["niveauRestriction"])
+                    restriction = usage.get("niveauRestriction", usage["erreur"])
+                    self._attr_state_attributes[
+                        f"Categorie: {usage['usage']}"
+                    ] = restriction
+                    self._restrictions.append(restriction)
+                    if "niveauRestriction" not in usage:
+                        _LOGGER.warn(
+                            f"{usage['usage']} misses 'niveauRestriction' key, using 'erreur' key as a fallback"
+                        )
 
                     self.enrich_attributes(
                         usage, "details", f"{usage['usage']} (details)"
@@ -316,6 +321,8 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
             return "Interdiction sauf exception"
         if "Interdiction" in self._restrictions:
             return "Interdiction"
+        if "Consulter l’arrêté" in self._restrictions:
+            return "Erreur: consulter l'arreté"
         return None
 
     @property
