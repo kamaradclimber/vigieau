@@ -139,7 +139,8 @@ SENSOR_DEFINITIONS = {
     },
     "ponds": {
         "match0": "remplissage.+plan.* d.eau",
-        "name": "Remplissage des plans d'eau",
+        "match1": "vidange.+plan.* d.eau",
+        "name": "Remplissage/Vidange des plans d'eau",
         "icon": "mdi:waves",
     },
     "river_rate": {
