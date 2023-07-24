@@ -1,6 +1,21 @@
+from homeassistant.components.sensor import (
+    SensorEntityDescription,
+)
+from dataclasses import dataclass
+
 DOMAIN = "vigieau"
 
 BASE_URL = "https://api.vigieau.beta.gouv.fr"
+GEOAPI_GOUV_URL = "https://geo.api.gouv.fr/communes?"
+ADRESSE_URL= "https://api-adresse.data.gouv.fr"
+CONF_LOCATION_MODE="location_mode"
+HA_COORD=0
+ZIP_CODE=1
+LOCATION_MODES= {HA_COORD:"Coordonnées Home Assistant",ZIP_CODE:"Code Postal"}
+CONF_INSEE_CODE = "INSEE"
+CONF_CITY = "city"
+CONF_CODE_POSTAL = "Code postal"
+NAME= "Vigieau"
 
 DEBUG_DATA = {
     "idZone": "11083",
@@ -87,75 +102,103 @@ DEBUG_DATA = {
     "usagesHash": "e0cef7962",
 }
 
-SENSOR_DEFINITIONS = {
-    "fountains": {
-        "match0": "alimentation des fontaines publiques et privées",
-        "icon": "mdi:fountain",
-        "name": "Alimentation des fontaines",
-    },
-    "potagers": {
-        "match0": "Arrosage des jardins potagers",
-        "match1": "Arrosage des potagers",
-        "icon": "mdi:watering-can",
-        "name": "Arrosage des jardins potagers",
-    },
-    "roads": {
-        "match0": "trottoirs",
-        "icon": "mdi:road",
-        "name": "Arrosage voirie et trottoirs",
-    },
-    "lawn": {
-        "match0": "pelouses",
-        "match1": "jardins d'agrément",
-        "match2": "massifs fleuris",
-        "icon": "mdi:sprinkler-variant",
-        "name": "Arrosage des pelouses",
-    },
-    "car_wash": {
-        "icon": "mdi:car-wash",
-        "name": "Lavage des véhicules",
-        "match0": "lavage.+particuliers",
-        "match1": "lavage.+professionnels.+portique",
-        "match2": "lavage.+professionnels.+haute pression",
-        "match3": "lavage.+(station|véhicules)",
-    },
-    "nautical_vehicules": {
-        "match0": "(lavage.+engins nautiques.+professionnels)|(Nettoyage.+embarcation)",
-        "icon": "mdi:sail-boat",
-        "name": "Lavage des engins nautiques",
-    },
-    "roof_clean": {
-        "match0": "toitures",
-        "name": "Lavage des toitures",
-        "icon": "mdi:home-roof",
-    },
-    "pool": {
-        "match0": "remplissage.+piscines.+(familial|privé)",
-        "match1": "vidange.+piscines",
-        "match2": "piscines privées",  # "Piscines privées et bains à remous de plus de 1m3"
-        "match3": "piscines non collectives",  # "Remplissage et vidange de piscines non collectives (de plus de 1 m3)"
-        "icon": "mdi:pool",
-        "name": "Vidange et remplissage des piscines",
-    },
-    "ponds": {
-        "match0": "remplissage.+plan.* d.eau",
-        "name": "Remplissage des plans d'eau",
-        "icon": "mdi:waves",
-    },
-    "river_rate": {
-        "match0": "ouvrage.+cours d.eau",
-        "match1": "travaux.+cours d.eau",
-        "icon": "mdi:hydro-power",
-        "name": "Travaux sur cours d'eau",
-    },
-    "golfs": {
-        "match0": "arrosage des golfs",
-        "icon": "mdi:golf",
-        "name": "Arrosage des golfs",
-    },
-    "canals": {
-        "match0": "Prélèvement en canaux",
-        "icon": "mdi:water-pump",
-        "name": "Prélèvement en canaux",
-    },
-}
+
+
+@dataclass
+class VigieEauRequiredKeysMixin:
+    """Mixin for required keys."""
+    category: str
+    match: str
+
+@dataclass
+class VigieEauSensorEntityDescription(
+    SensorEntityDescription, VigieEauRequiredKeysMixin
+):
+    """Describes VigieEau sensor entity."""
+
+SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription,...]=(
+    VigieEauSensorEntityDescription(
+        name= "Alimentation des fontaines",
+        icon="mdi:fountain",
+        category="fountains",
+        key="fountains",
+        match="alimentation des fontaines publiques et privées"
+    ),
+        VigieEauSensorEntityDescription(
+        name= "Arrosage des jardins potagers",
+        icon="mdi:watering-can",
+        category="potagers",
+        key="potagers",
+        match="Arrosage des jardins potagers#Arrosage des potagers"
+    ),
+    VigieEauSensorEntityDescription(
+        name="Arrosage voirie et trottoirs",
+        icon="mdi:road",
+        category="roads",
+        key="roads",
+        match="trottoirs"
+    ),
+    VigieEauSensorEntityDescription(
+        name="Arrosage des pelouses",
+        icon="mdi:sprinkler-variant",
+        category="lawn",
+        key="lawn",
+        match="pelouses#jardins d'agrément#massifs fleuris"
+    ),
+    VigieEauSensorEntityDescription(
+        name="Lavage des véhicules",
+        icon="mdi:car-wash",
+        category="car_wash",
+        key="car_wash",
+        match="lavage.+particuliers#lavage.+professionnels.+portique#lavage.+professionnels.+haute pression#lavage.+(station|véhicules)"
+    ),
+    VigieEauSensorEntityDescription(
+        name="Lavage des engins nautiques",
+        icon="mdi:sail-boat",
+        category="nautical_vehicules",
+        key="nautical_vehicules",
+        match="(lavage.+engins nautiques.+professionnels)|(Nettoyage.+embarcation)"
+    ),
+    VigieEauSensorEntityDescription(
+        name="Lavage des toitures",
+        icon="mdi:home-roof",
+        category="roof_clean",
+        key="roof_clean",
+        match="toitures"
+    ),
+    VigieEauSensorEntityDescription(
+        name="Vidange et remplissage des piscines",
+        icon="mdi:pool",
+        category="pool",
+        key="pool",
+        match="remplissage.+piscines.+(familial|privé)#vidange.+piscines#piscines privées#piscines non collectives"
+    ),
+    VigieEauSensorEntityDescription(
+        name="Remplissage des plans d'eau",
+        icon="mdi:waves",
+        category="ponds",
+        key="ponds",
+        match="remplissage.+plan.* d.eau"
+    ),
+    VigieEauSensorEntityDescription(
+        name="Travaux sur cours d'eau",
+        icon="mdi:hydro-power",
+        category="river_rate",
+        key="river_rate",
+        match="ouvrage.+cours d.eau#travaux.+cours d.eau"
+    ),
+    VigieEauSensorEntityDescription(
+        name="Arrosage des golfs",
+        icon="mdi:golf",
+        category="golfs",
+        key="golfs",
+        match="arrosage des golfs"
+    ),
+    VigieEauSensorEntityDescription(
+        name="Prélèvement en canaux",
+        icon="mdi:water-pump",
+        category="canals",
+        key="canals",
+        match="Prélèvement en canaux"
+    )
+)

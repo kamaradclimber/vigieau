@@ -1,0 +1,27 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data": {
+                    "location_mode": ""
+                },
+                "description": "Choisissez un mode de localisation",
+                "title": "Mode de localisation"
+            },
+            "location": {
+                "data": {
+                    "code_postal": "Code Postal"
+                },
+                "description": "Saisissez votre code postal",
+                "title": "Localisation"
+            },
+            "multilocation": {
+                "data": {
+                    "city": "Ville"
+                },
+                "title": "Plusieurs codes INSEE trouvés pour ce code postal",
+                "description": "Sélectionnez la commune"
+            }
+        }
+    }
+}
