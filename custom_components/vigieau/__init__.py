@@ -16,18 +16,49 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.entity import EntityCategory
+from homeassistant.helpers.device_registry import DeviceEntryType
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
     DataUpdateCoordinator,
     UpdateFailed,
 )
+from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.httpx_client import get_async_client
 from homeassistant.components.sensor import RestoreSensor, SensorEntity
-from homeassistant.components.calendar import CalendarEntity, CalendarEvent
-
-from .const import BASE_URL, DOMAIN, DEBUG_DATA, SENSOR_DEFINITIONS
+from .const import (
+    BASE_URL,
+    DOMAIN,
+    SENSOR_DEFINITIONS,
+    CONF_INSEE_CODE,
+    CONF_CITY,
+    CONF_LOCATION_MODE,
+    HA_COORD,
+    NAME,
+    SENSOR_DEFINITIONS,
+    LOCATION_MODES,
+    VigieEauSensorEntityDescription,
+)
+from .config_flow import get_insee_code_fromcoord
 
 _LOGGER = logging.getLogger(__name__)
+
+
+async def async_migrate_entry(hass, config_entry: ConfigEntry):
+    if config_entry.version == 1:
+        _LOGGER.warn("config entry version is 1, migrating to version 2")
+        new = {**config_entry.data}
+        insee_code, city_name = await get_insee_code_fromcoord(hass)
+        new[CONF_INSEE_CODE] = insee_code
+        new[CONF_CITY] = city_name
+        new[CONF_LOCATION_MODE] = HA_COORD
+        _LOGGER.warn(
+            "fMigration detected insee code for current HA instance is {insee_code} in {city_name}"
+        )
+
+        config_entry.version = 2
+        hass.config_entries.async_update_entry(config_entry, data=new)
+
+    return True
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
@@ -85,55 +116,11 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
         )
         self.config = config
         self.hass = hass
-        self._async_client = None
-        self._insee_city_code = None
-        if "VIGIEAU_FORCED_INSEE_CITY_CODE" in os.environ:
-            self._insee_city_code = os.environ["VIGIEAU_FORCED_INSEE_CITY_CODE"]
-
-    # FIXME(kamaradclimber): why so much complexity to get the client? We could simply add it in the constructor
-    async def async_client(self):
-        if not self._async_client:
-            self._async_client = get_async_client(self.hass, verify_ssl=True)
-        return self._async_client
+        self._async_client = get_async_client(self.hass, verify_ssl=True)
 
     def _timezone(self):
         timezone = self.hass.config.as_dict()["time_zone"]
         return tz.gettz(timezone)
-
-    async def fetch_insee_code(self) -> str:
-        if self._insee_city_code is not None:
-            return self._insee_city_code
-        client = await self.async_client()
-        r = await client.get(
-            f"https://api-adresse.data.gouv.fr/reverse/?lat={self.lat}&lon={self.lon}&type=housenumber"
-        )
-        if not r.is_success:
-            raise UpdateFailed(
-                "Failed to fetch address from api-adresse.data.gouv.fr api"
-            )
-        data = r.json()
-        _LOGGER.debug(f"Data received from api-adresse.data.gouv.fr: {data}")
-        if len(data["features"]) == 0:
-            _LOGGER.warn(
-                f"Data received from api-adresse.data.gouv.fr is empty for those coordinates: ({self.lat}, {self.lon}). Either coordinates are not located in France or the governement geocoding database has no record for them."
-            )
-            raise UpdateFailed(
-                "Impossible to find approximate address of the current HA instance. API returned no result."
-            )
-        properties = data["features"][0]["properties"]
-        return properties["citycode"]
-
-    @property
-    def lat(self) -> float:
-        if "VIGIEAU_DEBUG_LOC_LAT" in os.environ:
-            return float(os.environ["VIGIEAU_DEBUG_LOC_LAT"])
-        return self.hass.config.as_dict()["latitude"]
-
-    @property
-    def lon(self) -> float:
-        if "VIGIEAU_DEBUG_LOC_LONG" in os.environ:
-            return float(os.environ["VIGIEAU_DEBUG_LOC_LONG"])
-        return self.hass.config.as_dict()["longitude"]
 
     async def update_method(self):
         """Fetch data from API endpoint."""
@@ -146,14 +133,13 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
                     "Failing update on purpose to test state restoration"
                 )
             _LOGGER.debug("Starting collecting data")
-            client = await self.async_client()
 
-            city_code = await self.fetch_insee_code()
+            city_code = self.config[CONF_INSEE_CODE]
 
             # TODO(kamaradclimber): there 4 supported profils: particulier, entreprise, collectivite and exploitation
-            url = f"{BASE_URL}/reglementation?lat={self.lat}&lon={self.lon}&commune={city_code}&profil=particulier"
+            url = f"{BASE_URL}/reglementation?commune={city_code}&profil=particulier"
             _LOGGER.debug(f"Requesting restrictions from {url}")
-            r = await client.get(url)
+            r = await self._async_client.get(url)
             if (
                 r.status_code == 404
                 and "message" in r.json()
@@ -165,14 +151,12 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
                 data = r.json()
             else:
                 raise UpdateFailed(f"Failed fetching vigieau data: {r.text}")
-            if "VIGIEAU_DEBUG" in os.environ:
-                data = DEBUG_DATA
             _LOGGER.debug(f"Data fetched from vigieau: {data}")
 
             for usage in data["usages"]:
                 found = False
-                for usage_id in SENSOR_DEFINITIONS:
-                    for matcher in SENSOR_DEFINITIONS[usage_id]["matchers"]:
+                for sensor in SENSOR_DEFINITIONS:
+                    for matcher in sensor.matchers:
                         if re.search(
                             matcher,
                             usage["usage"],
@@ -183,7 +167,6 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
                     _LOGGER.warn(
                         f"The following restriction is unknown from this integration, please report it as an issue: {usage['usage']}"
                     )
-
             return data
         except Exception as err:
             raise UpdateFailed(f"Error communicating with API: {err}")
@@ -192,16 +175,30 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
 class AlertLevelEntity(CoordinatorEntity, SensorEntity):
     """Expose the alert level for the location"""
 
-    def __init__(self, coordinator: VigieauAPICoordinator, hass: HomeAssistant):
+    def __init__(
+        self,
+        coordinator: VigieauAPICoordinator,
+        hass: HomeAssistant,
+        config_entry: ConfigEntry,
+    ):
         super().__init__(coordinator)
         self.hass = hass
-        self._attr_name = "Alert level"
+        self._attr_name = f"Alert level in {config_entry.data.get(CONF_CITY)}"
         self._attr_native_value = None
         self._attr_state_attributes = None
-
-    @property
-    def unique_id(self) -> str:
-        return f"sensor-vigieau-{self._attr_name}"
+        self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}"
+        self._attr_device_info = DeviceInfo(
+            name=f"{NAME} {config_entry.data.get(CONF_CITY)}",
+            entry_type=DeviceEntryType.SERVICE,
+            identifiers={
+                (
+                    DOMAIN,
+                    f"{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_CITY)}",
+                )
+            },
+            manufacturer=NAME,
+            model=config_entry.data.get(CONF_INSEE_CODE),
+        )
 
     def enrich_attributes(self, data: dict, key_source: str, key_target: str):
         if key_source in data:
@@ -238,10 +235,6 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
         self.async_write_ha_state()
 
     @property
-    def device_info(self):
-        return {"identifiers": {(DOMAIN, "Vigieau")}, "name": "Vigieau"}
-
-    @property
     def state_attributes(self):
         return self._attr_state_attributes
 
@@ -249,21 +242,42 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
 class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
     """Expose a restriction for a given usage"""
 
+    entity_description: VigieEauSensorEntityDescription
+
     def __init__(
-        self, coordinator: VigieauAPICoordinator, hass: HomeAssistant, usage_id: str
+        self,
+        coordinator: VigieauAPICoordinator,
+        hass: HomeAssistant,
+        usage_id: str,
+        config_entry: ConfigEntry,
+        description: VigieEauSensorEntityDescription,
     ):
         super().__init__(coordinator)
         self.hass = hass
-        self._usage_id = usage_id
-        self._attr_name = f"{usage_id}_restrictions"  # temporary
+        # naming the attribute very early before it's updated by first api response is a hack
+        # to make sure we have a decent entity_id selected by home assistant
+        self._attr_name = (
+            f"{description.name}_restrictions_{config_entry.data.get(CONF_CITY)}"
+        )
         self._attr_native_value = None
         self._attr_state_attributes = None
         self._attr_entity_category = EntityCategory.DIAGNOSTIC
-        self._config = SENSOR_DEFINITIONS[usage_id]
-
-    @property
-    def unique_id(self) -> str:
-        return f"sensor-vigieau-{self._usage_id}"
+        self._config = description
+        self._attr_unique_id = (
+            f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}"
+        )
+        self._attr_device_info = DeviceInfo(
+            name=f"{NAME} {config_entry.data.get(CONF_CITY)}",
+            entry_type=DeviceEntryType.SERVICE,
+            identifiers={
+                (
+                    DOMAIN,
+                    f"{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_CITY)}",
+                )
+            },
+            manufacturer=NAME,
+            model=config_entry.data.get(CONF_INSEE_CODE),
+        )
 
     def enrich_attributes(self, usage: dict, key_source: str, key_target: str):
         if key_source in usage:
@@ -272,7 +286,7 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
 
     @property
     def icon(self):
-        return self._config.get("icon", None)
+        return self._config.icon
 
     @callback
     def _handle_coordinator_update(self) -> None:
@@ -283,10 +297,10 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
 
         self._attr_state_attributes = self._attr_state_attributes or {}
         self._restrictions = []
-        self._attr_name = self._config["name"]
         self._time_restrictions = {}
+        self._attr_name = str(self._config.name)
         for usage in self.coordinator.data["usages"]:
-            for matcher in self._config["matchers"]:
+            for matcher in self._config.matchers:
                 if re.search(matcher, usage["usage"], re.IGNORECASE):
                     self._attr_state_attributes = self._attr_state_attributes or {}
                     restriction = usage.get("niveauRestriction", usage.get("erreur"))
@@ -345,10 +359,6 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         if "Consulter l’arrêté" in self._restrictions:
             return "Erreur: consulter l'arreté"
         return None
-
-    @property
-    def device_info(self):
-        return {"identifiers": {(DOMAIN, "Vigieau")}, "name": "Vigieau"}
 
     @property
     def state_attributes(self):

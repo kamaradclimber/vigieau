@@ -14,6 +14,23 @@ It must be used as a custom repository via hacs.
 
 Once the custom integration has been added, add "vigieau" integration through the UI.
 
+You can choose the location either by using HA coordinates (default) or a specific town using its INSEE code
+
+![image info](/img/vigieau_location.png)
+
+HA coordinates are the one defined during initial setup and accessible using `System>General>Edit location`)
+
+Once a location is added a new one can be added using city Zip/Postal code.
+
+
+![image info](/img/location.png)
+
+Localisation is based on INSEE Code, not ZIP/Postal code. If several INSEE code correspond to provided Zip code, manual selection will be required..
+
+![image info](/img/multiloc.png)
+
+
+
 ## Known issues and workaround
 
 ### Error communicating with API: Impossible to find approximate address of the current HA instance. API returned no result.

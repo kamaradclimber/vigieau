@@ -1,0 +1,10 @@
+home-assistant.log
+.HA_VERSION
+.storage/
+blueprints/
+configuration.yaml
+custom_components/__pycache__/
+custom_components/vigieau/__pycache__/
+deps/
+home-assistant.log*
+home-assistant_v2.db

@@ -2,6 +2,25 @@
   "config": {
     "step": {
       "user": {
+        "data": {
+          "location_mode": ""
+        },
+        "description": "Select Localisation mode",
+        "title": "Localisation mode"
+      },
+      "location": {
+        "data": {
+          "code_postal": "Zip Code"
+        },
+        "description": "Set your zip code",
+        "title": "Location"
+      },
+      "multilocation": {
+        "data": {
+          "city": "City"
+        },
+        "title": "Many code found",
+        "description": "Select the city"
       }
     }
   }
