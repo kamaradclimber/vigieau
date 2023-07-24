@@ -288,7 +288,11 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
                     self._config[f"match{i}"], usage["usage"], re.IGNORECASE
                 ):
                     self._attr_state_attributes = self._attr_state_attributes or {}
-                    restriction = usage.get("niveauRestriction", usage["erreur"])
+                    restriction = usage.get("niveauRestriction", usage.get("erreur"))
+                    if restriction is None:
+                        raise UpdateFailed(
+                            "Restriction level is not specified and API does not give any error ('erreur' field)"
+                        )
                     self._attr_state_attributes[
                         f"Categorie: {usage['usage']}"
                     ] = restriction
