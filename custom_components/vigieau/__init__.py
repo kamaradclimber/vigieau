@@ -25,7 +25,12 @@ from homeassistant.helpers.update_coordinator import (
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.httpx_client import get_async_client
 from homeassistant.components.sensor import RestoreSensor, SensorEntity
+from homeassistant.const import (
+    CONF_LATITUDE,
+    CONF_LONGITUDE
+)
 from .const import BASE_URL, DOMAIN, DEBUG_DATA, SENSOR_DEFINITIONS, CONF_INSEE_CODE, CONF_CITY, NAME, SENSOR_DEFINITIONS, VigieEauSensorEntityDescription
+
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -117,6 +122,7 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
 
             # TODO(kamaradclimber): there 4 supported profils: particulier, entreprise, collectivite and exploitation
             url = f"{BASE_URL}/reglementation?commune={city_code}&profil=particulier"
+            # url = f"{BASE_URL}/reglementation?lat={self.lat}&lon={self.lon}&commune={city_code}&profil=particulier"
             _LOGGER.debug(f"Requesting restrictions from {url}")
             r = await client.get(url)
             if (
@@ -137,8 +143,7 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             for usage in data["usages"]:
                 found = False
                 for sensor  in SENSOR_DEFINITIONS:
-                    match=sensor.match.split("#")
-                    for matcher in match:
+                    for matcher in sensor.matchers:
                         if matcher !="" and re.search(
                             matcher,
                             usage["usage"],
@@ -163,7 +168,7 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
         self._attr_name = f"Alert level-{config_entry.data.get(CONF_CITY)}"
         self._attr_native_value = None
         self._attr_state_attributes = None
-        self._attr_unique_id=f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_CITY)}"
+        self._attr_unique_id=f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
         self._attr_device_info = DeviceInfo(
             name=NAME,
             entry_type=DeviceEntryType.SERVICE,
@@ -227,7 +232,7 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         self._attr_state_attributes = None
         self._attr_entity_category = EntityCategory.DIAGNOSTIC
         self._config = description
-        self._attr_unique_id=f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}"
+        self._attr_unique_id=f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
         self._attr_device_info = DeviceInfo(
             name=NAME,
             entry_type=DeviceEntryType.SERVICE,
@@ -256,8 +261,8 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         self._restrictions = []
         self._attr_name = self._config.name
         for usage in self.coordinator.data["usages"]:
-            match=self._config.match.split("#")
-            for matcher in match:
+            # match=self._config.match.split("#")
+            for matcher in self._config.matchers:
                 if matcher!="" and re.search(matcher, usage["usage"], re.IGNORECASE):
                     self._attr_state_attributes = self._attr_state_attributes or {}
                     self._attr_state_attributes[f"Categorie: {usage['usage']}"] = usage[
