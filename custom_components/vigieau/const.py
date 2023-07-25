@@ -146,6 +146,7 @@ SENSOR_DEFINITIONS = {
     "river_rate": {
         "match0": "ouvrage.+cours d.eau",
         "match1": "travaux.+cours d.eau",
+        "match2": "manoeuvre.+vannes", # Manoeuvre de vannes des seuils et barrages
         "icon": "mdi:hydro-power",
         "name": "Travaux sur cours d'eau",
     },
