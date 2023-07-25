@@ -89,74 +89,78 @@ DEBUG_DATA = {
 
 SENSOR_DEFINITIONS = {
     "fountains": {
-        "match0": "alimentation des fontaines publiques et privées",
+        "matchers": ["alimentation des fontaines publiques et privées"],
         "icon": "mdi:fountain",
         "name": "Alimentation des fontaines",
     },
     "potagers": {
-        "match0": "Arrosage des jardins potagers",
-        "match1": "Arrosage des potagers",
+        "matchers": ["Arrosage des jardins potagers", "Arrosage des potagers"],
         "icon": "mdi:watering-can",
         "name": "Arrosage des jardins potagers",
     },
     "roads": {
-        "match0": "trottoirs",
+        "matchers": ["trottoirs"],
         "icon": "mdi:road",
         "name": "Arrosage voirie et trottoirs",
     },
     "lawn": {
-        "match0": "pelouses",
-        "match1": "jardins d'agrément",
-        "match2": "massifs fleuris",
+        "matchers": ["pelouses", "jardins d'agrément", "massifs fleuris"],
         "icon": "mdi:sprinkler-variant",
         "name": "Arrosage des pelouses",
     },
     "car_wash": {
         "icon": "mdi:car-wash",
         "name": "Lavage des véhicules",
-        "match0": "lavage.+particuliers",
-        "match1": "lavage.+professionnels.+portique",
-        "match2": "lavage.+professionnels.+haute pression",
-        "match3": "lavage.+(station|véhicules)",
+        "matchers": [
+            "lavage.+particuliers",
+            "lavage.+professionnels.+portique",
+            "lavage.+professionnels.+haute pression",
+            "lavage.+(station|véhicules)",
+        ],
     },
     "nautical_vehicules": {
-        "match0": "(lavage.+engins nautiques.+professionnels)|(Nettoyage.+embarcation)",
+        "matchers": [
+            "(lavage.+engins nautiques.+professionnels)|(Nettoyage.+embarcation)"
+        ],
         "icon": "mdi:sail-boat",
         "name": "Lavage des engins nautiques",
     },
     "roof_clean": {
-        "match0": "toitures",
+        "matchers": ["toitures"],
         "name": "Lavage des toitures",
         "icon": "mdi:home-roof",
     },
     "pool": {
-        "match0": "remplissage.+piscines.+(familial|privé)",
-        "match1": "vidange.+piscines",
-        "match2": "piscines privées",  # "Piscines privées et bains à remous de plus de 1m3"
-        "match3": "piscines non collectives",  # "Remplissage et vidange de piscines non collectives (de plus de 1 m3)"
+        "matchers": [
+            "remplissage.+piscines.+(familial|privé)",
+            "vidange.+piscines",
+            "piscines privées",  # "Piscines privées et bains à remous de plus de 1m3"
+            "piscines non collectives",  # "Remplissage et vidange de piscines non collectives (de plus de 1 m3)"
+        ],
         "icon": "mdi:pool",
         "name": "Vidange et remplissage des piscines",
     },
     "ponds": {
-        "match0": "remplissage.+plan.* d.eau",
-        "match1": "vidange.+plan.* d.eau",
+        "matchers": ["remplissage.+plan.* d.eau", "vidange.+plan.* d.eau"],
         "name": "Remplissage/Vidange des plans d'eau",
         "icon": "mdi:waves",
     },
     "river_rate": {
-        "match0": "ouvrage.+cours d.eau",
-        "match1": "travaux.+cours d.eau",
-        "match2": "manoeuvre.+vannes", # Manoeuvre de vannes des seuils et barrages
+        "matchers": [
+            "ouvrage.+cours d.eau",
+            "travaux.+cours d.eau",
+            "manoeuvre.+vannes",  # Manoeuvre de vannes des seuils et barrages
+        ],
         "icon": "mdi:hydro-power",
         "name": "Travaux sur cours d'eau",
     },
     "golfs": {
-        "match0": "arrosage des golfs",
+        "matchers": ["arrosage des golfs"],
         "icon": "mdi:golf",
         "name": "Arrosage des golfs",
     },
     "canals": {
-        "match0": "Prélèvement en canaux",
+        "matchers": ["Prélèvement en canaux"],
         "icon": "mdi:water-pump",
         "name": "Prélèvement en canaux",
     },
