@@ -32,6 +32,7 @@ from .const import (
     CONF_INSEE_CODE,
     CONF_CITY,
     CONF_LOCATION_MODE,
+    DEVICE_ID_KEY,
     HA_COORD,
     NAME,
     SENSOR_DEFINITIONS,
@@ -39,13 +40,12 @@ from .const import (
     VigieEauSensorEntityDescription,
 )
 from .config_flow import get_insee_code_fromcoord
-from homeassistant.const import (
-    CONF_LATITUDE,
-    CONF_LONGITUDE
-)
+from homeassistant.const import CONF_LATITUDE, CONF_LONGITUDE
 
 
 _LOGGER = logging.getLogger(__name__)
+
+MIGRATED_FROM_VERSION_1 = "migrated_from_version_1"
 
 
 async def async_migrate_entry(hass, config_entry: ConfigEntry):
@@ -56,8 +56,12 @@ async def async_migrate_entry(hass, config_entry: ConfigEntry):
         new[CONF_INSEE_CODE] = insee_code
         new[CONF_CITY] = city_name
         new[CONF_LOCATION_MODE] = HA_COORD
+        new[
+            DEVICE_ID_KEY
+        ] = "Vigieau"  # hardcoded to match hardcoded id from version 0.3.9
+        new[MIGRATED_FROM_VERSION_1] = True
         _LOGGER.warn(
-            "fMigration detected insee code for current HA instance is {insee_code} in {city_name}"
+            f"Migration detected insee code for current HA instance is {insee_code} in {city_name}"
         )
 
         config_entry.version = 2
@@ -192,14 +196,18 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
         self._attr_name = f"Alert level in {config_entry.data.get(CONF_CITY)}"
         self._attr_native_value = None
         self._attr_state_attributes = None
-        self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}"
+        if MIGRATED_FROM_VERSION_1 in config_entry.data:
+            self._attr_unique_id = "sensor-vigieau-Alert level"
+        else:
+            self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}"
+
         self._attr_device_info = DeviceInfo(
             name=f"{NAME} {config_entry.data.get(CONF_CITY)}",
             entry_type=DeviceEntryType.SERVICE,
             identifiers={
                 (
                     DOMAIN,
-                    f"{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_CITY)}",
+                    str(config_entry.data.get(DEVICE_ID_KEY)),
                 )
             },
             manufacturer=NAME,
@@ -269,14 +277,17 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         self._attr_state_attributes = None
         self._attr_entity_category = EntityCategory.DIAGNOSTIC
         self._config = description
-        self._attr_unique_id=f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
+        if MIGRATED_FROM_VERSION_1 in config_entry.data:
+            self._attr_unique_id = f"sensor-vigieau-{self._config.key}"
+        else:
+            self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
         self._attr_device_info = DeviceInfo(
             name=f"{NAME} {config_entry.data.get(CONF_CITY)}",
             entry_type=DeviceEntryType.SERVICE,
             identifiers={
                 (
                     DOMAIN,
-                    f"{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_CITY)}",
+                    str(config_entry.data.get(DEVICE_ID_KEY)),
                 )
             },
             manufacturer=NAME,

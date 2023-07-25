@@ -11,13 +11,18 @@ ADDRESS_API_URL = "https://api-adresse.data.gouv.fr"
 CONF_LOCATION_MODE = "location_mode"
 HA_COORD = 0
 ZIP_CODE = 1
-SELECT_COORD=2
-LOCATION_MODES = {HA_COORD: "Coordonnées Home Assistant", ZIP_CODE: "Code Postal", SELECT_COORD: "Sélection sur carte"}
+SELECT_COORD = 2
+LOCATION_MODES = {
+    HA_COORD: "Coordonnées Home Assistant",
+    ZIP_CODE: "Code Postal",
+    SELECT_COORD: "Sélection sur carte",
+}
 CONF_INSEE_CODE = "INSEE"
 CONF_CITY = "city"
 CONF_CODE_POSTAL = "Code postal"
 CONF_LOCATION_MAP = "location_map"
-NAME= "Vigieau"
+NAME = "Vigieau"
+DEVICE_ID_KEY = "device_id"
 
 
 @dataclass
