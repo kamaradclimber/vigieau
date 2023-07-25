@@ -280,8 +280,11 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         if not self.coordinator.last_update_success:
             _LOGGER.debug("Last coordinator failed, assuming state has not changed")
             return
+
+        self._attr_state_attributes = self._attr_state_attributes or {}
         self._restrictions = []
         self._attr_name = self._config["name"]
+        self._time_restrictions = {}
         for usage in self.coordinator.data["usages"]:
             for i in range(10):
                 if f"match{i}" in self._config and re.search(
@@ -305,12 +308,28 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
                     self.enrich_attributes(
                         usage, "details", f"{usage['usage']} (details)"
                     )
-                    self.enrich_attributes(
-                        usage, "heureDebut", f"{usage['usage']} (heureDebut)"
-                    )
-                    self.enrich_attributes(
-                        usage, "heureFin", f"{usage['usage']} (heureFin)"
-                    )
+                    if "heureFin" in usage and "heureDebut" in usage:
+                        self._time_restrictions[usage["usage"]] = [
+                            usage["heureDebut"],
+                            usage["heureFin"],
+                        ]
+
+        # we only want to add those attributes if they are not ambiguous
+        if len(set([repr(r) for r in self._time_restrictions.values()])) == 1:
+            restrictions = list(self._time_restrictions.values())[0]
+            self._attr_state_attributes["heureDebut"] = restrictions[0]
+            self._attr_state_attributes["heureFin"] = restrictions[1]
+        elif len(self._time_restrictions) > 0:
+            _LOGGER.debug(
+                f"There are {len(self._time_restrictions)} usage with time restrictions for this sensor, exposing info per usage"
+            )
+            for name in self._time_restrictions:
+                self._attr_state_attributes[
+                    f"{name} (heureDebut)"
+                ] = self._time_restrictions[name][0]
+                self._attr_state_attributes[
+                    f"{name} (heureFin)"
+                ] = self._time_restrictions[name][1]
 
         self._attr_native_value = self.compute_native_value()
         self.async_write_ha_state()
