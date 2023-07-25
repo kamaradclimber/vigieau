@@ -16,6 +16,14 @@ from .const import (
     CONF_CODE_POSTAL,
     CONF_CITY,
 )
+from homeassistant.helpers.selector import LocationSelector
+from homeassistant import config_entries
+from homeassistant.const import (
+    CONF_LATITUDE,
+    CONF_LONGITUDE
+)
+from .api import InseeApi, AddressApi
+from .const import (DOMAIN, CONF_LOCATION_MODE, LOCATION_MODES, HA_COORD, ZIP_CODE, CONF_INSEE_CODE, CONF_CODE_POSTAL, CONF_CITY, SELECT_COORD, CONF_LOCATION_MAP)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -43,21 +51,21 @@ async def get_insee_code_fromzip(hass: HomeAssistant, data: dict) -> None:
     except ValueError as exc:
         raise exc
 
-
-async def get_insee_code_fromcoord(hass: HomeAssistant) -> Tuple[str, str]:
+async def get_insee_code_fromcoord(hass: HomeAssistant, lat=None, lon=None) -> Tuple[str, str, float, float]:
     """Get Insee code from GPS coords"""
     session = async_get_clientsession(hass)
     try:
         client = AddressApi(session)
-        lon = hass.config.as_dict()["longitude"]
-        lat = hass.config.as_dict()["latitude"]
+        if lat is None or lon is None:
+            lon = hass.config.as_dict()["longitude"]
+            lat = hass.config.as_dict()["latitude"]
         return await client.get_data(lat, lon)
     except ValueError as exc:
         raise exc
 
 
 def _build_place_key(city) -> str:
-    return f"{city['code']};{city['nom']}"
+    return f"{city['code']};{city['nom']};{city['centre']['coordinates'][0]};{city['centre']['coordinates'][1]}"
 
 
 class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
@@ -94,12 +102,36 @@ class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 if not errors:
                     self.data[CONF_INSEE_CODE] = city_infos[0]
                     self.data[CONF_CITY] = city_infos[1]
-                    return await self.async_step_location(user_input=self.data)
-            elif user_input[CONF_LOCATION_MODE] == ZIP_CODE:
-                self.data = user_input
+                    self.data[CONF_LATITUDE] = city_infos [2]
+                    self.data[CONF_LONGITUDE] = city_infos [3]
+                    return await self.async_step_location(user_input= self.data)
+            elif user_input[CONF_LOCATION_MODE]== ZIP_CODE:
+                self.data=user_input
                 return await self.async_step_location()
+            elif user_input[CONF_LOCATION_MODE]== SELECT_COORD:
+                return await self.async_step_map_select()
 
-        return self._show_setup_form("user", user_input, LOCATION_SCHEMA, errors)
+        return self._show_setup_form("user",user_input,LOCATION_SCHEMA, errors)
+    async def async_step_map_select(self, user_input=None):
+        COORD_SCHEMA = vol.Schema({vol.Required(CONF_LOCATION_MAP, default={
+                                    CONF_LATITUDE: self.hass.config.latitude,
+                                    CONF_LONGITUDE: self.hass.config.longitude
+                                 }): LocationSelector()})
+        errors = {}
+        _LOGGER.debug("in async_map_select !!")
+        if user_input is not None:
+            try:
+                city_infos= await get_insee_code_fromcoord(self.hass,user_input[CONF_LOCATION_MAP][CONF_LATITUDE], user_input[CONF_LOCATION_MAP][CONF_LONGITUDE])
+            except ValueError:
+                    errors["base"] = "noinsee"
+            if not errors:
+                self.data[CONF_INSEE_CODE] = city_infos[0]
+                self.data[CONF_CITY] = city_infos[1]
+                self.data[CONF_LATITUDE] = city_infos [2]
+                self.data[CONF_LONGITUDE] = city_infos [3]
+                return await self.async_step_location(user_input= self.data)
+        return self._show_setup_form("map_select", None, COORD_SCHEMA, errors)
+
 
     async def async_step_location(self, user_input=None):
         """Handle location step"""
@@ -148,4 +180,6 @@ class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         city_infos = user_input[CONF_CITY].split(";")
         self.data[CONF_INSEE_CODE] = city_infos[0]
         self.data[CONF_CITY] = city_infos[1]
+        self.data[CONF_LONGITUDE] = city_infos [2]
+        self.data[CONF_LATITUDE] = city_infos [3]
         return await self.async_step_location(self.data)

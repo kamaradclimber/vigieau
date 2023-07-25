@@ -21,6 +21,12 @@
         },
         "title": "Many code found",
         "description": "Select the city"
+      },
+      "location_map": {
+        "data": {
+          "latitude": "latitude",
+          "longitude": "longitude"
+        }
       }
     }
   }

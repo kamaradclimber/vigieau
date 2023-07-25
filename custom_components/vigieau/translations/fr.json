@@ -21,6 +21,12 @@
                 },
                 "title": "Plusieurs codes INSEE trouvés pour ce code postal",
                 "description": "Sélectionnez la commune"
+            },
+            "location_map": {
+                "data": {
+                    "latitude": "latitude",
+                    "longitude": "longitude"
+                }
             }
         }
     }

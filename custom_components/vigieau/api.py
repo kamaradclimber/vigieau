@@ -26,7 +26,7 @@ class InseeApi:
 
     async def get_data(self, zipcode) -> dict:
         """Get INSEE code for a given zip code"""
-        url = f"{GEOAPI_GOUV_URL}codePostal={zipcode}&fields=s=code&format=json&geometry=centre"
+        url = f"{GEOAPI_GOUV_URL}codePostal={zipcode}&fields=code,centre&format=json&geometry=centre"
 
         resp = await self._session.get(url)
         if resp.status != 200:
@@ -54,7 +54,7 @@ class AddressApi:
         self._timeout = timeout
         self._session = session or aiohttp.ClientSession()
 
-    async def get_data(self, lat, lon) -> Tuple[str, str]:
+    async def get_data(self, lat: float, lon: float) -> Tuple[str, str, float, float]:
         url = f"{ADDRESS_API_URL}/reverse/?lat={lat}&lon={lon}&type=housenumber"
         resp = await self._session.get(url)
         if resp.status != 200:
@@ -73,4 +73,4 @@ class AddressApi:
                 "Impossible to find approximate address of the current HA instance. API returned no result."
             )
         properties = data["features"][0]["properties"]
-        return (properties["citycode"], properties["city"])
+        return (properties["citycode"], properties["city"], lat, lon)

@@ -39,6 +39,11 @@ from .const import (
     VigieEauSensorEntityDescription,
 )
 from .config_flow import get_insee_code_fromcoord
+from homeassistant.const import (
+    CONF_LATITUDE,
+    CONF_LONGITUDE
+)
+
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -47,7 +52,7 @@ async def async_migrate_entry(hass, config_entry: ConfigEntry):
     if config_entry.version == 1:
         _LOGGER.warn("config entry version is 1, migrating to version 2")
         new = {**config_entry.data}
-        insee_code, city_name = await get_insee_code_fromcoord(hass)
+        insee_code, city_name, lat, lon = await get_insee_code_fromcoord(hass)
         new[CONF_INSEE_CODE] = insee_code
         new[CONF_CITY] = city_name
         new[CONF_LOCATION_MODE] = HA_COORD
@@ -138,6 +143,7 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
 
             # TODO(kamaradclimber): there 4 supported profils: particulier, entreprise, collectivite and exploitation
             url = f"{BASE_URL}/reglementation?commune={city_code}&profil=particulier"
+            # url = f"{BASE_URL}/reglementation?lat={self.lat}&lon={self.lon}&commune={city_code}&profil=particulier"
             _LOGGER.debug(f"Requesting restrictions from {url}")
             r = await self._async_client.get(url)
             if (
@@ -263,9 +269,7 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         self._attr_state_attributes = None
         self._attr_entity_category = EntityCategory.DIAGNOSTIC
         self._config = description
-        self._attr_unique_id = (
-            f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}"
-        )
+        self._attr_unique_id=f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
         self._attr_device_info = DeviceInfo(
             name=f"{NAME} {config_entry.data.get(CONF_CITY)}",
             entry_type=DeviceEntryType.SERVICE,
