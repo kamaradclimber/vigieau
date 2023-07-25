@@ -112,7 +112,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:waves",
         category="ponds",
         key="ponds",
-        matchers=["remplissage.+plan.* d.eau"],
+        matchers=["remplissage.+plan.* d.eau", "vidanges.+plan.* d.eau"],
     ),
     VigieEauSensorEntityDescription(
         name="Travaux sur cours d'eau",
@@ -137,6 +137,6 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:water-pump",
         category="canals",
         key="canals",
-        matchers=["Prélèvement en canaux"],
+        matchers=["Prélèvement en canaux", "Prélèvements dans le milieu naturel.+"],
     ),
 )
