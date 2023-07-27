@@ -144,10 +144,11 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             _LOGGER.debug("Starting collecting data")
 
             city_code = self.config[CONF_INSEE_CODE]
+            lat = self.config[CONF_LATITUDE]
+            long = self.config[CONF_LONGITUDE]
 
             # TODO(kamaradclimber): there 4 supported profils: particulier, entreprise, collectivite and exploitation
-            url = f"{BASE_URL}/reglementation?commune={city_code}&profil=particulier"
-            # url = f"{BASE_URL}/reglementation?lat={self.lat}&lon={self.lon}&commune={city_code}&profil=particulier"
+            url = f"{BASE_URL}/reglementation?lat={lat}&lon={long}&commune={city_code}&profil=particulier"
             _LOGGER.debug(f"Requesting restrictions from {url}")
             r = await self._async_client.get(url)
             if (

@@ -139,7 +139,6 @@ class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             }
         )
         errors = {}
-        _LOGGER.debug("in async_map_select !!")
         if user_input is not None:
             try:
                 city_infos = await get_insee_code_fromcoord(
@@ -152,6 +151,8 @@ class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             if not errors:
                 self.data[CONF_INSEE_CODE] = city_infos[0]
                 self.data[CONF_CITY] = city_infos[1]
+                # TODO(kamaradclimber): it's not clear whether we should take lat/long from user input
+                # or from address api results.
                 self.data[CONF_LATITUDE] = city_infos[2]
                 self.data[CONF_LONGITUDE] = city_infos[3]
                 self.data[DEVICE_ID_KEY] = city_infos[0]
