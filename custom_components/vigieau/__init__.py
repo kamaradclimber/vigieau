@@ -71,8 +71,6 @@ async def async_migrate_entry(hass, config_entry: ConfigEntry):
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    _LOGGER.info("Called async setup entry from __init__.py")
-
     hass.data.setdefault(DOMAIN, {})
 
     # here we store the coordinator for future access
