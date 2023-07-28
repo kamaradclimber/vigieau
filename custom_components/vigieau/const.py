@@ -60,14 +60,19 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:road",
         category="roads",
         key="roads",
-        matchers=["trottoirs"],
+        matchers=["trottoirs", "voiries"],
     ),
     VigieEauSensorEntityDescription(
         name="Arrosage des pelouses",
         icon="mdi:sprinkler-variant",
         category="lawn",
         key="lawn",
-        matchers=["pelouses", "jardins d'agrément", "massifs fleuris"],
+        matchers=[
+            "pelouses",
+            "jardins d'agrément",
+            "massifs fleuris",
+            "Arrosage des espaces verts",
+        ],
     ),
     VigieEauSensorEntityDescription(
         name="Lavage des véhicules",
@@ -112,7 +117,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:waves",
         category="ponds",
         key="ponds",
-        matchers=["remplissage.+plan.* d.eau", "vidanges.+plan.* d.eau"],
+        matchers=["remplissage.+plan.* d.eau", "vidange.+plan.* d.eau"],
     ),
     VigieEauSensorEntityDescription(
         name="Travaux sur cours d'eau",
@@ -123,7 +128,15 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "ouvrage.+cours d.eau",
             "travaux.+cours d.eau",
             "manoeuvre.+vannes",  # Manoeuvre de vannes des seuils et barrages
+            "Gestion des ouvrages",  # FIXME: we should probably match with the category as well
         ],
+    ),
+    VigieEauSensorEntityDescription(
+        name="Navigation fluviale",
+        icon="mdi:ferry",
+        category="river_movement",
+        key="river_movement",
+        matchers=["Navigation fluviale"],
     ),
     VigieEauSensorEntityDescription(
         name="Arrosage des golfs",
