@@ -46,7 +46,10 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:fountain",
         category="fountains",
         key="fountains",
-        matchers=["alimentation des fontaines publiques et privées"],
+        matchers=[
+            "alimentation des fontaines publiques et privées",
+            "Alimentation des fountaines",  # Alimentation des fontaines/lavoirs sans arrêt technique possible
+        ],
     ),
     VigieEauSensorEntityDescription(
         name="Arrosage des jardins potagers",
@@ -72,6 +75,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "jardins d'agrément",
             "massifs fleuris",
             "Arrosage des espaces verts",
+            "Arrosage des jeunes plantations d'arbres",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -117,7 +121,11 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:waves",
         category="ponds",
         key="ponds",
-        matchers=["remplissage.+plan.* d.eau", "vidange.+plan.* d.eau"],
+        matchers=[
+            "remplissage.+plan.* d.eau",
+            "vidange.+plan.* d.eau",
+            "Alimentation de plan d'eau",  # Alimentation de plan d'eau en dérivation de cours d'eau à usage domestique
+        ],
     ),
     VigieEauSensorEntityDescription(
         name="Travaux sur cours d'eau",
