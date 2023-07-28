@@ -48,7 +48,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         key="fountains",
         matchers=[
             "alimentation des fontaines publiques et privées",
-            "Alimentation des fountaines",  # Alimentation des fontaines/lavoirs sans arrêt technique possible
+            "Alimentation des fontaines",  # Alimentation des fontaines/lavoirs sans arrêt technique possible
         ],
     ),
     VigieEauSensorEntityDescription(
