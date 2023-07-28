@@ -3,7 +3,8 @@ import aiohttp
 from typing import Optional, Tuple
 from aiohttp.client import ClientTimeout
 from homeassistant.helpers.update_coordinator import UpdateFailed
-from .const import GEOAPI_GOUV_URL, ADDRESS_API_URL
+from .const import GEOAPI_GOUV_URL, ADDRESS_API_URL, VIGIEAU_API_URL
+import re
 
 DEFAULT_TIMEOUT = 120
 CLIENT_TIMEOUT = ClientTimeout(total=DEFAULT_TIMEOUT)
@@ -74,3 +75,41 @@ class AddressApi:
             )
         properties = data["features"][0]["properties"]
         return (properties["citycode"], properties["city"], lat, lon)
+
+
+class VigieauApiError(RuntimeError):
+    def __init__(self, message, text):
+        super().__init__(message)
+        self._text = text
+
+    @property
+    def text(self) -> str:
+        return self._text
+
+
+class VigieauApi:
+    def __init__(
+        self, session: Optional[aiohttp.ClientSession] = None, timeout=CLIENT_TIMEOUT
+    ) -> None:
+        self._timeout = timeout
+        self._session = session or aiohttp.ClientSession()
+
+    async def get_data(
+        self, lat: float, long: float, insee_code: str, profil: str
+    ) -> dict:
+        url = f"{VIGIEAU_API_URL}/reglementation?lat={lat}&lon={long}&commune={insee_code}&profil={profil}"
+        _LOGGER.debug(f"Requesting restrictions from {url}")
+        resp = await self._session.get(url)
+        if (
+            resp.status == 404
+            and "message" in resp.json()
+            and re.match("Aucune zone.+en vigueur", resp.json()["message"])
+        ):
+            _LOGGER.debug(f"Vigieau replied with no restriction, faking data")
+            data = {"usages": [], "niveauAlerte": "vigilance"}
+        elif resp.status in range(200, 300):
+            data = await resp.json()
+        else:
+            raise VigieauApiError(f"Failed fetching vigieau data", resp.text)
+        _LOGGER.debug(f"Data fetched from vigieau: {data}")
+        return data

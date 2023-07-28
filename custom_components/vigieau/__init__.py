@@ -23,10 +23,9 @@ from homeassistant.helpers.update_coordinator import (
     UpdateFailed,
 )
 from homeassistant.helpers.entity import DeviceInfo
-from homeassistant.helpers.httpx_client import get_async_client
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.components.sensor import RestoreSensor, SensorEntity
 from .const import (
-    BASE_URL,
     DOMAIN,
     SENSOR_DEFINITIONS,
     CONF_INSEE_CODE,
@@ -41,6 +40,7 @@ from .const import (
 )
 from .config_flow import get_insee_code_fromcoord
 from homeassistant.const import CONF_LATITUDE, CONF_LONGITUDE
+from .api import VigieauApi, VigieauApiError
 
 
 _LOGGER = logging.getLogger(__name__)
@@ -133,11 +133,6 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
         )
         self.config = config
         self.hass = hass
-        self._async_client = get_async_client(self.hass, verify_ssl=True)
-
-    def _timezone(self):
-        timezone = self.hass.config.as_dict()["time_zone"]
-        return tz.gettz(timezone)
 
     async def update_method(self):
         """Fetch data from API endpoint."""
@@ -155,22 +150,13 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             lat = self.config[CONF_LATITUDE]
             long = self.config[CONF_LONGITUDE]
 
-            # TODO(kamaradclimber): there 4 supported profils: particulier, entreprise, collectivite and exploitation
-            url = f"{BASE_URL}/reglementation?lat={lat}&lon={long}&commune={city_code}&profil=particulier"
-            _LOGGER.debug(f"Requesting restrictions from {url}")
-            r = await self._async_client.get(url)
-            if (
-                r.status_code == 404
-                and "message" in r.json()
-                and re.match("Aucune zone.+en vigueur", r.json()["message"])
-            ):
-                _LOGGER.debug(f"Vigieau replied with no restriction, faking data")
-                data = {"usages": [], "niveauAlerte": "vigilance"}
-            elif r.is_success:
-                data = r.json()
-            else:
-                raise UpdateFailed(f"Failed fetching vigieau data: {r.text}")
-            _LOGGER.debug(f"Data fetched from vigieau: {data}")
+            session = async_get_clientsession(self.hass)
+            vigieau = VigieauApi(session)
+            try:
+                # TODO(kamaradclimber): there 4 supported profils: particulier, entreprise, collectivite and exploitation
+                data = await vigieau.get_data(lat, long, city_code, "particulier")
+            except VigieauApiError as e:
+                raise UpdateFailed(f"Failed fetching vigieau data: {e.text}")
 
             for usage in data["usages"]:
                 found = False
