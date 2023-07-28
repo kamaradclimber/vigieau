@@ -59,12 +59,22 @@ async def async_migrate_entry(hass, config_entry: ConfigEntry):
         new[
             DEVICE_ID_KEY
         ] = "Vigieau"  # hardcoded to match hardcoded id from version 0.3.9
+        new[CONF_LATITUDE] = lat
+        new[CONF_LONGITUDE] = lon
         new[MIGRATED_FROM_VERSION_1] = True
         _LOGGER.warn(
             f"Migration detected insee code for current HA instance is {insee_code} in {city_name}"
         )
 
-        config_entry.version = 2
+        config_entry.version = 3
+        hass.config_entries.async_update_entry(config_entry, data=new)
+    if config_entry.version == 2:
+        _LOGGER.warn("config entry version is 2, migrating to version 3")
+        new = {**config_entry.data}
+        insee_code, city_name, lat, lon = await get_insee_code_fromcoord(hass)
+        new[CONF_LATITUDE] = lat
+        new[CONF_LONGITUDE] = lon
+        config_entry.version = 3
         hass.config_entries.async_update_entry(config_entry, data=new)
 
     return True
