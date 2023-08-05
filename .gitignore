@@ -8,3 +8,4 @@ custom_components/vigieau/__pycache__/
 deps/
 home-assistant.log*
 home-assistant_v2.db
+*.pyc

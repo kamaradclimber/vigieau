@@ -1,2 +1,3 @@
 homeassistant
 python-dateutil
+frozendict

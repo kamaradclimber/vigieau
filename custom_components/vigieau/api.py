@@ -25,9 +25,21 @@ class InseeApi:
         self._timeout = timeout
         self._session = session or aiohttp.ClientSession()
 
+    async def get_insee_list(self):
+        """Get all insee codes"""
+        session = aiohttp.ClientSession()
+        resp = await session.get(GEOAPI_GOUV_URL)
+
+        if resp.status != 200:
+            raise InseeApiError(
+                f"Unable to list all INSEE codes. API status was {resp.status}"
+            )
+
+        return await resp.json()
+
     async def get_data(self, zipcode) -> dict:
         """Get INSEE code for a given zip code"""
-        url = f"{GEOAPI_GOUV_URL}codePostal={zipcode}&fields=code,centre&format=json&geometry=centre"
+        url = f"{GEOAPI_GOUV_URL}&codePostal={zipcode}&format=json&geometry=centre"
 
         resp = await self._session.get(url)
         if resp.status != 200:
@@ -95,15 +107,17 @@ class VigieauApi:
         self._session = session or aiohttp.ClientSession()
 
     async def get_data(
-        self, lat: float, long: float, insee_code: str, profil: str
+        self, lat: Optional[float], long: Optional[float], insee_code: str, profil: str
     ) -> dict:
-        url = f"{VIGIEAU_API_URL}/reglementation?lat={lat}&lon={long}&commune={insee_code}&profil={profil}"
+        url = f"{VIGIEAU_API_URL}/reglementation?commune={insee_code}&profil={profil}"
+        if lat is not None and long is not None:
+            url += f"&lat={lat}&lon={long}"
         _LOGGER.debug(f"Requesting restrictions from {url}")
         resp = await self._session.get(url)
         if (
             resp.status == 404
-            and "message" in resp.json()
-            and re.match("Aucune zone.+en vigueur", resp.json()["message"])
+            and "message" in await resp.json()
+            and re.match("Aucune zone.+en vigueur", (await resp.json())["message"])
         ):
             _LOGGER.debug(f"Vigieau replied with no restriction, faking data")
             data = {"usages": [], "niveauAlerte": "vigilance"}

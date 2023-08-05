@@ -1,0 +1,25 @@
+name: Python package
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+
+jobs:
+    execute-test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                    python-version: '3.x'
+            - name: Install dependencies
+              run: |
+                python -m pip install --upgrade pip
+                pip install -r requirements_tests.txt
+            - name: Execute test
+              run: |
+                python -m unittest custom_components/vigieau/tests/test_regexp.py
