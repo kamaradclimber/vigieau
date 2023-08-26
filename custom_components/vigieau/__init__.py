@@ -86,7 +86,6 @@ async def async_migrate_entry(hass, config_entry: ConfigEntry):
         config_entry.version = 4
         hass.config_entries.async_update_entry(config_entry, data=new)
 
-
     return True
 
 
@@ -179,8 +178,9 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
                         ):
                             found = True
                 if not found:
+                    report_data = json.dumps({"insee code": city_code, "usage": usage['usage'] }, ensure_ascii=False)
                     _LOGGER.warn(
-                        f"The following restriction is unknown from this integration, please report it as an issue: {usage['usage']}"
+                            f"The following restriction is unknown from this integration, please report an issue with: {report_data}"
                     )
             return data
         except Exception as err:
