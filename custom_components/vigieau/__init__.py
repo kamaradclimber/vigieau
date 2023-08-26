@@ -46,6 +46,7 @@ from .api import VigieauApi, VigieauApiError
 _LOGGER = logging.getLogger(__name__)
 
 MIGRATED_FROM_VERSION_1 = "migrated_from_version_1"
+MIGRATED_FROM_VERSION_3 = "migrated_from_version_3"
 
 
 async def async_migrate_entry(hass, config_entry: ConfigEntry):
@@ -76,6 +77,15 @@ async def async_migrate_entry(hass, config_entry: ConfigEntry):
         new[CONF_LONGITUDE] = lon
         config_entry.version = 3
         hass.config_entries.async_update_entry(config_entry, data=new)
+
+    if config_entry.version == 3:
+        _LOGGER.warn("config entry version is 3, migrating to version 4")
+        new = {**config_entry.data}
+        insee_code, city_name, lat, lon = await get_insee_code_fromcoord(hass)
+        new[MIGRATED_FROM_VERSION_3] = True
+        config_entry.version = 4
+        hass.config_entries.async_update_entry(config_entry, data=new)
+
 
     return True
 
@@ -274,8 +284,10 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         self._config = description
         if MIGRATED_FROM_VERSION_1 in config_entry.data:
             self._attr_unique_id = f"sensor-vigieau-{self._config.key}"
-        else:
+        elif MIGRATED_FROM_VERSION_3 in config_entry.data:
             self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
+        else:
+            self._attr_unique_id = f"sensor-vigieau-{self._config.key}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
         self._attr_device_info = DeviceInfo(
             name=f"{NAME} {config_entry.data.get(CONF_CITY)}",
             entry_type=DeviceEntryType.SERVICE,

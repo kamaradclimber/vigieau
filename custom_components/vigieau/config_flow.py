@@ -81,7 +81,7 @@ def _build_place_key(city) -> str:
 
 
 class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    VERSION = 3
+    VERSION = 4
 
     def __init__(self):
         """Initialize"""
