@@ -178,9 +178,12 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
                         ):
                             found = True
                 if not found:
-                    report_data = json.dumps({"insee code": city_code, "usage": usage['usage'] }, ensure_ascii=False)
+                    report_data = json.dumps(
+                        {"insee code": city_code, "usage": usage["usage"]},
+                        ensure_ascii=False,
+                    )
                     _LOGGER.warn(
-                            f"The following restriction is unknown from this integration, please report an issue with: {report_data}"
+                        f"The following restriction is unknown from this integration, please report an issue with: {report_data}"
                     )
             return data
         except Exception as err:
