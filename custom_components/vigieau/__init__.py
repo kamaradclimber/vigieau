@@ -378,8 +378,11 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
             return "Interdiction sauf exception"
         if "Interdiction" in self._restrictions:
             return "Interdiction"
+        if "Réduction de prélèvement" in self._restrictions:
+            return "Réduction de prélèvement"
         if "Consulter l’arrêté" in self._restrictions:
             return "Erreur: consulter l'arreté"
+        _LOGGER.warn(f"Restrictions are hard to interpret: {self._restrictions}")
         return None
 
     @property
