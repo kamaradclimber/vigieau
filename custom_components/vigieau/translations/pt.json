@@ -1,0 +1,33 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "location_mode": ""
+        },
+        "description": "Selecionar o modo de localização",
+        "title": "Modo de localizacao"
+      },
+      "location": {
+        "data": {
+          "code_postal": "Codigo postal"
+        },
+        "description": "Inserir o código postal",
+        "title": "Localização"
+      },
+      "multilocation": {
+        "data": {
+          "city": "Cidade"
+        },
+        "title": "Muitos codigos encontrados",
+        "description": "Selecione a cidade"
+      },
+      "location_map": {
+        "data": {
+          "latitude": "latitude",
+          "longitude": "longitude"
+        }
+      }
+    }
+  }
+}
