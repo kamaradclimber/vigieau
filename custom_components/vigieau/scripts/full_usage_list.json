@@ -41,10 +41,6 @@
       "thematique": "Remplissage vidange"
     },
     {
-      "usage": "Alimentation des canaux et des rigoles",
-      "thematique": "Remplissage vidange"
-    },
-    {
       "usage": "Alimentation des fontaines d'ornement en circuit ouvert (publiques et privées) ",
       "thematique": "Alimentation des fontaines publiques et privées"
     },
@@ -57,10 +53,6 @@
       "thematique": "Alimentation des fontaines publiques et privées"
     },
     {
-      "usage": "Alimentation des fontaines ou bassins publics ou privés d'ornement en circuit ouvert",
-      "thematique": "Alimentation des fontaines publiques et privées"
-    },
-    {
       "usage": "Alimentation des fontaines publiques  Et privées d'ornement en circuit ouvert",
       "thematique": "Alimentation des fontaines publiques et privées"
     },
@@ -69,11 +61,7 @@
       "thematique": "Alimentation des fontaines publiques et privées"
     },
     {
-      "usage": "Alimentation des fontaines publiques (sauf brumisateurs) et privées",
-      "thematique": "Alimentation des fontaines publiques et privées"
-    },
-    {
-      "usage": "Alimentation des fontaines publiques (sauf brumisateurs) et privées ",
+      "usage": "Alimentation des fontaines publiques (par réseau)",
       "thematique": "Alimentation des fontaines publiques et privées"
     },
     {
@@ -106,6 +94,10 @@
     },
     {
       "usage": "Alimentation des fontaines publiques et privées en circuit ouvert",
+      "thematique": "Alimentation des fontaines publiques et privées"
+    },
+    {
+      "usage": "Alimentation des fontaines publiques ou privées (lavoirs)",
       "thematique": "Alimentation des fontaines publiques et privées"
     },
     {
@@ -197,14 +189,6 @@
       "thematique": "Nettoyage"
     },
     {
-      "usage": "Arrosage des arbres et arbustes plantés en pleine terre depuis moins de 2 ans",
-      "thematique": "Arrosage"
-    },
-    {
-      "usage": "Arrosage des espaces arborés",
-      "thematique": "Arrosage"
-    },
-    {
       "usage": "Arrosage des espaces arborés (hors arboriculture)",
       "thematique": "Arrosage"
     },
@@ -221,15 +205,11 @@
       "thematique": "Arrosage"
     },
     {
-      "usage": "Arrosage des espaces arborés, pelouses, massifs fleuris et espaces verts",
-      "thematique": "Arrosage"
-    },
-    {
-      "usage": "Arrosage des espaces arborés, pelouses, massifs fleuris, espace verts, jardinières, ...",
-      "thematique": "Arrosage"
-    },
-    {
       "usage": "Arrosage des espaces arborés, pelouses, massifs fleuris, espaces verts.",
+      "thematique": "Arrosage"
+    },
+    {
+      "usage": "Arrosage des espaces vert, jardins publics ou privés, massifs fleuris, jardinières, pelouses",
       "thematique": "Arrosage"
     },
     {
@@ -298,6 +278,10 @@
     },
     {
       "usage": "Arrosage des jardins d’agrément, publics ou privés avec massifs fleuris, jardinières",
+      "thematique": "Arrosage"
+    },
+    {
+      "usage": "Arrosage des jardins et potagers privés",
       "thematique": "Arrosage"
     },
     {
@@ -385,10 +369,6 @@
       "thematique": "Arrosage"
     },
     {
-      "usage": "Arrosage des pelouses et des massifs fleuris (ensemble de plantes fleuries ou arbustes)",
-      "thematique": "Arrosage"
-    },
-    {
       "usage": "Arrosage des pelouses et espaces verts privés et publics (dont fleurs et arbres d'ornement)",
       "thematique": "Arrosage"
     },
@@ -405,10 +385,6 @@
       "thematique": "Arrosage"
     },
     {
-      "usage": "Arrosage des pelouses, des parterres, espaces et ornements floraux",
-      "thematique": "Arrosage"
-    },
-    {
       "usage": "Arrosage des pelouses, des rond-points, des massifs fleuris, des espaces verts et jardins potagers",
       "thematique": "Arrosage"
     },
@@ -417,7 +393,7 @@
       "thematique": "Arrosage"
     },
     {
-      "usage": "Arrosage des pelouses, espaces verts et jardins publics et privés ",
+      "usage": "Arrosage des pelouses, espaces  verts et massifs fleuris en pleine  terre ou en contenants divers",
       "thematique": "Arrosage"
     },
     {
@@ -434,6 +410,10 @@
     },
     {
       "usage": "Arrosage des pelouses, massifs fleuris",
+      "thematique": "Arrosage"
+    },
+    {
+      "usage": "Arrosage des pelouses, massifs fleuris (y compris jardinières, balconnières et fleurs en pot)",
       "thematique": "Arrosage"
     },
     {
@@ -462,10 +442,6 @@
     },
     {
       "usage": "Arrosage des pelouses, massifs fleuris, arbres et arbustes",
-      "thematique": "Arrosage"
-    },
-    {
-      "usage": "Arrosage des pelouses, massifs fleuris, espaces verts",
       "thematique": "Arrosage"
     },
     {
@@ -509,6 +485,10 @@
       "thematique": "Arrosage"
     },
     {
+      "usage": "Arrosage des pelouses, massifs floraux ou arbustifs, y compris en pot et en cimetière",
+      "thematique": "Arrosage"
+    },
+    {
       "usage": "Arrosage des pelouses, rond-points, espaces verts, jardins d’agrément, massifs fleuris/jardinières",
       "thematique": "Arrosage"
     },
@@ -533,10 +513,6 @@
       "thematique": "Arrosage"
     },
     {
-      "usage": "Arrosage des potagers",
-      "thematique": "Arrosage"
-    },
-    {
       "usage": "Arrosage des potagers domestiques",
       "thematique": "Arrosage"
     },
@@ -549,11 +525,19 @@
       "thematique": "Arrosage"
     },
     {
+      "usage": "Arrosage des surfaces accueillant des manifestations temporaires sportives et culturelles ",
+      "thematique": "Arrosage"
+    },
+    {
       "usage": "Arrosage des végétaux publics et privés (pelouses, ronds-points,massifs floraux, plantes, arbres,..)",
       "thematique": "Arrosage"
     },
     {
       "usage": "Arrosage espaces verts, pelouses, plantations, massifs fleuris et plantes d'agrément hors production",
+      "thematique": "Arrosage"
+    },
+    {
+      "usage": "Arrosage localisé des plantations d'arbres de moins de 3 ans",
       "thematique": "Arrosage"
     },
     {
@@ -577,8 +561,12 @@
       "thematique": "Arrosage"
     },
     {
-      "usage": "Baignades artificielles en système fermé alimentées par l'eau du réseau public",
-      "thematique": "Remplissage vidange"
+      "usage": "Autres usages des particuliers non cités",
+      "thematique": "Prélèvement en canaux"
+    },
+    {
+      "usage": "Carénage des bateaux sur aire de carénage professionnelle",
+      "thematique": "Nettoyage"
     },
     {
       "usage": "Cheminement  àpied dans le lit vif des cours d'eau, orpaillage.",
@@ -589,27 +577,15 @@
       "thematique": "Travaux en cours d’eau"
     },
     {
-      "usage": "Création de prélèvements",
-      "thematique": "Prélèvement en canaux"
-    },
-    {
       "usage": "Dispositifs de récupération des eaux de pluie",
       "thematique": "Arrosage"
-    },
-    {
-      "usage": "Douches des plages (publiques ; privées installées par ou dans le domaine public maritime)",
-      "thematique": "Alimentation des fontaines publiques et privées"
     },
     {
       "usage": "Entretien de cours d'eau",
       "thematique": "Travaux en cours d’eau"
     },
     {
-      "usage": "Faucardage (fauchage des végétaux)",
-      "thematique": "Travaux en cours d’eau"
-    },
-    {
-      "usage": "Faucardement",
+      "usage": "Faucardage en cours d’eau (fauchage des végétaux en bordure de cours d'eau)",
       "thematique": "Travaux en cours d’eau"
     },
     {
@@ -634,10 +610,6 @@
     },
     {
       "usage": "Gestion des ouvrages hydrauliques",
-      "thematique": "Travaux en cours d’eau"
-    },
-    {
-      "usage": "Gestion des ouvrages hydrauliques",
       "thematique": "Remplissage vidange"
     },
     {
@@ -657,16 +629,16 @@
       "thematique": "Remplissage vidange"
     },
     {
-      "usage": "Gestion des ouvrages hydrauliques transversaux implantés en lit mineur du cours d'eau",
-      "thematique": "Travaux en cours d’eau"
+      "usage": "Gestion des ouvrages hydrauliques.",
+      "thematique": "Navigation fluviale"
+    },
+    {
+      "usage": "Installations de lavage de véhicules exploitées ou mises à disposition par des professionnels",
+      "thematique": "Nettoyage"
     },
     {
       "usage": "Jeux d'eau",
       "thematique": "Remplissage vidange"
-    },
-    {
-      "usage": "Jeux d'eau",
-      "thematique": "Alimentation des fontaines publiques et privées"
     },
     {
       "usage": "Lavage de tous les véhicules et engins terrestres/nautiques dans des installations professionnelles",
@@ -682,22 +654,6 @@
     },
     {
       "usage": "Lavage de véhicules (motorisés ou non) chez les particuliers",
-      "thematique": "Nettoyage"
-    },
-    {
-      "usage": "Lavage de véhicules automobiles en centres professionnels avec dispositif de recyclage à 70%",
-      "thematique": "Nettoyage"
-    },
-    {
-      "usage": "Lavage de véhicules automobiles en centres professionnels sans dispositif de recyclage",
-      "thematique": "Nettoyage"
-    },
-    {
-      "usage": "Lavage de véhicules automobiles et engins nautiques par des particuliers",
-      "thematique": "Nettoyage"
-    },
-    {
-      "usage": "Lavage de véhicules automobiles, bateaux et engins nautiques par des particuliers",
       "thematique": "Nettoyage"
     },
     {
@@ -717,7 +673,7 @@
       "thematique": "Nettoyage"
     },
     {
-      "usage": "Lavage de véhicules en station professionnelle",
+      "usage": "Lavage de véhicules en station professionnelle - disposant de lances \"haute pression\"",
       "thematique": "Nettoyage"
     },
     {
@@ -726,6 +682,10 @@
     },
     {
       "usage": "Lavage de véhicules en station.",
+      "thematique": "Nettoyage"
+    },
+    {
+      "usage": "Lavage de véhicules en stations professionnelles",
       "thematique": "Nettoyage"
     },
     {
@@ -757,6 +717,10 @@
       "thematique": "Nettoyage"
     },
     {
+      "usage": "Lavage de véhicules par des entreprises professionnelles ou par les collectivités",
+      "thematique": "Nettoyage"
+    },
+    {
       "usage": "Lavage de véhicules par des particuliers, y compris bateaux de plaisance",
       "thematique": "Nettoyage"
     },
@@ -766,10 +730,6 @@
     },
     {
       "usage": "Lavage de véhicules par des professionnels (dont stations de lavage)",
-      "thematique": "Nettoyage"
-    },
-    {
-      "usage": "Lavage de véhicules par des professionnels (y compris entreprises de transport)",
       "thematique": "Nettoyage"
     },
     {
@@ -789,15 +749,15 @@
       "thematique": "Nettoyage"
     },
     {
+      "usage": "Lavage de véhicules privés chez les particuliers, les entreprises ou les collectivités",
+      "thematique": "Nettoyage"
+    },
+    {
       "usage": "Lavage de véhicules, engins terrestres ou nautiques dans des installations professionnelles",
       "thematique": "Nettoyage"
     },
     {
       "usage": "Lavage de véhicules, y compris bateau, par des professionnels",
-      "thematique": "Nettoyage"
-    },
-    {
-      "usage": "Lavage des bateaux",
       "thematique": "Nettoyage"
     },
     {
@@ -813,11 +773,11 @@
       "thematique": "Nettoyage"
     },
     {
-      "usage": "Lavage des trottoirs, bâtiments, façades, terrasses, cours et murs de clôture avec de l'eau",
+      "usage": "Lavage des façades, toitures, sols, trottoirs, parking, terrasses & autres surfaces imperméabilisées",
       "thematique": "Nettoyage"
     },
     {
-      "usage": "Lavage des voies, trottoirs, terrasses et façades et autres surfaces imperméabilisées",
+      "usage": "Lavage des trottoirs, bâtiments, façades, terrasses, cours et murs de clôture avec de l'eau",
       "thematique": "Nettoyage"
     },
     {
@@ -833,19 +793,11 @@
       "thematique": "Nettoyage"
     },
     {
-      "usage": "Lavage des véhicules chez les particuliers",
-      "thematique": "Nettoyage"
-    },
-    {
       "usage": "Lavage des véhicules dans des installations professionnelles",
       "thematique": "Nettoyage"
     },
     {
       "usage": "Lavage des véhicules dans les stations de lavage",
-      "thematique": "Nettoyage"
-    },
-    {
-      "usage": "Lavage des véhicules dans une station professionnelle (y compris celles d’entreprises de transport)",
       "thematique": "Nettoyage"
     },
     {
@@ -857,6 +809,14 @@
       "thematique": "Nettoyage"
     },
     {
+      "usage": "Lavage des véhicules par des professionnels",
+      "thematique": "Nettoyage"
+    },
+    {
+      "usage": "Lavage des véhicules à titre particulier hors installations professionnelles",
+      "thematique": "Nettoyage"
+    },
+    {
       "usage": "Lavage d’engins nautiques",
       "thematique": "Nettoyage"
     },
@@ -865,19 +825,15 @@
       "thematique": "Nettoyage"
     },
     {
-      "usage": "Lestage pour stabilité d'un ouvrage lors de sa construction",
-      "thematique": "Remplissage vidange"
-    },
-    {
-      "usage": "Manoeuvre d'ouvrage hydraulique",
-      "thematique": "Travaux en cours d’eau"
-    },
-    {
       "usage": "Manoeuvre de vannes des seuils et barrages",
       "thematique": "Remplissage vidange"
     },
     {
       "usage": "Manoeuvre des vannes d’alimentation des moulins",
+      "thematique": "Travaux en cours d’eau"
+    },
+    {
+      "usage": "Manoeuvre des vannes d’ouvrages sur cours d’eau",
       "thematique": "Travaux en cours d’eau"
     },
     {
@@ -890,6 +846,10 @@
     },
     {
       "usage": "Manoeuvres de vannes sur le réseau hydrographique",
+      "thematique": "Travaux en cours d’eau"
+    },
+    {
+      "usage": "Manœuvres des ouvrages sur cours d’eau",
       "thematique": "Travaux en cours d’eau"
     },
     {
@@ -949,10 +909,6 @@
       "thematique": "Nettoyage"
     },
     {
-      "usage": "Nettoyage des façades, terrasses et murs de clôture",
-      "thematique": "Nettoyage"
-    },
-    {
       "usage": "Nettoyage des façades, terrasses, murs, escaliers et toitures",
       "thematique": "Nettoyage"
     },
@@ -993,6 +949,10 @@
       "thematique": "Nettoyage"
     },
     {
+      "usage": "Nettoyage des terrasses, façades, toitures et autres surfaces imperméabilisés",
+      "thematique": "Nettoyage"
+    },
+    {
       "usage": "Nettoyage des terrasses, façades, toitures, voiries et autres surfaces imperméabilisées",
       "thematique": "Nettoyage"
     },
@@ -1009,10 +969,6 @@
       "thematique": "Nettoyage"
     },
     {
-      "usage": "Nettoyage des voieries",
-      "thematique": "Nettoyage"
-    },
-    {
       "usage": "Nettoyage des voies publiques, parkings et trottoirs ",
       "thematique": "Nettoyage"
     },
@@ -1022,10 +978,6 @@
     },
     {
       "usage": "Nettoyage des voiries, des façades, des toitures, des trottoirs et autres surfaces imperméabilisées",
-      "thematique": "Nettoyage"
-    },
-    {
-      "usage": "Nettoyage des voiries, terrasses, façades, toitures, trottoirs et autres surfaces imperméabilisées",
       "thematique": "Nettoyage"
     },
     {
@@ -1053,7 +1005,15 @@
       "thematique": "Nettoyage"
     },
     {
-      "usage": "Nettoyages des facades, murs, toits, terrasses et travaux ",
+      "usage": "Nettoyage extérieurs (façades, vitres...) des bâtiments professionnels, ainsi que les tombes",
+      "thematique": "Nettoyage"
+    },
+    {
+      "usage": "Nettoyage voiries (places, trottoirs, caniveaux, …)",
+      "thematique": "Nettoyage"
+    },
+    {
+      "usage": "Nettoyage véhicules, carénage, lavage bateaux (compris dispositifs mobiles)  HORS station de lavage",
       "thematique": "Nettoyage"
     },
     {
@@ -1071,6 +1031,10 @@
     {
       "usage": "Orpaillage (professionnel et amateur) et pratiques pouvant impacter les milieux aquatiques",
       "thematique": "Travaux en cours d’eau"
+    },
+    {
+      "usage": "Orpaillage et activités dans le lit ou sur les berges cours d'eau ",
+      "thematique": "Navigation fluviale"
     },
     {
       "usage": "Orpaillage et pratiques ou activités pouvant avoir un impact sur les milieux aquatiques",
@@ -1097,8 +1061,16 @@
       "thematique": "Remplissage vidange"
     },
     {
+      "usage": "Piscines privées et bains à remous de plus d’1 m³",
+      "thematique": "Remplissage vidange"
+    },
+    {
       "usage": "Piscines privées à usage unifamilial (enterrées et hors sol)",
       "thematique": "Remplissage vidange"
+    },
+    {
+      "usage": "Pratique de la navigation de loisir, y compris le canoë et le kayak*",
+      "thematique": "Navigation fluviale"
     },
     {
       "usage": "Pratique du canyoning sur matériaux alluvionnaires",
@@ -1137,11 +1109,15 @@
       "thematique": "Prélèvement en canaux"
     },
     {
+      "usage": "Prélèvement en cours d’eau",
+      "thematique": "Prélèvement en canaux"
+    },
+    {
       "usage": "Prélèvement sur le site des Marais de Sacy",
       "thematique": "Prélèvement en canaux"
     },
     {
-      "usage": "Prélèvements d'eau dans les cours d'eau et par forages en nappe à usage domestique (<1000m3/an)",
+      "usage": "Prélèvements dans le milieu naturel et les fontaines publiques",
       "thematique": "Prélèvement en canaux"
     },
     {
@@ -1151,6 +1127,10 @@
     {
       "usage": "Prélèvements domestiques directs dans les milieux hydrauliques, hors usage professionnel identifié",
       "thematique": "Arrosage"
+    },
+    {
+      "usage": "Prélèvements d’eau directement dans les cours d’eau à usage domestique (prélèvements < 1000 m3/an)",
+      "thematique": "Prélèvement en canaux"
     },
     {
       "usage": "Prélèvements en cours d'eau",
@@ -1169,19 +1149,11 @@
       "thematique": "Prélèvement en canaux"
     },
     {
-      "usage": "Prélèvements pour l’alimentation de plans d’eau dont les mares de gabion",
-      "thematique": "Prélèvement en canaux"
-    },
-    {
-      "usage": "Prélèvements énergétiques",
-      "thematique": "Prélèvement en canaux"
-    },
-    {
-      "usage": "Rejets directs en cours d’eau",
+      "usage": "Rabattements de nappe d’eau souterraine dans le cadre de travaux de maçonnerie.",
       "thematique": "Travaux en cours d’eau"
     },
     {
-      "usage": "Rejets et travaux en rivière",
+      "usage": "Rejets directs en cours d’eau",
       "thematique": "Travaux en cours d’eau"
     },
     {
@@ -1202,14 +1174,6 @@
     },
     {
       "usage": "Remplissage / vidange des plans d'eau et manoeuvre de vanne (hors irrigation)",
-      "thematique": "Remplissage vidange"
-    },
-    {
-      "usage": "Remplissage / vidange des plans d’eau",
-      "thematique": "Remplissage vidange"
-    },
-    {
-      "usage": "Remplissage / vidange des plans d’eau (hors gabions)",
       "thematique": "Remplissage vidange"
     },
     {
@@ -1237,6 +1201,10 @@
       "thematique": "Remplissage vidange"
     },
     {
+      "usage": "Remplissage de plan d’eau, d’étangs privés ou publics, bassins d’agrément de loisirs",
+      "thematique": "Remplissage vidange"
+    },
+    {
       "usage": "Remplissage de plans d’eau sauf destinés à l’AEP et soutien d’étiage permis par arrêté",
       "thematique": "Remplissage vidange"
     },
@@ -1253,11 +1221,11 @@
       "thematique": "Remplissage vidange"
     },
     {
-      "usage": "Remplissage des piscines et bassins à usage privé",
+      "usage": "Remplissage des piscines et bains à remous réservés à un usage unifamilial",
       "thematique": "Remplissage vidange"
     },
     {
-      "usage": "Remplissage des piscines et spas privées (de plus d'1m3) ",
+      "usage": "Remplissage des piscines et bassins à usage privé",
       "thematique": "Remplissage vidange"
     },
     {
@@ -1265,15 +1233,19 @@
       "thematique": "Remplissage vidange"
     },
     {
+      "usage": "Remplissage des piscines individuelles",
+      "thematique": "Remplissage vidange"
+    },
+    {
       "usage": "Remplissage des piscines privées",
       "thematique": "Remplissage vidange"
     },
     {
-      "usage": "Remplissage des piscines privées (de plus de 1m3)",
+      "usage": "Remplissage des piscines unifamiliales et de celles de catégorie C et D (voir l'arrêté préfectoral)",
       "thematique": "Remplissage vidange"
     },
     {
-      "usage": "Remplissage des piscines unifamiliales et de celles de catégorie C et D (voir l'arrêté préfectoral)",
+      "usage": "Remplissage des piscines, des bains à remous, d’une capacité supérieure à 1 m³ et usage unifamilial",
       "thematique": "Remplissage vidange"
     },
     {
@@ -1349,15 +1321,7 @@
       "thematique": "Remplissage vidange"
     },
     {
-      "usage": "Remplissage et vidange de piscines privées",
-      "thematique": "Remplissage vidange"
-    },
-    {
       "usage": "Remplissage et vidange de piscines privées (de plus d'1 m3)",
-      "thematique": "Remplissage vidange"
-    },
-    {
-      "usage": "Remplissage et vidange de piscines privées (de plus d’1 m³)",
       "thematique": "Remplissage vidange"
     },
     {
@@ -1381,10 +1345,6 @@
       "thematique": "Remplissage vidange"
     },
     {
-      "usage": "Remplissage et vidange des piscines non collectives (de plus d’un m³)",
-      "thematique": "Remplissage vidange"
-    },
-    {
       "usage": "Remplissage et vidange des piscines privées (de plus d'1 m3) et à usage privé ou unifamilial",
       "thematique": "Remplissage vidange"
     },
@@ -1401,10 +1361,6 @@
       "thematique": "Remplissage vidange"
     },
     {
-      "usage": "Remplissage et vidange des plans d'eau, étangs de pêche à usages commerciaux et piscicultures",
-      "thematique": "Remplissage vidange"
-    },
-    {
       "usage": "Remplissage ou maintien du niveau des plans d'eau de loisir",
       "thematique": "Remplissage vidange"
     },
@@ -1414,6 +1370,10 @@
     },
     {
       "usage": "Remplissage ou mise à niveau des plans d'eau",
+      "thematique": "Remplissage vidange"
+    },
+    {
+      "usage": "Remplissage ou mise à niveau des plans d’eau",
       "thematique": "Remplissage vidange"
     },
     {
@@ -1446,10 +1406,6 @@
     },
     {
       "usage": "Remplissage/Vidange des plans d'eau installés sur des cours d'eau ou alimentés par des sources",
-      "thematique": "Remplissage vidange"
-    },
-    {
-      "usage": "Remplissage/vidange de plans d'eau ou réserves",
       "thematique": "Remplissage vidange"
     },
     {
@@ -1513,6 +1469,10 @@
       "thematique": "Travaux en cours d’eau"
     },
     {
+      "usage": "Travaux et rejets",
+      "thematique": "Travaux en cours d’eau"
+    },
+    {
       "usage": "Travaux prévisibles entraînant un rejet direct d’eaux polluées",
       "thematique": "Travaux en cours d’eau"
     },
@@ -1521,7 +1481,15 @@
       "thematique": "Travaux en cours d’eau"
     },
     {
+      "usage": "Travaux sur les systèmes d’assainissement occasionnant des rejets dans les milieux aquatiques",
+      "thematique": "Travaux en cours d’eau"
+    },
+    {
       "usage": "Vidange de piscines",
+      "thematique": "Remplissage vidange"
+    },
+    {
+      "usage": "Vidange de piscines privés (de plus d'1 m3)",
       "thematique": "Remplissage vidange"
     },
     {
@@ -1530,6 +1498,10 @@
     },
     {
       "usage": "Vidange de plan d'eau pour usage domestique",
+      "thematique": "Remplissage vidange"
+    },
+    {
+      "usage": "Vidange de plan d’eau, d’étangs privés ou publics, bassins d’agrément",
       "thematique": "Remplissage vidange"
     },
     {
@@ -1549,7 +1521,7 @@
       "thematique": "Remplissage vidange"
     },
     {
-      "usage": "Vidange des piscines privées (plus de 1m3)",
+      "usage": "Vidange des piscines et bains à remous d’une capacité supérieure à 1 m³",
       "thematique": "Remplissage vidange"
     },
     {
@@ -1589,7 +1561,7 @@
       "thematique": "Remplissage vidange"
     },
     {
-      "usage": "Vidanges de plan d'eau",
+      "usage": "Vidanges des plans d’eau et/ou manœuvres de vannage",
       "thematique": "Remplissage vidange"
     },
     {
@@ -1605,8 +1577,16 @@
       "thematique": "Nettoyage"
     },
     {
+      "usage": "manoeuvres d'ouvrage hors plan d'eau",
+      "thematique": "Prélèvement en canaux"
+    },
+    {
       "usage": "orpaillage (professionnel et amateur) et pratiques ou activités dans le lit ou sur les berges",
       "thematique": "Travaux en cours d’eau"
+    },
+    {
+      "usage": "remise à niveau des piscines et autres structures de volume > 1m3 à usage familial",
+      "thematique": "Remplissage vidange"
     }
   ]
 }

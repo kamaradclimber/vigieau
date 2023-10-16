@@ -124,6 +124,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "engins nautiques",
             "Lavage des embarcations, motorisées ou non, par tout moyen branché sur le réseau public",
             "Lavage de véhicule disposant d’un système équipé d’un recyclage de l’eau",
+            "Carénage des bateaux",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -152,6 +153,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Remise à niveau des piscines à usage privé",
             "Remplissage des jeux d'eau",
             "Remplissage des piscine privées",
+            "Remplissage des piscines individuelles",
+            "remise à niveau des piscines",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -194,6 +197,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Pratiques ou activités dans le lit pouvant avoir un impact sur les milieux aquatiques",
             "Perturbations physiques du lit des cours d’eau",
             "Entretien de cours d'eau",
+            "Travaux et rejets",
+            "Travaux sur les systèmes d’assainissement occasionnant des rejets",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -204,6 +209,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         matchers=[
             "Navigation fluviale",
             "Pratique du canyoning sur matériaux alluvionnaires",
+            "Pratique de la navigation de loisir",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -234,6 +240,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Tout nouveau prélèvement",
             "Nouvelles demandes de prélèvement d'eau et création de forages",
             "Création de prélèvements",
+            "Prélèvement en cours d’eau",
         ],
     ),
     VigieEauSensorEntityDescription(
