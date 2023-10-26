@@ -30,7 +30,7 @@ class TestRegexp(unittest.TestCase):
                     for matcher in sensor.matchers:
                         if re.search(
                             matcher,
-                            restriction["usage"],
+                            restriction["usage"] + "|" + restriction['thematique'],
                             re.IGNORECASE,
                         ):
                             found = True

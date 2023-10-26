@@ -173,7 +173,7 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
                     for matcher in sensor.matchers:
                         if re.search(
                             matcher,
-                            usage["usage"],
+                            usage["usage"] + "|" + usage['thematique'],
                             re.IGNORECASE,
                         ):
                             found = True
@@ -326,7 +326,8 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         self._attr_name = str(self._config.name)
         for usage in self.coordinator.data["usages"]:
             for matcher in self._config.matchers:
-                if re.search(matcher, usage["usage"], re.IGNORECASE):
+                fully_qualified_usage = usage["usage"] + "|" + usage['thematique']
+                if re.search(matcher, fully_qualified_usage, re.IGNORECASE):
                     self._attr_state_attributes = self._attr_state_attributes or {}
                     restriction = usage.get("niveauRestriction", usage.get("erreur"))
                     if restriction is None:
