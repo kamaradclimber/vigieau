@@ -121,6 +121,9 @@ class VigieauApi:
         ):
             _LOGGER.debug(f"Vigieau replied with no restriction, faking data")
             data = {"niveauGravite": "vigilance", "usages": [], "arrete": {}}
+        elif resp.status == 200 and (await resp.text()) == "":
+            _LOGGER.debug(f"Vigieau replied with no data at all, faking data")
+            data = {"niveauGravite": "vigilance", "usages": [], "arrete": {}}
         elif resp.status in range(200, 300):
             data = await resp.json()
         else:
