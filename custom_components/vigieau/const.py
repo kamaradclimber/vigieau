@@ -5,7 +5,7 @@ from dataclasses import dataclass
 
 DOMAIN = "vigieau"
 
-VIGIEAU_API_URL = "https://api.vigieau.beta.gouv.fr"
+VIGIEAU_API_URL = "https://api.vigieau.gouv.fr"
 GEOAPI_GOUV_URL = "https://geo.api.gouv.fr/communes?&fields=code,nom,centre"
 ADDRESS_API_URL = "https://api-adresse.data.gouv.fr"
 CONF_LOCATION_MODE = "location_mode"
