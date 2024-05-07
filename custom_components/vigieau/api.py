@@ -109,7 +109,7 @@ class VigieauApi:
     async def get_data(
         self, lat: Optional[float], long: Optional[float], insee_code: str, profil: str
     ) -> dict:
-        url = f"{VIGIEAU_API_URL}/reglementation?commune={insee_code}&profil={profil}"
+        url = f"{VIGIEAU_API_URL}/api/zones?commune={insee_code}&profil={profil}&zoneType=SUP"
         if lat is not None and long is not None:
             url += f"&lat={lat}&lon={long}"
         _LOGGER.debug(f"Requesting restrictions from {url}")
@@ -120,7 +120,7 @@ class VigieauApi:
             and re.match("Aucune zone.+en vigueur", (await resp.json())["message"])
         ):
             _LOGGER.debug(f"Vigieau replied with no restriction, faking data")
-            data = {"usages": [], "niveauAlerte": "vigilance"}
+            data = {"niveauGravite": "vigilance", "usages": [], "arrete": {}}
         elif resp.status in range(200, 300):
             data = await resp.json()
         else:

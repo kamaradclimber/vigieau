@@ -173,13 +173,13 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
                     for matcher in sensor.matchers:
                         if re.search(
                             matcher,
-                            usage["usage"] + "|" + usage['thematique'],
+                            usage["nom"] + "|" + usage['thematique'],
                             re.IGNORECASE,
                         ):
                             found = True
                 if not found:
                     report_data = json.dumps(
-                        {"insee code": city_code, "usage": usage["usage"]},
+                        {"insee code": city_code, "nom": usage["nom"]},
                         ensure_ascii=False,
                     )
                     _LOGGER.warn(
@@ -234,7 +234,7 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
         if not self.coordinator.last_update_success:
             _LOGGER.debug("Last coordinator failed, assuming state has not changed")
             return
-        self._attr_native_value = self.coordinator.data["niveauAlerte"]
+        self._attr_native_value = self.coordinator.data["niveauGravite"]
 
         self._attr_icon = {
             "vigilance": "mdi:water-check",
@@ -249,7 +249,7 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
         )
 
         restrictions = [
-            restriction["usage"] for restriction in self.coordinator.data["usages"]
+            restriction["nom"] for restriction in self.coordinator.data["usages"]
         ]
         self._attr_state_attributes = self._attr_state_attributes or {}
         self._attr_state_attributes["current_restrictions"] = ", ".join(restrictions)
@@ -326,28 +326,24 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         self._attr_name = str(self._config.name)
         for usage in self.coordinator.data["usages"]:
             for matcher in self._config.matchers:
-                fully_qualified_usage = usage["usage"] + "|" + usage['thematique']
+                fully_qualified_usage = usage["nom"] + "|" + usage['thematique']
                 if re.search(matcher, fully_qualified_usage, re.IGNORECASE):
                     self._attr_state_attributes = self._attr_state_attributes or {}
-                    restriction = usage.get("niveauRestriction", usage.get("erreur"))
+                    restriction = usage.get("description")
                     if restriction is None:
                         raise UpdateFailed(
-                            "Restriction level is not specified and API does not give any error ('erreur' field)"
+                            "Restriction level is not specified"
                         )
                     self._attr_state_attributes[
-                        f"Categorie: {usage['usage']}"
+                        f"Categorie: {usage['nom']}"
                     ] = restriction
                     self._restrictions.append(restriction)
-                    if "niveauRestriction" not in usage:
-                        _LOGGER.warn(
-                            f"{usage['usage']} misses 'niveauRestriction' key, using 'erreur' key as a fallback"
-                        )
 
                     self.enrich_attributes(
-                        usage, "details", f"{usage['usage']} (details)"
+                        usage, "details", f"{usage['nom']} (details)"
                     )
                     if "heureFin" in usage and "heureDebut" in usage:
-                        self._time_restrictions[usage["usage"]] = [
+                        self._time_restrictions[usage["nom"]] = [
                             usage["heureDebut"],
                             usage["heureFin"],
                         ]
