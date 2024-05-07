@@ -126,6 +126,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Lavage des embarcations, motorisées ou non, par tout moyen branché sur le réseau public",
             "Lavage de véhicule disposant d’un système équipé d’un recyclage de l’eau",
             "Carénage des bateaux",
+            "Lavage et entretien des embarcations .+ en aire de carénage.",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -257,6 +258,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Irrigation par aspersion des cultures",
             # ICPE means "Installation classée pour la protection de l'environment"
             "ICPE soumises à un APC relatif à la sécheresse",
+            "Usages récréatifs collectifs à partir d’eau potable.+",
         ],
     ),
 )

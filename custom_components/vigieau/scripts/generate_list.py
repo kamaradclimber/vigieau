@@ -35,18 +35,24 @@ async def main():
                 for usage in restriction.get("usages", []):
                     usages.add(
                         frozendict(
-                            {"usage": usage["usage"], "thematique": usage["thematique"]}
+                            {"usage": usage["nom"], "thematique": usage["thematique"]}
                         )
                     )
-        restriction_list["restrictions"] = sorted(
-            list(usages), key=lambda h: h["usage"]
-        )
+            if i % 10 == 0:
+                dump_restrictions(restriction_list, usages)
+        dump_restrictions(restriction_list, usages)
 
-        finaldata = json.dumps(restriction_list, ensure_ascii=False, indent=2)
-        file = os.path.join(os.path.dirname(__file__), "full_usage_list.json")
 
-        with open(file, "w", encoding="utf-8") as outfile:
-            outfile.write(finaldata)
+def dump_restrictions(restriction_list, usages):
+    restriction_list["restrictions"] = sorted(
+        list(usages), key=lambda h: h["usage"]
+    )
+
+    finaldata = json.dumps(restriction_list, ensure_ascii=False, indent=2)
+    file = os.path.join(os.path.dirname(__file__), "full_usage_list.json")
+
+    with open(file, "w", encoding="utf-8") as outfile:
+        outfile.write(finaldata)
 
 
 if __name__ == "__main__":
