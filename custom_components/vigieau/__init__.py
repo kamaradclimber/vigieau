@@ -382,6 +382,8 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
             return "Réduction de prélèvement"
         if "Consulter l’arrêté" in self._restrictions:
             return "Erreur: consulter l'arreté"
+        if "Se référer à l'arrêté de restriction en cours de validité." in self._restrictions:
+            return "Erreur: consulter l'arreté"
         _LOGGER.warn(f"Restrictions are hard to interpret: {self._restrictions}")
         return None
 

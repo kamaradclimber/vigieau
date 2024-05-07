@@ -93,6 +93,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Arrosage, arbustes et arbres",
             "Arrosage des jardinières et suspensions",
             "Arrosage des espaces arborés",
+            "Arrosage des terrains de sport",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -253,6 +254,9 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Structures gonflables/tubulaires privées à usage collectif > 1m3 nécessitant 1 vidange quotidienne",
             "Abreuvement et hygiène des animaux",
             "Abreuvement des animaux",
+            "Irrigation par aspersion des cultures",
+            # ICPE means "Installation classée pour la protection de l'environment"
+            "ICPE soumises à un APC relatif à la sécheresse",
         ],
     ),
 )
