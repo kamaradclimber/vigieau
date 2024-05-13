@@ -240,6 +240,7 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
             "vigilance": "mdi:water-check",
             "alerte": "mdi:water-alert",
             "alerte_renforcée": "mdi:water-remove",
+            "alerte_renforcee": "mdi:water-remove",
             "crise": "mdi:water-off",
         }[self._attr_native_value.lower().replace(" ", "_")]
 
