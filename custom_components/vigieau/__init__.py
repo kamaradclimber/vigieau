@@ -377,7 +377,11 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
             return "Interdiction sur plage horaire"
         if "Interdiction sauf exception" in self._restrictions:
             return "Interdiction sauf exception"
+        if "Interdit sauf pour les usages commerciaux après accord du service de police de l’eau." in self._restrictions:
+            return "Interdiction sauf exception"
         if "Interdiction" in self._restrictions:
+            return "Interdiction"
+        if "Interdiction." in self._restrictions:
             return "Interdiction"
         if "Réduction de prélèvement" in self._restrictions:
             return "Réduction de prélèvement"
@@ -385,6 +389,10 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
             return "Erreur: consulter l'arreté"
         if "Se référer à l'arrêté de restriction en cours de validité." in self._restrictions:
             return "Erreur: consulter l'arreté"
+        if "Pas de restriction sauf arrêté spécifique." in self._restrictions:
+            return "Autorisé sauf exception"
+        if len(self._restrictions) == 1:
+            return self._restrictions[0]
         _LOGGER.warn(f"Restrictions are hard to interpret: {self._restrictions}")
         return None
 
