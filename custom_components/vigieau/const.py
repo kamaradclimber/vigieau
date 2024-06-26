@@ -48,7 +48,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         key="fountains",
         matchers=[
             "alimentation des fontaines.+",
-            "douches .+ plages.+",
+            "douches .+ plage.+",
             "fontaines",
             "jeux d'eau",
         ],
@@ -93,7 +93,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Arrosage, arbustes et arbres",
             "Arrosage des jardinières et suspensions",
             "Arrosage des espaces arborés",
-            "Arrosage des terrains de sport",
+            "Arrosage.+terrains de sport",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -157,6 +157,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Remplissage des piscine privées",
             "Remplissage des piscines individuelles",
             "remise à niveau des piscines",
+            "Remplissage de piscines.+",
+            "Piscines ouvertes au public",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -201,6 +203,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Entretien de cours d'eau",
             "Travaux et rejets",
             "Travaux sur les systèmes d’assainissement occasionnant des rejets",
+            ".+installations hydrauliques.+",
+            "production.+origine.+hydraulique.*",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -243,6 +247,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Nouvelles demandes de prélèvement d'eau et création de forages",
             "Création de prélèvements",
             "Prélèvement en cours d’eau",
+            "alimentation en eau potable des populations.+",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -259,6 +264,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             # ICPE means "Installation classée pour la protection de l'environment"
             "ICPE soumises à un APC relatif à la sécheresse",
             "Usages récréatifs collectifs à partir d’eau potable.+",
+            "Réalisation de seuils provisoires",
+            "Activités industrielles et commerciales",
         ],
     ),
 )
