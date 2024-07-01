@@ -48,7 +48,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         key="fountains",
         matchers=[
             "alimentation des fontaines.+",
-            "douches .+ plages.+",
+            "douches .+ plage.+",
             "fontaines",
             "jeux d'eau",
             ".*Alimentation de douches de plage.*",
@@ -94,8 +94,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Arrosage, arbustes et arbres",
             "Arrosage des jardinières et suspensions",
             "Arrosage des espaces arborés",
-            "Arrosage des terrains de sport",
-            "Arrosage terrains de sport.+",
+            "Arrosage.+terrains de sport",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -159,8 +158,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Remplissage des piscine privées",
             "Remplissage des piscines individuelles",
             "remise à niveau des piscines",
-            "Remplissage de piscines de classification.+",
-            "Piscines ouvertes au public.+",
+            "Remplissage de piscines.+",
+            "Piscines ouvertes au public.*",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -207,7 +206,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Travaux sur les systèmes d’assainissement occasionnant des rejets",
             ".*installations hydrauliques.*",
             ".*électricité d’origine hydraulique.*",
-            ".*production d'électricité d'origine .*",
+            "production.+origine.+hydraulique.*",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -251,7 +250,6 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Création de prélèvements",
             "Prélèvement en cours d’eau",
             "alimentation en eau potable des populations.+",
-            "Réalisation de seuils provisoires.*",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -268,6 +266,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             # ICPE means "Installation classée pour la protection de l'environment"
             "ICPE soumises à un APC relatif à la sécheresse",
             "Usages récréatifs collectifs à partir d’eau potable.+",
+            "Réalisation de seuils provisoires",
             "Activités industrielles et commerciales",
         ],
     ),
