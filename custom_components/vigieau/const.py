@@ -95,6 +95,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Arrosage des jardinières et suspensions",
             "Arrosage des espaces arborés",
             "Arrosage.+terrains de sport",
+            "Arrosage terrains sport.+",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -207,6 +208,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             ".*installations hydrauliques.*",
             ".*électricité d’origine hydraulique.*",
             "production.+origine.+hydraulique.*",
+            "Installations de production d'électricité d'orignie hydraulique",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -225,7 +227,10 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:golf",
         category="golfs",
         key="golfs",
-        matchers=["arrosage des golfs"],
+        matchers=[
+            "arrosage des golfs",
+            "Arrosage des.+golfs",
+            ],
     ),
     VigieEauSensorEntityDescription(
         name="Prélèvement en canaux",

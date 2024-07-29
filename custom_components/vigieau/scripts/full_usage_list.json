@@ -1,39 +1,31 @@
 {
   "restrictions": [
     {
-      "usage": " Arrosage des plantations d'arbre de moins de 3 ans",
-      "thematique": "Arroser"
-    },
-    {
-      "usage": " Vidange des piscines",
-      "thematique": "Remplir ou vidanger"
-    },
-    {
       "usage": "Abreuvement des animaux",
       "thematique": "Abreuver"
-    },
-    {
-      "usage": "Activités cynégétiques",
-      "thematique": "Prélever"
     },
     {
       "usage": "Activités de loisirs professionnelles ou amateurs en cours d’eau.",
       "thematique": "Travaux et activités en cours d'eau"
     },
     {
-      "usage": "Activités industrielles et commerciales",
-      "thematique": "Activités économiques"
-    },
-    {
       "usage": "Alimentation de douches de plage, jeux d’eau",
       "thematique": "Prélever"
+    },
+    {
+      "usage": "Alimentation des canaux et des rigoles",
+      "thematique": "Remplir ou vidanger"
     },
     {
       "usage": "Alimentation des fontaines d'ornement en circuit ouvert (publiques et privées) ",
       "thematique": "Alimenter des fontaines et autres usages de loisirs"
     },
     {
-      "usage": "Alimentation des fontaines publiques",
+      "usage": "Alimentation des fontaines publiques  Et privées d'ornement en circuit ouvert",
+      "thematique": "Alimenter des fontaines et autres usages de loisirs"
+    },
+    {
+      "usage": "Alimentation des fontaines publiques  et privées d'ornement en circuit ouvert",
       "thematique": "Alimenter des fontaines et autres usages de loisirs"
     },
     {
@@ -45,11 +37,35 @@
       "thematique": "Alimenter des fontaines et autres usages de loisirs"
     },
     {
+      "usage": "Alimentation des fontaines, pièces d'eau d'agrément et jeux d'eau récréatifs en circuit ouvert",
+      "thematique": "Alimenter des fontaines et autres usages de loisirs"
+    },
+    {
+      "usage": "Alimentation en eau des fontaines publiques et privées d’ornement",
+      "thematique": "Alimenter des fontaines et autres usages de loisirs"
+    },
+    {
       "usage": "Alimentation fontaines publiques et privées d’ornement",
       "thematique": "Prélever"
     },
     {
-      "usage": "Arrosage des espaces verts",
+      "usage": "Alimentation gravitaire des ouvrages d’irrigation et des canaux d'agrément dans la Lozère",
+      "thematique": "Remplir ou vidanger"
+    },
+    {
+      "usage": "Arrosage d'arbres et arbustes",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage de surfaces de circulation générant de la poussière (chantiers, motocross, athlétisme...)",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage des espaces arborés, pelouses, massifs fleuris et espaces verts publics et privés",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage des espaces verts et pelouses",
       "thematique": "Arroser"
     },
     {
@@ -61,7 +77,15 @@
       "thematique": "Irriguer"
     },
     {
+      "usage": "Arrosage des golfs (conformément à l’accord cadre golf et environnement de 2019-2024)",
+      "thematique": "Arroser"
+    },
+    {
       "usage": "Arrosage des golfs(Conformément à l'accord cadre golf et environnement 2019-2024",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage des greens et départs de golfs",
       "thematique": "Arroser"
     },
     {
@@ -69,7 +93,7 @@
       "thematique": "Arroser"
     },
     {
-      "usage": "Arrosage des jardins potagers (y compris les serres non-agricoles)",
+      "usage": "Arrosage des jardins potagers (y compris serres non agricoles)",
       "thematique": "Arroser"
     },
     {
@@ -81,11 +105,23 @@
       "thematique": "Arroser"
     },
     {
+      "usage": "Arrosage des jardins potagers (yc serres non-agricoles)",
+      "thematique": "Arroser"
+    },
+    {
       "usage": "Arrosage des jardins potagers collectifs",
       "thematique": "Arroser"
     },
     {
       "usage": "Arrosage des jardins potagers individuels",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage des jardins potagers y compris serres non agricoles",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage des jardins potagers y/c serres non agricoles",
       "thematique": "Arroser"
     },
     {
@@ -97,6 +133,14 @@
       "thematique": "Arroser"
     },
     {
+      "usage": "Arrosage des pelouses, massifs fleuris, Jardins d’agrément, des espaces verts, golfs particuliers",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage des pelouses, massifs fleuris, arbres et arbustes",
+      "thematique": "Arroser"
+    },
+    {
       "usage": "Arrosage des pelouses, massifs fleuris, espaces verts",
       "thematique": "Arroser"
     },
@@ -105,12 +149,32 @@
       "thematique": "Arroser"
     },
     {
+      "usage": "Arrosage des pelouses, massifs fleuris, jardins d'agrément",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage des pelouses, massifs fleuris, jardins d'agrément, arrosage des espaces verts, golf particuliers",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage des pelouses, massifs fleuris, jardins d’agrément, espaces verts et golfs particuliers",
+      "thematique": "Arroser"
+    },
+    {
       "usage": "Arrosage des pelouses, massifs fleuris, jardins d’agrément, espaces verts, golfs particuliers",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage des pelouses, massifs fleuris, jardins d’agrément, golfs particuliers",
       "thematique": "Arroser"
     },
     {
       "usage": "Arrosage des pelouses, massifs fleuris. ",
       "thematique": "Irriguer"
+    },
+    {
+      "usage": "Arrosage des plantations d'arbre de moins de 3 ans",
+      "thematique": "Arroser"
     },
     {
       "usage": "Arrosage des plantations d’arbre de moins de 3 ans",
@@ -121,7 +185,31 @@
       "thematique": "Arroser"
     },
     {
+      "usage": "Arrosage des terrains de sport (dont aires et centres équestres, circuits motocross ou VTT)",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage des terrains de sport (dont aires/centres équestres, hippodromes, circuits VTT/motocross)",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage des terrains de sport (dont aires/centres équestres, hippodromes, circuits motocross/VTT)",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage des terrains de sport (voir ACI)",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage des terrains de sport (y compris aires d’évolutions équestres, centres équestres, hippodromes, circuits motocross, circuits vtt)",
+      "thematique": "Arroser"
+    },
+    {
       "usage": "Arrosage des terrains de sport (y compris aires et centres équestres, circuits VTT motocross)",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage des terrains de sport (y compris aires équestres,circuits motocross, circuit vtt) ",
       "thematique": "Arroser"
     },
     {
@@ -129,7 +217,19 @@
       "thematique": "Arroser"
     },
     {
-      "usage": "Arrosage des terrains de sport et de loisirs",
+      "usage": "Arrosage des terrains de sport y compris aires/centre équestres, hippodromes, circuits motocross/vtt",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage des terrains de sport, sols équestres et terrains de sports motorisés",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage massifs fleuris",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage pelouses, massifs fleuris, Jardins d’agrément, espaces verts, golfs particuliers",
       "thematique": "Arroser"
     },
     {
@@ -141,8 +241,24 @@
       "thematique": "Arroser"
     },
     {
+      "usage": "Arrosage terrains sport yc aires d’évolutions et centres équestres, hippodromes, motocross, VTT",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Arrosage, arbustes et arbres",
+      "thematique": "Arroser"
+    },
+    {
       "usage": "Fonctionnement des douches de plages et tout autre dispositif analogue",
       "thematique": "Alimenter des fontaines et autres usages de loisirs"
+    },
+    {
+      "usage": "Fonctionnement des fontaines publiques et privées",
+      "thematique": "Alimenter des fontaines et autres usages de loisirs"
+    },
+    {
+      "usage": "Gestion des ouvrages hydrauliques (hors plans d'eau et canaux)",
+      "thematique": "Ouvrages hydrauliques"
     },
     {
       "usage": "ICPE soumises à un APC relatif à la sécheresse",
@@ -157,12 +273,24 @@
       "thematique": "Installations de production d'électricité"
     },
     {
+      "usage": "Installations de production d'électricité d'orignie hydraulique",
+      "thematique": "Installations de production d'électricité"
+    },
+    {
       "usage": "Installations de production d’électricité d’origine hydraulique",
       "thematique": "Installations de production d'électricité"
     },
     {
       "usage": "Irrigation par aspersion des cultures",
       "thematique": "Irriguer"
+    },
+    {
+      "usage": "Jeux d'eau",
+      "thematique": "Alimenter des fontaines et autres usages de loisirs"
+    },
+    {
+      "usage": "Lavage de tous les véhicules et engins terrestres/nautiques dans des installations professionnelles",
+      "thematique": "Nettoyer"
     },
     {
       "usage": "Lavage de véhicules automobiles et engins nautiques par des particuliers",
@@ -181,7 +309,19 @@
       "thematique": "Nettoyer"
     },
     {
-      "usage": "Lavage de véhicules et bateaux chez les particuliers",
+      "usage": "Lavage de véhicules et engins nautiques chez les particuliers",
+      "thematique": "Nettoyer"
+    },
+    {
+      "usage": "Lavage de véhicules et engins nautiques chez les professionnels",
+      "thematique": "Nettoyer"
+    },
+    {
+      "usage": "Lavage de véhicules et engins nautiques dans des installations de professionnels",
+      "thematique": "Nettoyer"
+    },
+    {
+      "usage": "Lavage de véhicules et engins nautiques par des professionnels",
       "thematique": "Nettoyer"
     },
     {
@@ -206,6 +346,10 @@
     },
     {
       "usage": "Lavage de véhicules, bateaux et engins nautiques chez les particuliers",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Lavage de véhicules, bateaux et engins nautiques chez les particuliers",
       "thematique": "Nettoyer"
     },
     {
@@ -225,15 +369,19 @@
       "thematique": "Nettoyer"
     },
     {
+      "usage": "Lavage d’engins nautiques",
+      "thematique": "Nettoyer"
+    },
+    {
       "usage": "Lavage et entretien des embarcations (motorisées ou non) en aire de carénage.",
       "thematique": "Nettoyer"
     },
     {
-      "usage": "L’éclusage ou la manœuvres des vannes d’ouvrages, d’installations hydrauliques (moulins, étangs, micro-centrales, biefs, mares et retenues)",
+      "usage": "Manoeuvre de vannes d'installations hydrauliques",
       "thematique": "Ouvrages hydrauliques"
     },
     {
-      "usage": "Manoeuvre de vannes d'installations hydrauliques",
+      "usage": "Manoeuvres de vannes d'installations hydrauliques",
       "thematique": "Ouvrages hydrauliques"
     },
     {
@@ -253,6 +401,18 @@
       "thematique": "Travaux et activités en cours d'eau"
     },
     {
+      "usage": "Nettoyage / arrosage des sites de manifestations temporaires sportives et culturelles",
+      "thematique": "Arroser"
+    },
+    {
+      "usage": "Nettoyage de la voirie, des trottoirs et autres surfaces imperméabilisées",
+      "thematique": "Nettoyer"
+    },
+    {
+      "usage": "Nettoyage des façades et toitures",
+      "thematique": "Nettoyer"
+    },
+    {
       "usage": "Nettoyage des façades, terrasses et murs de clôture",
       "thematique": "Nettoyer"
     },
@@ -262,10 +422,6 @@
     },
     {
       "usage": "Nettoyage des façades, toitures, trottoirs et autres surfaces imperméabilisées hors activités industrielles.",
-      "thematique": "Nettoyer"
-    },
-    {
-      "usage": "Nettoyage des façades, toitures, trottoirs, terrasses, façades imperméabilisées...",
       "thematique": "Nettoyer"
     },
     {
@@ -281,15 +437,23 @@
       "thematique": "Nettoyer"
     },
     {
+      "usage": "Nettoyage des voiries, trottoirs et autres surfaces imperméabilisées",
+      "thematique": "Nettoyer"
+    },
+    {
+      "usage": "Orpaillage (professionnel et amateur)",
+      "thematique": "Travaux et activités en cours d'eau"
+    },
+    {
+      "usage": "Orpaillage (professionnel et amateur) et pratiques ou activités dans le lit ou sur les berges",
+      "thematique": "Travaux et activités en cours d'eau"
+    },
+    {
       "usage": "Orpaillage (professionnel et amateur) et pratiques pouvant impacter les milieux aquatiques",
       "thematique": "Travaux et activités en cours d'eau"
     },
     {
       "usage": "Orpaillage et activités dans le lit ou sur les berges cours d'eau ",
-      "thematique": "Travaux et activités en cours d'eau"
-    },
-    {
-      "usage": "Orpaillage et pratiques ou activités pouvant avoir un impact sur les milieux aquatiques",
       "thematique": "Travaux et activités en cours d'eau"
     },
     {
@@ -309,15 +473,15 @@
       "thematique": "Travaux et activités en cours d'eau"
     },
     {
+      "usage": "Pratiques ou activités dans le lit pouvant avoir un impact sur les milieux aquatiques",
+      "thematique": "Travaux et activités en cours d'eau"
+    },
+    {
       "usage": "Prélèvement en canaux ",
       "thematique": "Prélever"
     },
     {
       "usage": "Prélèvement en canaux et en cours d’eau",
-      "thematique": "Prélever"
-    },
-    {
-      "usage": "Prélèvements destinés au fonctionnement des milieux naturels",
       "thematique": "Prélever"
     },
     {
@@ -337,7 +501,11 @@
       "thematique": "Prélever"
     },
     {
-      "usage": "Remplissage de piscines de classification A et B (voir l'arrêté préfectoral)",
+      "usage": "Remplissage de piscines accueillant du public",
+      "thematique": "Remplir ou vidanger"
+    },
+    {
+      "usage": "Remplissage de piscines domestiques (de plus d'1m³)",
       "thematique": "Remplir ou vidanger"
     },
     {
@@ -345,7 +513,7 @@
       "thematique": "Remplir ou vidanger"
     },
     {
-      "usage": "Remplissage des piscines unifamiliales et de celles de catégorie C et D (voir l'arrêté préfectoral)",
+      "usage": "Remplissage de plans d’eau sauf destinés à l’AEP et soutien d’étiage permis par arrêté",
       "thematique": "Remplir ou vidanger"
     },
     {
@@ -353,7 +521,11 @@
       "thematique": "Remplir ou vidanger"
     },
     {
-      "usage": "Remplissage des plans d'eau et des canaux",
+      "usage": "Remplissage des plans d'eau sauf retenues destinées à l'AEP et retenues participant au soutien d'éti",
+      "thematique": "Remplir ou vidanger"
+    },
+    {
+      "usage": "Remplissage des plans d'eau, étangs, bassin d'agrément et manoeuvre de vannes",
       "thematique": "Remplir ou vidanger"
     },
     {
@@ -361,7 +533,15 @@
       "thematique": "Remplir ou vidanger"
     },
     {
+      "usage": "Remplissage des plans d’eau (sauf retenues autorisées ou dédiées à l'eau potable",
+      "thematique": "Remplir ou vidanger"
+    },
+    {
       "usage": "Remplissage des plans d’eau sauf diverses retenues (voir arrêté)",
+      "thematique": "Remplir ou vidanger"
+    },
+    {
+      "usage": "Remplissage des plans d’eau sauf retenues destinées à l’AEP et retenues participant au soutien d’étiage dont l’arrêté d’autorisation le permet",
       "thematique": "Remplir ou vidanger"
     },
     {
@@ -377,16 +557,12 @@
       "thematique": "Remplir ou vidanger"
     },
     {
+      "usage": "Remplissage et vidange de piscines privées (de plus d’1m3) y compris les spas de loisirs",
+      "thematique": "Remplir ou vidanger"
+    },
+    {
       "usage": "Remplissage et vidange de piscines privées > 1 m3",
       "thematique": "Prélever"
-    },
-    {
-      "usage": "Réalisation de seuils provisoires",
-      "thematique": "Prélever"
-    },
-    {
-      "usage": "Sport de loisirs nécessitant de marcher dans l'eau (canyoning et ruisseling) hors orpaillage",
-      "thematique": "Travaux et activités en cours d'eau"
     },
     {
       "usage": "Travaux en cours d’eau",
@@ -409,7 +585,15 @@
       "thematique": "Remplir ou vidanger"
     },
     {
-      "usage": "Vidange de plans d’eau de toute nature vers le réseau hydrographique",
+      "usage": "Vidange de plans d’eau vers le réseau hydrographique",
+      "thematique": "Remplir ou vidanger"
+    },
+    {
+      "usage": "Vidange des plans d'eau",
+      "thematique": "Remplir ou vidanger"
+    },
+    {
+      "usage": "Vidange plans d’eau vers le réseau hydrographique",
       "thematique": "Remplir ou vidanger"
     },
     {
@@ -417,8 +601,16 @@
       "thematique": "Remplir ou vidanger"
     },
     {
+      "usage": "Vidanges piscines privées",
+      "thematique": "Remplir ou vidanger"
+    },
+    {
       "usage": "alimentation en eau potable des populations ( usages prioritaires ; santé, salubrité, sécurité civile)",
       "thematique": "Prélever"
+    },
+    {
+      "usage": "orpaillage (professionnel et amateur) et pratiques ou activités dans le lit ou sur les berges",
+      "thematique": "Travaux et activités en cours d'eau"
     }
   ]
 }
