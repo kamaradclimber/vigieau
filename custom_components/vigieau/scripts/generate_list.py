@@ -17,29 +17,18 @@ async def main():
     restriction_list = {"restrictions": []}
     usages = set()
     async with aiohttp.ClientSession() as session:
-        vigieau = VigieauApi(session)
-        commune_list = await InseeApi(session).get_insee_list()
-        for i, commune in enumerate(commune_list):
-            print(f"{i}/{len(commune_list)}: {commune['nom']}")
-            try:
-                restriction = await vigieau.get_data(
-                    insee_code=commune["code"],
-                    profil="particulier",
-                    lat=commune["centre"]["coordinates"][1],
-                    long=commune["centre"]["coordinates"][0],
-                )
-            except VigieauApiError as e:
-                print(e.text)
-            # FIXME: Sometimes insee is enough to call vigieau Api, sometimes not exclude the one where it's not enough , for the moment
-            if restriction:
-                for usage in restriction.get("usages", []):
-                    usages.add(
-                        frozendict(
-                            {"usage": usage["nom"], "thematique": usage["thematique"]}
-                        )
-                    )
-            if i % 10 == 0:
-                dump_restrictions(restriction_list, usages)
+
+        resp = await session.get("https://www.data.gouv.fr/fr/datasets/r/bfba7898-aed3-40ec-aa74-abb73b92a363")
+        if resp.status != 200:
+            raise Exception(f"Unable to get dataset from vigieau: {resp.status}")
+        data = await resp.json(content_type="binary/octet-stream")
+
+        # jq '.features | .[].properties.restrictions' ~/Downloads/zones_arretes_en_vigueur.geojson   |less
+        for feature in data["features"]:
+            for restriction in feature["properties"]["restrictions"]:
+                usages.add(frozendict({"usage": restriction["nom"], "thematique": restriction["thematique"]}))
+
+        print(f"Found {len(usages)} different usages")
         dump_restrictions(restriction_list, usages)
 
 
