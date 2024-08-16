@@ -78,6 +78,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Arrosage de surfaces de .+ générant de la poussière",
             "Nettoyage des voies publiques.+",
             "Arrosage des pistes de chantier",
+            ".*voiries.*",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -86,7 +87,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         category="lawn",
         key="lawn",
         matchers=[
-            "pelouses",
+            ".*pelouses.*",
             "jardins d'agrément",
             "massifs fleuris",
             "Arrosage des espaces verts",
@@ -109,6 +110,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             ".*motorisés.*",
             ".*motorisées.*",
             ".*Arrosage des jardins et parcs ouverts au public.*",
+            ".*gazons.*",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -124,7 +126,6 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "lavage.+professionnel.+",
             "Nettoyage des véhicules et bateaux",
             "Nettoyage des véhicules, des bateaux Y compris par dispositifs mobiles",
-            "Lavage des embarcations.*",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -143,6 +144,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Lavage de véhicule disposant d’un système équipé d’un recyclage de l’eau",
             "Carénage des bateaux",
             "Lavage et entretien des embarcations .+ en aire de carénage.",
+            "lavage.*embarcation.*",
         ],
     ),
     VigieEauSensorEntityDescription(
