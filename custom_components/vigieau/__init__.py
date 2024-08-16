@@ -371,25 +371,41 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
 
     def compute_native_value(self) -> Optional[str]:
         """This method extract the most relevant restriction level to display as aggregate"""
+
+        def any_restriction_match(matcher):
+            r = re.compile(matcher, re.IGNORECASE)
+            for restriction in self._restrictions:
+                if r.search(restriction):
+                    return True
+            return False
+
         if len(self._restrictions) == 0:
             return "Aucune restriction"
-        if "Interdiction sur plage horaire" in self._restrictions:
+        if any_restriction_match("interdiction sur plage horaire"):
             return "Interdiction sur plage horaire"
-        if "Interdiction sauf exception" in self._restrictions:
+        if any_restriction_match("interdi.*sauf"):
             return "Interdiction sauf exception"
-        if "Interdit sauf pour les usages commerciaux après accord du service de police de l’eau." in self._restrictions:
+        if any_restriction_match("à l’exception"):
             return "Interdiction sauf exception"
-        if "Interdiction" in self._restrictions:
+        if any_restriction_match("à l’exclusion"):
+            return "Interdiction sauf exception"
+        if any_restriction_match("Interdit.*dès lors"):
+            return "Interdiction sauf exception"
+        if any_restriction_match("Interdiction"):
             return "Interdiction"
-        if "Interdiction." in self._restrictions:
+        if any_restriction_match("interdit"):
             return "Interdiction"
-        if "Réduction de prélèvement" in self._restrictions:
+        if any_restriction_match("interdiction"):
+            return "Interdiction"
+        if any_restriction_match("limitation au strict nécessaire"):
+            return "Interdiction sauf strict nécessaire"
+        if any_restriction_match("Réduction de prélèvement"):
             return "Réduction de prélèvement"
-        if "Consulter l’arrêté" in self._restrictions:
+        if any_restriction_match("Consulter l’arrêté"):
             return "Erreur: consulter l'arreté"
-        if "Se référer à l'arrêté de restriction en cours de validité." in self._restrictions:
+        if any_restriction_match("Se référer à l'arrêté de restriction en cours de validité."):
             return "Erreur: consulter l'arreté"
-        if "Pas de restriction sauf arrêté spécifique." in self._restrictions:
+        if any_restriction_match("Pas de restriction sauf arrêté spécifique."):
             return "Autorisé sauf exception"
         if len(self._restrictions) == 1:
             return self._restrictions[0]
