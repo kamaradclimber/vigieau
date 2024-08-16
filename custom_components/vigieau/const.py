@@ -52,6 +52,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "fontaines",
             "jeux d'eau",
             ".*Alimentation de douches de plage.*",
+            "Remplissage citerne, reserve, cuve à eau",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -63,6 +64,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Arrosage des .*potagers",
             "arrosage.+arbres.+",
             "arrosage.+plant.+",
+            "Cultures en godets et semis.+",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -96,6 +98,10 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Arrosage des espaces arborés",
             "Arrosage.+terrains de sport",
             "Arrosage terrains sport.+",
+            "sols équestres et sports motorisés",
+            ".*équestres.*",
+            ".*motorisés.*",
+            ".*motorisées.*",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -111,6 +117,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "lavage.+professionnel.+",
             "Nettoyage des véhicules et bateaux",
             "Nettoyage des véhicules, des bateaux Y compris par dispositifs mobiles",
+            "Lavage des embarcations.*",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -161,6 +168,10 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "remise à niveau des piscines",
             "Remplissage de piscines.+",
             "Piscines ouvertes au public.*",
+            "Remplissage des piscines.+publi",
+            "Remplissage des jacuzzis",
+            ".*piscines.*",
+            ".*tobbogan aquatique.*",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -207,8 +218,13 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Travaux sur les systèmes d’assainissement occasionnant des rejets",
             ".*installations hydrauliques.*",
             ".*électricité d’origine hydraulique.*",
+            "Installations hydroélectriques",
             "production.+origine.+hydraulique.*",
+            ".*hydroélectriques.*",
+            ".*hydrauliques.*",
             "Installations de production d'électricité d'orignie hydraulique",
+            "Prélèvements des centrales hydroélectriques, moulins, barrages",
+            "Prélèvement domestique directement dans le cours d'eau",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -230,6 +246,9 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         matchers=[
             "arrosage des golfs",
             "Arrosage des.+golfs",
+            "parcours de golf",
+            "greens et départs",
+            ".*golf.*",
             ],
     ),
     VigieEauSensorEntityDescription(
@@ -255,6 +274,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Création de prélèvements",
             "Prélèvement en cours d’eau",
             "alimentation en eau potable des populations.+",
+            "Prélèvement dans les cours d'eau quelque soit l'usage",
+            ".*forages.*",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -273,6 +294,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Usages récréatifs collectifs à partir d’eau potable.+",
             "Réalisation de seuils provisoires",
             "Activités industrielles et commerciales",
+            "Irrigation pour jeunes arbustes et plantiers de vigne",
+            "Interventions sur Station d'épuration",
         ],
     ),
 )
