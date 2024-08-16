@@ -4,7 +4,7 @@ Component to expose water restrictions in France through Vigieau api. See https:
 
 This integration share location via a 3rd party (government) website (as the website does).
 
-Data is based on the [propluvia](https://www.data.gouv.fr/fr/datasets/donnee-secheresse-propluvia/#/resources) dataset. It's really great to have access to such data.
+Data is based on the [vigieau](https://www.data.gouv.fr/fr/datasets/donnee-secheresse-vigieau/) dataset. It's really great to have access to such data.
 
 ## Installation
 
