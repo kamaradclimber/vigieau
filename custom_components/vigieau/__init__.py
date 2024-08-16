@@ -407,6 +407,8 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
             return "Erreur: consulter l'arreté"
         if any_restriction_match("Pas de restriction sauf arrêté spécifique."):
             return "Autorisé sauf exception"
+        if any_restriction_match("Sensibiliser"):
+            return "Sensibilisation"
         if len(self._restrictions) == 1:
             return self._restrictions[0]
         _LOGGER.warn(f"Restrictions are hard to interpret: {self._restrictions}")
