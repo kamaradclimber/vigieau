@@ -107,9 +107,9 @@ class VigieauApi:
         self._session = session or aiohttp.ClientSession()
 
     async def get_data(
-        self, lat: Optional[float], long: Optional[float], insee_code: str, profil: str
-    ) -> dict:
-        url = f"{VIGIEAU_API_URL}/api/zones?commune={insee_code}&profil={profil}&zoneType=SUP"
+        self, lat: Optional[float], long: Optional[float], insee_code: str, profil: str,
+        zone_type: str) -> dict:
+        url = f"{VIGIEAU_API_URL}/api/zones?commune={insee_code}&profil={profil}&zoneType={zone_type}"
         if lat is not None and long is not None:
             url += f"&lat={lat}&lon={long}"
         _LOGGER.debug(f"Requesting restrictions from {url}")

@@ -14,6 +14,7 @@ from .const import (
     ZIP_CODE,
     CONF_INSEE_CODE,
     CONF_CODE_POSTAL,
+    CONF_ZONE_TYPE,
     CONF_CITY,
     DEVICE_ID_KEY,
 )
@@ -81,7 +82,7 @@ def _build_place_key(city) -> str:
 
 
 class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    VERSION = 4
+    VERSION = 5
 
     def __init__(self):
         """Initialize"""
@@ -105,6 +106,7 @@ class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         """Called once with None as user_input, then a second time with user provided input"""
         errors = {}
         if user_input is not None:
+            self.data[CONF_ZONE_TYPE] = "SUP"
             self.data[CONF_LOCATION_MODE] = user_input[CONF_LOCATION_MODE]
             if user_input[CONF_LOCATION_MODE] == HA_COORD:
                 try:

@@ -21,6 +21,7 @@ CONF_INSEE_CODE = "INSEE"
 CONF_CITY = "city"
 CONF_CODE_POSTAL = "Code postal"
 CONF_LOCATION_MAP = "location_map"
+CONF_ZONE_TYPE = "zone_type"
 NAME = "Vigieau"
 DEVICE_ID_KEY = "device_id"
 
