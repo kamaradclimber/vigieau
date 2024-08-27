@@ -68,30 +68,26 @@ async def async_migrate_entry(hass, config_entry: ConfigEntry):
             f"Migration detected insee code for current HA instance is {insee_code} in {city_name}"
         )
 
-        config_entry.version = 3
-        hass.config_entries.async_update_entry(config_entry, data=new)
+        hass.config_entries.async_update_entry(config_entry, data=new, version=3)
     if config_entry.version == 2:
         _LOGGER.warn("config entry version is 2, migrating to version 3")
         new = {**config_entry.data}
         insee_code, city_name, lat, lon = await get_insee_code_fromcoord(hass)
         new[CONF_LATITUDE] = lat
         new[CONF_LONGITUDE] = lon
-        config_entry.version = 3
-        hass.config_entries.async_update_entry(config_entry, data=new)
+        hass.config_entries.async_update_entry(config_entry, data=new, version=3)
 
     if config_entry.version == 3:
         _LOGGER.warn("config entry version is 3, migrating to version 4")
         new = {**config_entry.data}
         insee_code, city_name, lat, lon = await get_insee_code_fromcoord(hass)
         new[MIGRATED_FROM_VERSION_3] = True
-        config_entry.version = 4
-        hass.config_entries.async_update_entry(config_entry, data=new)
+        hass.config_entries.async_update_entry(config_entry, data=new, version=4)
     if config_entry.version == 4:
         _LOGGER.warn("config entry version is 4, migrating to version 5")
         new = {**config_entry.data}
         new[CONF_ZONE_TYPE] = "SUP"
-        config_entry.version = 5
-        hass.config_entries.async_update_entry(config_entry, data=new)
+        hass.config_entries.async_update_entry(config_entry, data=new, version=5)
 
     return True
 
