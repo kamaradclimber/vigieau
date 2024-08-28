@@ -17,6 +17,11 @@ LOCATION_MODES = {
     ZIP_CODE: "Code Postal",
     SELECT_COORD: "Sélection sur carte",
 }
+ZONE_TYPES = {
+    "SUP": "Eaux de surface",
+    "AEP": "Alimentation en eau potable",
+    "SOU": "Eaux souterraines",
+}
 CONF_INSEE_CODE = "INSEE"
 CONF_CITY = "city"
 CONF_CODE_POSTAL = "Code postal"

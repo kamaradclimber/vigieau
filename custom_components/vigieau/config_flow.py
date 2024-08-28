@@ -33,6 +33,7 @@ from .const import (
     CONF_CITY,
     SELECT_COORD,
     CONF_LOCATION_MAP,
+    ZONE_TYPES,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -50,6 +51,10 @@ LOCATION_SCHEMA = vol.Schema(
 )
 
 ZIPCODE_SCHEMA = vol.Schema({vol.Required(CONF_CODE_POSTAL, default=""): cv.string})
+
+ZONE_TYPE_SCHEMA = vol.Schema(
+    {vol.Required(CONF_ZONE_TYPE, default="AEP"): vol.In(ZONE_TYPES)}
+)
 
 
 async def get_insee_code_fromzip(hass: HomeAssistant, data: dict) -> None:
@@ -82,7 +87,7 @@ def _build_place_key(city) -> str:
 
 
 class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    VERSION = 5
+    VERSION = 6
 
     def __init__(self):
         """Initialize"""
@@ -180,8 +185,17 @@ class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     return self._show_setup_form(
                         "location", user_input, ZIPCODE_SCHEMA, errors
                     )
-            return self.async_create_entry(title="vigieau", data=self.data)
+            return await self.async_step_zone_type()
         return self._show_setup_form("location", None, ZIPCODE_SCHEMA, errors)
+
+    async def async_step_zone_type(self, user_input=None):
+        """Handle zone type selection"""
+        errors = {}
+        if user_input is not None:
+            zone_type = user_input.get(CONF_ZONE_TYPE)
+            self.data[CONF_ZONE_TYPE] = zone_type
+            return self.async_create_entry(title=f"Vigieau {zone_type}", data=self.data)
+        return self._show_setup_form("zone_type", None, ZONE_TYPE_SCHEMA, errors)
 
     async def async_step_multilocation(self, user_input=None):
         """Handle location step"""

@@ -8,6 +8,13 @@
                 "description": "Choisissez un mode de localisation",
                 "title": "Mode de localisation"
             },
+            "zone_type": {
+                "data": {
+                    "location_mode": ""
+                },
+                "description": "Choisissez un type de prélèvement",
+                "title": "Type de prélèvement d'eau"
+            },
             "location": {
                 "data": {
                     "code_postal": "Code Postal"

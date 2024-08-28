@@ -48,6 +48,7 @@ _LOGGER = logging.getLogger(__name__)
 
 MIGRATED_FROM_VERSION_1 = "migrated_from_version_1"
 MIGRATED_FROM_VERSION_3 = "migrated_from_version_3"
+MIGRATED_FROM_VERSION_5 = "migrated_from_version_5"
 
 
 async def async_migrate_entry(hass, config_entry: ConfigEntry):
@@ -88,6 +89,11 @@ async def async_migrate_entry(hass, config_entry: ConfigEntry):
         new = {**config_entry.data}
         new[CONF_ZONE_TYPE] = "SUP"
         hass.config_entries.async_update_entry(config_entry, data=new, version=5)
+    if config_entry.version == 5:
+        _LOGGER.warn("config entry version is 5, migrating to version 6")
+        new = {**config_entry.data}
+        new[MIGRATED_FROM_VERSION_5] = True
+        hass.config_entries.async_update_entry(config_entry, data=new, version=6)
 
     return True
 
@@ -193,6 +199,13 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
         except Exception as err:
             raise UpdateFailed(f"Error communicating with API: {err}")
 
+def zone_type_to_str(zone_type: str) -> str:
+    names = {
+        "SUP": "Eaux de surface",
+        "AEP": "Alimentation en eau potable",
+        "SOU": "Eaux souterraines",
+    }
+    return names.get(zone_type, "Zone inconnue")
 
 class AlertLevelEntity(CoordinatorEntity, SensorEntity):
     """Expose the alert level for the location"""
@@ -210,11 +223,13 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
         self._attr_state_attributes = None
         if MIGRATED_FROM_VERSION_1 in config_entry.data:
             self._attr_unique_id = "sensor-vigieau-Alert level"
-        else:
+        elif MIGRATED_FROM_VERSION_5 in config_entry.data:
             self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}"
+        else:
+            self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_ZONE_TYPE)}"
 
         self._attr_device_info = DeviceInfo(
-            name=f"{NAME} {config_entry.data.get(CONF_CITY)}",
+            name=f"{NAME} {config_entry.data.get(CONF_CITY)} {zone_type_to_str(config_entry.data.get(CONF_ZONE_TYPE))}",
             entry_type=DeviceEntryType.SERVICE,
             identifiers={
                 (
@@ -294,10 +309,12 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
             self._attr_unique_id = f"sensor-vigieau-{self._config.key}"
         elif MIGRATED_FROM_VERSION_3 in config_entry.data:
             self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
-        else:
+        elif MIGRATED_FROM_VERSION_5 in config_entry.data:
             self._attr_unique_id = f"sensor-vigieau-{self._config.key}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
+        else:
+            self._attr_unique_id = f"sensor-vigieau-{self._config.key}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}-{config_entry.data.get(CONF_ZONE_TYPE)}"
         self._attr_device_info = DeviceInfo(
-            name=f"{NAME} {config_entry.data.get(CONF_CITY)}",
+            name=f"{NAME} {config_entry.data.get(CONF_CITY)} {zone_type_to_str(config_entry.data.get(CONF_ZONE_TYPE))}",
             entry_type=DeviceEntryType.SERVICE,
             identifiers={
                 (
@@ -308,6 +325,7 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
             manufacturer=NAME,
             model=config_entry.data.get(CONF_INSEE_CODE),
         )
+
 
     def enrich_attributes(self, usage: dict, key_source: str, key_target: str):
         if key_source in usage:
