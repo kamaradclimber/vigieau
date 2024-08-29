@@ -173,7 +173,7 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             vigieau = VigieauApi(session)
             try:
                 # TODO(kamaradclimber): there 4 supported profils: particulier, entreprise, collectivite and exploitation
-                data = await vigieau.get_data(lat, long, city_code, "particulier", "SUP")
+                data = await vigieau.get_data(lat, long, city_code, "particulier", zone_type)
             except VigieauApiError as e:
                 raise UpdateFailed(f"Failed fetching vigieau data: {e.text}")
 
