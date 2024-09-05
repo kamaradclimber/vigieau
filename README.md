@@ -6,6 +6,9 @@ This integration share location via a 3rd party (government) website (as the web
 
 Data is based on the [vigieau](https://www.data.gouv.fr/fr/datasets/donnee-secheresse-vigieau/) dataset. It's really great to have access to such data.
 
+![downloads](https://img.shields.io/badge/dynamic/json?color=41BDF5&logo=home-assistant&label=integration%20usage&suffix=%20installs&cacheSeconds=15600&url=https://analytics.home-assistant.io/custom_integrations.json&query=$.vigieau.total)
+
+
 ## Installation
 
 It must be used as a custom repository via hacs.
