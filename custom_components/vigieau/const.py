@@ -174,10 +174,12 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "remplissage.+piscines.+(familial|privé)",
             "vidange.+piscines",
             "piscines privées",  # Piscines privées et bains à remous de plus de 1m3
-            "piscines non collectives",  # Remplissage et vidange de piscines non collectives (de plus de 1 m3)
+            "piscine à usage collectif",
+            "piscine(s)? non collective",  # Remplissage et vidange de piscines non collectives (de plus de 1 m3)
             "baignades.+",
             "Remise à niveau des piscines à usage privé",
             "Remplissage des jeux d'eau",
+            "jeux d.eau",
             "Remplissage des piscine privées",
             "Remplissage des piscines individuelles",
             "remise à niveau des piscines",
@@ -295,6 +297,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "alimentation en eau potable des populations.+",
             "Prélèvement dans les cours d'eau quelque soit l'usage",
             ".*forages.*",
+            "forage domestique",
+            "prélèvement dans un cours d.eau",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -375,6 +379,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Béalières et canaux d’irrigation alimentés par gravité ou par pompage",
             "Autres prélèvements à usage industriel ou artisanal",
             "Autre irrigation",
+            "Contrôles périodiques des points d.eau d’incendie",
         ],
     ),
 )
