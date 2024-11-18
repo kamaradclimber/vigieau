@@ -21,7 +21,7 @@ You can choose the location either by using HA coordinates (default), giving a s
 
 ![image info](/img/vigieau_location.png)
 
-HA coordinates are the one defined during initial setup and accessible using `System>General>Edit location`)
+HA coordinates are the one defined during initial setup and accessible using (`System>General>Edit location`)
 
 Once a first location is added a new one can be added (using city zip code or a pin on a map)
 
