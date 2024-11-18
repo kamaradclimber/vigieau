@@ -425,9 +425,9 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         if any_restriction_match("Réduction de prélèvement"):
             return "Réduction de prélèvement"
         if any_restriction_match("Consulter l’arrêté"):
-            return "Erreur: consulter l'arreté"
+            return "Erreur: consulter l'arrêté"
         if any_restriction_match("Se référer à l'arrêté de restriction en cours de validité."):
-            return "Erreur: consulter l'arreté"
+            return "Erreur: consulter l'arrêté"
         if any_restriction_match("Pas de restriction sauf arrêté spécifique."):
             return "Autorisé sauf exception"
         if any_restriction_match("Sensibiliser"):
