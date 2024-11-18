@@ -8,8 +8,7 @@ from .const import ADDRESS_API_URL, GEOAPI_GOUV_URL, VIGIEAU_API_URL
 
 import re
 
-CLIENT_TIMEOUT = ClientTimeout(total=DEFAULT_TIMEOUT)
-DEFAULT_TIMEOUT = 120
+CLIENT_TIMEOUT = ClientTimeout(total=120)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -45,13 +44,15 @@ class InseeApi:
 
         resp = await self._session.get(url)
         if resp.status != 200:
-            raise InseeApiError(f"Unable to get INSEE Code for zip {zipcode}")
+            raise InseeApiError(
+                f"Unable to get INSEE Code for zip {zipcode}"
+            )
 
         data = await resp.json()
-        _LOGGER.debug("Got Data GEOAPI data : %s ", data)
+        _LOGGER.debug("Got data GeoAPI : %s ", data)
 
         if len(data) == 0:
-            raise InseeApiError("No data received with GeoApi")
+            raise InseeApiError("No data received with GeoAPI")
 
         return data
 
