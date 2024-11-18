@@ -1,35 +1,39 @@
-from homeassistant.components.sensor import (
-    SensorEntityDescription,
-)
+from homeassistant.components.sensor import SensorEntityDescription
 from dataclasses import dataclass
 
+ADDRESS_API_URL = "https://api-adresse.data.gouv.fr"
+
+CONF_CODE_POSTAL = "Code postal"
+CONF_CITY = "city"
+CONF_INSEE_CODE = "INSEE"
+CONF_LOCATION_MAP = "location_map"
+CONF_LOCATION_MODE = "location_mode"
+CONF_ZONE_TYPE = "zone_type"
+
+DEVICE_ID_KEY = "device_id"
 DOMAIN = "vigieau"
 
-VIGIEAU_API_URL = "https://api.vigieau.gouv.fr"
 GEOAPI_GOUV_URL = "https://geo.api.gouv.fr/communes?&fields=code,nom,centre"
-ADDRESS_API_URL = "https://api-adresse.data.gouv.fr"
-CONF_LOCATION_MODE = "location_mode"
 HA_COORD = 0
-ZIP_CODE = 1
-SELECT_COORD = 2
+
 LOCATION_MODES = {
     HA_COORD: "Coordonnées Home Assistant",
     ZIP_CODE: "Code Postal",
     SELECT_COORD: "Sélection sur carte",
 }
+
+NAME = "Vigieau"
+
+SELECT_COORD = 2
+
+VIGIEAU_API_URL = "https://api.vigieau.gouv.fr"
+
+ZIP_CODE = 1
 ZONE_TYPES = {
     "SUP": "Eaux de surface",
     "AEP": "Alimentation en eau potable",
     "SOU": "Eaux souterraines",
 }
-CONF_INSEE_CODE = "INSEE"
-CONF_CITY = "city"
-CONF_CODE_POSTAL = "Code postal"
-CONF_LOCATION_MAP = "location_map"
-CONF_ZONE_TYPE = "zone_type"
-NAME = "Vigieau"
-DEVICE_ID_KEY = "device_id"
-
 
 @dataclass
 class VigieEauRequiredKeysMixin:

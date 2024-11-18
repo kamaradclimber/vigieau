@@ -3,11 +3,13 @@ import aiohttp
 from typing import Optional, Tuple
 from aiohttp.client import ClientTimeout
 from homeassistant.helpers.update_coordinator import UpdateFailed
-from .const import GEOAPI_GOUV_URL, ADDRESS_API_URL, VIGIEAU_API_URL
+
+from .const import ADDRESS_API_URL, GEOAPI_GOUV_URL, VIGIEAU_API_URL
+
 import re
 
-DEFAULT_TIMEOUT = 120
 CLIENT_TIMEOUT = ClientTimeout(total=DEFAULT_TIMEOUT)
+DEFAULT_TIMEOUT = 120
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -43,7 +45,7 @@ class InseeApi:
 
         resp = await self._session.get(url)
         if resp.status != 200:
-            raise InseeApiError(f"Unable to get Insee Code for zip {zipcode}")
+            raise InseeApiError(f"Unable to get INSEE Code for zip {zipcode}")
 
         data = await resp.json()
         _LOGGER.debug("Got Data GEOAPI data : %s ", data)

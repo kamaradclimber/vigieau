@@ -4,45 +4,46 @@ import json
 import urllib.parse
 import logging
 from datetime import timedelta, datetime
-from zoneinfo import ZoneInfo
-from typing import Any, Dict, Optional, Tuple
 from dateutil import tz
 from itertools import dropwhile, takewhile
+from typing import Any, Dict, Optional, Tuple
+from zoneinfo import ZoneInfo
 import aiohttp
 
-
-from homeassistant.const import Platform, STATE_ON
-from homeassistant.core import HomeAssistant, callback
-from homeassistant.helpers.typing import ConfigType
+from homeassistant.components.sensor import RestoreSensor, SensorEntity
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.helpers.entity import EntityCategory
+from homeassistant.const import (
+    CONF_LATITUDE, 
+    CONF_LONGITUDE, 
+    Platform, 
+    STATE_ON
+)
+from homeassistant.core import HomeAssistant, callback
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.entity import EntityCategory, DeviceInfo
 from homeassistant.helpers.device_registry import DeviceEntryType
+from homeassistant.helpers.typing import ConfigType
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
     DataUpdateCoordinator,
     UpdateFailed,
 )
-from homeassistant.helpers.entity import DeviceInfo
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.components.sensor import RestoreSensor, SensorEntity
+
+from .api import VigieauApi, VigieauApiError
+from .config_flow import get_insee_code_fromcoord
 from .const import (
-    DOMAIN,
-    SENSOR_DEFINITIONS,
-    CONF_INSEE_CODE,
     CONF_CITY,
+    CONF_INSEE_CODE,
     CONF_LOCATION_MODE,
     CONF_ZONE_TYPE,
     DEVICE_ID_KEY,
+    DOMAIN,
     HA_COORD,
+    LOCATION_MODES,
     NAME,
     SENSOR_DEFINITIONS,
-    LOCATION_MODES,
     VigieEauSensorEntityDescription,
 )
-from .config_flow import get_insee_code_fromcoord
-from homeassistant.const import CONF_LATITUDE, CONF_LONGITUDE
-from .api import VigieauApi, VigieauApiError
-
 
 _LOGGER = logging.getLogger(__name__)
 

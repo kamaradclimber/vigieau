@@ -1,38 +1,29 @@
 import logging
 from typing import Any, Optional, Tuple
 import voluptuous as vol
+import homeassistant.helpers.config_validation as cv
+
+from homeassistant import config_entries
+
+from homeassistant.const import CONF_LATITUDE, CONF_LONGITUDE
 from homeassistant.core import callback, HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-import homeassistant.helpers.config_validation as cv
-from homeassistant import config_entries
-from .api import InseeApi, AddressApi
-from .const import (
-    DOMAIN,
-    CONF_LOCATION_MODE,
-    LOCATION_MODES,
-    HA_COORD,
-    ZIP_CODE,
-    CONF_INSEE_CODE,
-    CONF_CODE_POSTAL,
-    CONF_ZONE_TYPE,
-    CONF_CITY,
-    DEVICE_ID_KEY,
-)
 from homeassistant.helpers.selector import LocationSelector
-from homeassistant import config_entries
-from homeassistant.const import CONF_LATITUDE, CONF_LONGITUDE
+
 from .api import InseeApi, AddressApi
 from .const import (
-    DOMAIN,
-    CONF_LOCATION_MODE,
-    LOCATION_MODES,
-    HA_COORD,
-    ZIP_CODE,
-    CONF_INSEE_CODE,
-    CONF_CODE_POSTAL,
     CONF_CITY,
-    SELECT_COORD,
+    CONF_CODE_POSTAL,
+    CONF_INSEE_CODE,
     CONF_LOCATION_MAP,
+    CONF_LOCATION_MODE,
+    CONF_ZONE_TYPE,
+    DEVICE_ID_KEY,
+    DOMAIN,
+    HA_COORD,
+    LOCATION_MODES,
+    SELECT_COORD,
+    ZIP_CODE,
     ZONE_TYPES,
 )
 
@@ -47,18 +38,26 @@ _LOGGER = logging.getLogger(__name__)
 # HA calls async_setup_entry from sensor.py
 
 LOCATION_SCHEMA = vol.Schema(
-    {vol.Required(CONF_LOCATION_MODE, default=HA_COORD): vol.In(LOCATION_MODES)}
+    {
+        vol.Required(CONF_LOCATION_MODE, default=HA_COORD): vol.In(LOCATION_MODES)
+    }
 )
 
-ZIPCODE_SCHEMA = vol.Schema({vol.Required(CONF_CODE_POSTAL, default=""): cv.string})
+ZIPCODE_SCHEMA = vol.Schema(
+    {
+        vol.Required(CONF_CODE_POSTAL, default=""): cv.string
+    }
+)
 
 ZONE_TYPE_SCHEMA = vol.Schema(
-    {vol.Required(CONF_ZONE_TYPE, default="AEP"): vol.In(ZONE_TYPES)}
+    {
+        vol.Required(CONF_ZONE_TYPE, default="AEP"): vol.In(ZONE_TYPES)
+    }
 )
 
 
 async def get_insee_code_fromzip(hass: HomeAssistant, data: dict) -> None:
-    """Get Insee code from zip code"""
+    """Get INSEE code from zip code"""
     session = async_get_clientsession(hass)
     try:
         client = InseeApi(session)
@@ -70,7 +69,7 @@ async def get_insee_code_fromzip(hass: HomeAssistant, data: dict) -> None:
 async def get_insee_code_fromcoord(
     hass: HomeAssistant, lat=None, lon=None
 ) -> Tuple[str, str, float, float]:
-    """Get Insee code from GPS coords"""
+    """Get INSEE code from GPS coords"""
     session = async_get_clientsession(hass)
     try:
         client = AddressApi(session)
