@@ -26,7 +26,7 @@ class InseeApi:
         self._session = session or aiohttp.ClientSession()
 
     async def get_insee_list(self):
-        """Get all insee codes"""
+        """Get all INSEE codes"""
         session = aiohttp.ClientSession()
         resp = await session.get(GEOAPI_GOUV_URL)
 

@@ -66,7 +66,7 @@ async def async_migrate_entry(hass, config_entry: ConfigEntry):
         new[CONF_LONGITUDE] = lon
         new[MIGRATED_FROM_VERSION_1] = True
         _LOGGER.warn(
-            f"Migration detected insee code for current HA instance is {insee_code} in {city_name}"
+            f"Migration detected INSEE code for current HA instance is {insee_code} in {city_name}"
         )
 
         hass.config_entries.async_update_entry(config_entry, data=new, version=3)
@@ -104,7 +104,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # here we store the coordinator for future access
     if entry.entry_id not in hass.data[DOMAIN]:
         hass.data[DOMAIN][entry.entry_id] = {}
-    hass.data[DOMAIN][entry.entry_id]["vigieau_coordinator"] = VigieauAPICoordinator(
+        hass.data[DOMAIN][entry.entry_id]["vigieau_coordinator"] = VigieauAPICoordinator(
         hass, dict(entry.data)
     )
 
