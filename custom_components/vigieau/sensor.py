@@ -5,10 +5,10 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import (
-    UsageRestrictionEntity,
     AlertLevelEntity,
+    UsageRestrictionEntity,
 )
-from .const import DOMAIN, SENSOR_DEFINITIONS, SENSOR_DEFINITIONS
+from .const import DOMAIN, SENSOR_DEFINITIONS
 
 _LOGGER = logging.getLogger(__name__)
 
