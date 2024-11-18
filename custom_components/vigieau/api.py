@@ -13,12 +13,12 @@ CLIENT_TIMEOUT = ClientTimeout(total=120)
 _LOGGER = logging.getLogger(__name__)
 
 
-class InseeApiError(RuntimeError):
+class InseeAPIError(RuntimeError):
     pass
 
 
-class InseeApi:
-    """Api to get INSEE data"""
+class InseeAPI:
+    """API to get INSEE data"""
 
     def __init__(
         self, session: Optional[aiohttp.ClientSession] = None, timeout=CLIENT_TIMEOUT
@@ -32,7 +32,7 @@ class InseeApi:
         resp = await session.get(GEOAPI_GOUV_URL)
 
         if resp.status != 200:
-            raise InseeApiError(
+            raise InseeAPIError(
                 f"Unable to list all INSEE codes. API status was {resp.status}"
             )
 
@@ -44,7 +44,7 @@ class InseeApi:
 
         resp = await self._session.get(url)
         if resp.status != 200:
-            raise InseeApiError(
+            raise InseeAPIError(
                 f"Unable to get INSEE Code for zip {zipcode}"
             )
 
@@ -52,16 +52,16 @@ class InseeApi:
         _LOGGER.debug("Got data GeoAPI : %s ", data)
 
         if len(data) == 0:
-            raise InseeApiError("No data received with GeoAPI")
+            raise InseeAPIError("No data received with GeoAPI")
 
         return data
 
 
-class AddressApiError(RuntimeError):
+class AddressAPIError(RuntimeError):
     pass
 
 
-class AddressApi:
+class AddressAPI:
     """API for Reverse geocoding"""
 
     def __init__(
@@ -74,7 +74,7 @@ class AddressApi:
         url = f"{ADDRESS_API_URL}/reverse/?lat={lat}&lon={lon}&type=housenumber"
         resp = await self._session.get(url)
         if resp.status != 200:
-            raise AddressApiError(
+            raise AddressAPIError(
                 "Failed to fetch address from api-adresse.data.gouv.fr api"
             )
         data = await resp.json()
@@ -85,14 +85,14 @@ class AddressApi:
                 lat,
                 lon,
             )
-            raise AddressApiError(
+            raise AddressAPIError(
                 "Impossible to find approximate address of the current HA instance. API returned no result."
             )
         properties = data["features"][0]["properties"]
         return (properties["citycode"], properties["city"], lat, lon)
 
 
-class VigieauApiError(RuntimeError):
+class VigieauAPIError(RuntimeError):
     def __init__(self, message, text):
         super().__init__(message)
         self._text = text
@@ -102,7 +102,7 @@ class VigieauApiError(RuntimeError):
         return self._text
 
 
-class VigieauApi:
+class VigieauAPI:
     def __init__(
         self, session: Optional[aiohttp.ClientSession] = None, timeout=CLIENT_TIMEOUT
     ) -> None:
@@ -130,6 +130,6 @@ class VigieauApi:
         elif resp.status in range(200, 300):
             data = await resp.json()
         else:
-            raise VigieauApiError(f"Failed fetching vigieau data", resp.text)
+            raise VigieauAPIError(f"Failed fetching vigieau data", resp.text)
         _LOGGER.debug(f"Data fetched from vigieau: {data}")
         return data

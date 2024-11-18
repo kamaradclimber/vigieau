@@ -29,7 +29,7 @@ from homeassistant.helpers.update_coordinator import (
     UpdateFailed,
 )
 
-from .api import VigieauApi, VigieauApiError
+from .api import VigieauAPI, VigieauAPIError
 from .config_flow import get_insee_code_fromcoord
 from .const import (
     CONF_CITY,
@@ -171,11 +171,11 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             zone_type = self.config[CONF_ZONE_TYPE]
 
             session = async_get_clientsession(self.hass)
-            vigieau = VigieauApi(session)
+            vigieau = VigieauAPI(session)
             try:
                 # TODO(kamaradclimber): there 4 supported profils: particulier, entreprise, collectivite and exploitation
                 data = await vigieau.get_data(lat, long, city_code, "particulier", zone_type)
-            except VigieauApiError as e:
+            except VigieauAPIError as e:
                 raise UpdateFailed(f"Failed fetching vigieau data: {e.text}")
 
             for usage in data["usages"]:

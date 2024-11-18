@@ -10,7 +10,7 @@ from homeassistant.core import callback, HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.selector import LocationSelector
 
-from .api import InseeApi, AddressApi
+from .api import InseeAPI, AddressAPI
 from .const import (
     CONF_CITY,
     CONF_CODE_POSTAL,
@@ -60,7 +60,7 @@ async def get_insee_code_fromzip(hass: HomeAssistant, data: dict) -> None:
     """Get INSEE code from zip code"""
     session = async_get_clientsession(hass)
     try:
-        client = InseeApi(session)
+        client = InseeAPI(session)
         return await client.get_data(data)
     except ValueError as exc:
         raise exc
@@ -72,7 +72,7 @@ async def get_insee_code_fromcoord(
     """Get INSEE code from GPS coords"""
     session = async_get_clientsession(hass)
     try:
-        client = AddressApi(session)
+        client = AddressAPI(session)
         if lat is None or lon is None:
             lon = hass.config.as_dict()["longitude"]
             lat = hass.config.as_dict()["latitude"]

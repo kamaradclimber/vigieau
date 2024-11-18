@@ -10,7 +10,7 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(".")
 sys.path.append(parent_dir)
 
-from custom_components.vigieau.api import InseeApi, VigieauApi, VigieauApiError
+from custom_components.vigieau.api import InseeAPI, VigieauAPI, VigieauAPIError
 
 
 async def main():
