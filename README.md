@@ -11,7 +11,7 @@ Data is based on the [vigieau](https://www.data.gouv.fr/fr/datasets/donnee-seche
 
 ## Installation
 
-It must be used as a custom repository via hacs.
+It must be used as a custom repository via HACS.
 
 ## Configuration
 
