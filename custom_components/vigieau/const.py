@@ -15,6 +15,8 @@ DOMAIN = "vigieau"
 
 GEOAPI_GOUV_URL = "https://geo.api.gouv.fr/communes?&fields=code,nom,centre"
 HA_COORD = 0
+ZIP_CODE = 1
+SELECT_COORD = 2
 
 LOCATION_MODES = {
     HA_COORD: "Coordonnées Home Assistant",
@@ -24,11 +26,8 @@ LOCATION_MODES = {
 
 NAME = "Vigieau"
 
-SELECT_COORD = 2
-
 VIGIEAU_API_URL = "https://api.vigieau.gouv.fr"
 
-ZIP_CODE = 1
 ZONE_TYPES = {
     "SUP": "Eaux de surface",
     "AEP": "Alimentation en eau potable",
