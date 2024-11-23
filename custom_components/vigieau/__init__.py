@@ -258,7 +258,7 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
 
         self._attr_icon = {
             "vigilance": "mdi:water-check",
-            "vigilance (pas de restriction)": "mdi:water-check",
+            "vigilance_(pas_de_restriction)": "mdi:water-check",
             "alerte": "mdi:water-alert",
             "alerte_renforcée": "mdi:water-remove",
             "alerte_renforcee": "mdi:water-remove",
