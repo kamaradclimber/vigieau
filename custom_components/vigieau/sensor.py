@@ -23,7 +23,8 @@ async def async_setup_entry(
         )
         for sensor_description in SENSOR_DEFINITIONS
     ]
-    sensors.append(AlertLevelEntity(vigieau_coordinator, hass, entry))
+    sensors.append(AlertLevelEntity(vigieau_coordinator, hass, entry, numeric_state=False))
+    sensors.append(AlertLevelEntity(vigieau_coordinator, hass, entry, numeric_state=True))
 
     async_add_entities(sensors)
     await vigieau_coordinator.async_config_entry_first_refresh()

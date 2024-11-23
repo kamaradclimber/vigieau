@@ -216,10 +216,14 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
         coordinator: VigieauAPICoordinator,
         hass: HomeAssistant,
         config_entry: ConfigEntry,
+        numeric_state: bool,
     ):
         super().__init__(coordinator)
+        self._numeric_state = numeric_state
         self.hass = hass
         self._attr_name = f"Alert level in {config_entry.data.get(CONF_CITY)}"
+        if self._numeric_state:
+            self._attr_name += " (numeric)"
         self._attr_native_value = None
         self._attr_state_attributes = None
         if MIGRATED_FROM_VERSION_1 in config_entry.data:
@@ -228,6 +232,9 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
             self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}"
         else:
             self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_ZONE_TYPE)}"
+        if self._numeric_state:
+            self._attr_unique_id += "-numeric"
+            self._attr_entity_category = EntityCategory.DIAGNOSTIC
 
         self._attr_device_info = DeviceInfo(
             name=f"{NAME} {config_entry.data.get(CONF_CITY)} {zone_type_to_str(config_entry.data.get(CONF_ZONE_TYPE))}",
@@ -254,16 +261,21 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
         if not self.coordinator.last_update_success:
             _LOGGER.debug("Last coordinator failed, assuming state has not changed")
             return
-        self._attr_native_value = self.coordinator.data["niveauGravite"]
+        self.numeric_state_value = self.coordinator.data["_numeric_state_value"]
+
+        if self._numeric_state:
+            self._attr_native_value = self.numeric_state_value
+        else:
+            self._attr_native_value = self.coordinator.data["niveauGravite"]
+            if self.numeric_state_value == 0:
+                self._attr_native_value = "vigilance (pas de restriction)"
 
         self._attr_icon = {
-            "vigilance": "mdi:water-check",
-            "vigilance_(pas_de_restriction)": "mdi:water-check",
-            "alerte": "mdi:water-alert",
-            "alerte_renforcée": "mdi:water-remove",
-            "alerte_renforcee": "mdi:water-remove",
-            "crise": "mdi:water-off",
-        }[self._attr_native_value.lower().replace(" ", "_")]
+            0: "mdi:water-check",
+            1: "mdi:water-alert",
+            2: "mdi:water-remove",
+            3: "mdi:water-off",
+        }[self.numeric_state_value]
 
         self.enrich_attributes(self.coordinator.data, "cheminFichier", "source")
         self.enrich_attributes(
