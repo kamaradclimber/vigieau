@@ -2,5 +2,7 @@
   "name": "Vigieau",
   "render_readme": true,
   "country": "fr",
-  "homeassistant": "2023.7"
+  "homeassistant": "2023.7",
+  "zip_release": true,
+  "filename": "vigieau.zip"
 }
