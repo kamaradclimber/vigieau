@@ -123,16 +123,17 @@ class VigieauAPI:
             and re.match("Aucune zone.+en vigueur", (await resp.json())["message"])
         ):
             _LOGGER.debug(f"Vigieau replied with no restriction, faking data")
-            data = {"niveauGravite": "vigilance", "usages": [], "arrete": {}}
-        elif resp.status == 200 and (await resp.text()) == "":
+            data = [{"niveauGravite": "vigilance", "usages": [], "arrete": {}}]
+        elif resp.status == 200 and (await resp.json()) == []:
             _LOGGER.debug(f"Vigieau replied with no data at all, faking data")
-            data = {"niveauGravite": "vigilance", "usages": [], "arrete": {}}
+            data = [{"niveauGravite": "vigilance", "usages": [], "arrete": {}}]
         elif resp.status in range(200, 300):
             data = await resp.json()
         else:
             raise VigieauAPIError(f"Failed fetching vigieau data", resp.text)
         _LOGGER.debug(f"Data fetched from vigieau: {data}")
         # enriching with numeric state value
+        data = data[0]
         data["_numeric_state_value"] = {
             "vigilance": 0,
             "alerte": 1,

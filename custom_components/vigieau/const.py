@@ -26,7 +26,7 @@ LOCATION_MODES = {
 
 NAME = "Vigieau"
 
-VIGIEAU_API_URL = "https://api.vigieau.gouv.fr"
+VIGIEAU_API_URL = "https://api.vigieau.beta.gouv.fr"
 
 ZONE_TYPES = {
     "SUP": "Eaux de surface",
