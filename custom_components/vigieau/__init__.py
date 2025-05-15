@@ -36,6 +36,7 @@ from .const import (
     CONF_INSEE_CODE,
     CONF_LOCATION_MODE,
     CONF_ZONE_TYPE,
+    CONF_FOLLOW_HA_COORDS,
     DEVICE_ID_KEY,
     DOMAIN,
     HA_COORD,
@@ -50,6 +51,7 @@ _LOGGER = logging.getLogger(__name__)
 MIGRATED_FROM_VERSION_1 = "migrated_from_version_1"
 MIGRATED_FROM_VERSION_3 = "migrated_from_version_3"
 MIGRATED_FROM_VERSION_5 = "migrated_from_version_5"
+MIGRATED_FROM_VERSION_6 = "migrated_from_version_6"
 
 
 async def async_migrate_entry(hass, config_entry: ConfigEntry):
@@ -95,6 +97,12 @@ async def async_migrate_entry(hass, config_entry: ConfigEntry):
         new = {**config_entry.data}
         new[MIGRATED_FROM_VERSION_5] = True
         hass.config_entries.async_update_entry(config_entry, data=new, version=6)
+    if config_entry.version == 6:
+        _LOGGER.warn("config entry version is 6, migrating to version 7")
+        new = {**config_entry.data}
+        new[CONF_FOLLOW_HA_COORDS] = False
+        new[MIGRATED_FROM_VERSION_6] = True
+        hass.config_entries.async_update_entry(config_entry, data=new, version=7)
 
     return True
 

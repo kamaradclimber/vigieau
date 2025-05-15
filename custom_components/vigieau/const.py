@@ -9,6 +9,7 @@ CONF_INSEE_CODE = "INSEE"
 CONF_LOCATION_MAP = "location_map"
 CONF_LOCATION_MODE = "location_mode"
 CONF_ZONE_TYPE = "zone_type"
+CONF_FOLLOW_HA_COORDS = "follow_ha_coords"
 
 DEVICE_ID_KEY = "device_id"
 DOMAIN = "vigieau"

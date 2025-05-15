@@ -15,6 +15,7 @@ from .const import (
     CONF_CITY,
     CONF_CODE_POSTAL,
     CONF_INSEE_CODE,
+    CONF_FOLLOW_HA_COORDS,
     CONF_LOCATION_MAP,
     CONF_LOCATION_MODE,
     CONF_ZONE_TYPE,
@@ -86,7 +87,7 @@ def _build_place_key(city) -> str:
 
 
 class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    VERSION = 6
+    VERSION = 7
 
     def __init__(self):
         """Initialize"""
@@ -123,6 +124,7 @@ class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     self.data[CONF_LATITUDE] = city_infos[2]
                     self.data[CONF_LONGITUDE] = city_infos[3]
                     self.data[DEVICE_ID_KEY] = city_infos[0]
+                    self.data[CONF_FOLLOW_HA_COORDS] = True
                     return await self.async_step_location(user_input=self.data)
             elif user_input[CONF_LOCATION_MODE] == ZIP_CODE:
                 self.data = user_input
@@ -162,6 +164,7 @@ class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 self.data[CONF_LATITUDE] = city_infos[2]
                 self.data[CONF_LONGITUDE] = city_infos[3]
                 self.data[DEVICE_ID_KEY] = city_infos[0]
+                self.data[CONF_FOLLOW_HA_COORDS] = False
                 return await self.async_step_location(user_input=self.data)
         return self._show_setup_form("map_select", None, COORD_SCHEMA, errors)
 
@@ -224,4 +227,5 @@ class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         self.data[CONF_LONGITUDE] = city_infos[2]
         self.data[CONF_LATITUDE] = city_infos[3]
         self.data[DEVICE_ID_KEY] = city_infos[0]
+        self.data[CONF_FOLLOW_HA_COORDS] = False
         return await self.async_step_location(self.data)
