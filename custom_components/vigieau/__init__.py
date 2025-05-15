@@ -28,9 +28,10 @@ from homeassistant.helpers.update_coordinator import (
     DataUpdateCoordinator,
     UpdateFailed,
 )
+from homeassistant.helpers.storage import Store
 
 from .api import VigieauAPI, VigieauAPIError
-from .config_flow import get_insee_code_fromcoord
+from .config_flow import get_insee_code_fromcoord, SetupConfigFlow
 from .const import (
     CONF_CITY,
     CONF_INSEE_CODE,
@@ -45,6 +46,7 @@ from .const import (
     SENSOR_DEFINITIONS,
     VigieEauSensorEntityDescription,
 )
+
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -100,7 +102,7 @@ async def async_migrate_entry(hass, config_entry: ConfigEntry):
     if config_entry.version == 6:
         _LOGGER.warn("config entry version is 6, migrating to version 7")
         new = {**config_entry.data}
-        new[CONF_FOLLOW_HA_COORDS] = False
+        new[CONF_FOLLOW_HA_COORDS] = new[CONF_LOCATION_MODE] == HA_COORD
         new[MIGRATED_FROM_VERSION_6] = True
         hass.config_entries.async_update_entry(config_entry, data=new, version=7)
 
@@ -114,7 +116,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if entry.entry_id not in hass.data[DOMAIN]:
         hass.data[DOMAIN][entry.entry_id] = {}
         hass.data[DOMAIN][entry.entry_id]["vigieau_coordinator"] = VigieauAPICoordinator(
-        hass, dict(entry.data)
+        hass, dict(entry.data), entry.entry_id
     )
 
     # will make sure async_setup_entry from sensor.py is called
@@ -150,7 +152,9 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 class VigieauAPICoordinator(DataUpdateCoordinator):
     """A coordinator to fetch data from the api only once"""
 
-    def __init__(self, hass, config: ConfigType):
+    STORE_VERSION = 1
+
+    def __init__(self, hass, config: ConfigType, entry_id):
         super().__init__(
             hass,
             _LOGGER,
@@ -160,6 +164,14 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
         )
         self.config = config
         self.hass = hass
+        self.config_entry_id = entry_id
+    
+        self._custom_store = Store(
+            hass,
+            version=self.STORE_VERSION,
+            minor_version=0,
+            key=f"vigieau_current_location_{self.config_entry_id}",
+        )                                                              
 
     async def update_method(self):
         """Fetch data from API endpoint."""
@@ -167,16 +179,31 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             _LOGGER.debug(
                 f"Calling update method, {len(self._listeners)} listeners subscribed"
             )
+
             if "VIGIEAU_APIFAIL" in os.environ:
                 raise UpdateFailed(
                     "Failing update on purpose to test state restoration"
                 )
+
             _LOGGER.debug("Starting collecting data")
 
-            city_code = self.config[CONF_INSEE_CODE]
-            lat = self.config[CONF_LATITUDE]
-            long = self.config[CONF_LONGITUDE]
-            zone_type = self.config[CONF_ZONE_TYPE]
+            while True:
+                location = await self._custom_store.async_load()
+                if location is None:
+                    _LOGGER.debug("first save in storage")
+                    # make first save in storage
+                    await self._custom_store.async_save({CONF_LATITUDE: self.config[CONF_LATITUDE], CONF_LONGITUDE: self.config[CONF_LONGITUDE], CONF_INSEE_CODE: self.config[CONF_INSEE_CODE], CONF_CITY: self.config[CONF_CITY], CONF_ZONE_TYPE: self.config[CONF_ZONE_TYPE]})
+                    continue # one more try
+                city_code = location[CONF_INSEE_CODE]
+                lat = location[CONF_LATITUDE]
+                long = location[CONF_LONGITUDE]
+                zone_type = location[CONF_ZONE_TYPE]
+                
+                if self.config[CONF_FOLLOW_HA_COORDS] and self.changed_location(location):
+                    _LOGGER.info("Coordinates of HA instance changed since last update, will look for vigieau data accordingly")
+                    await self.update_config_based_on_location(location)
+                    continue
+                break
 
             session = async_get_clientsession(self.hass)
             vigieau = VigieauAPI(session)
@@ -207,6 +234,31 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             return data
         except Exception as err:
             raise UpdateFailed(f"Error communicating with API: {err}")
+        
+    def changed_location(self, location: dict) -> bool:
+        """
+        Return true if the location of the HA instance changed _significantly_ (i.e more than a few meters)
+        compared to the configuration of this instance.
+        """
+        ha_lon = self.hass.config.as_dict()["longitude"]
+        ha_lat = self.hass.config.as_dict()["latitude"]
+        last_lon = location[CONF_LONGITUDE]
+        last_lat = location[CONF_LATITUDE]
+        precision = 4 # we use 4 decimals which corresponds to ~10m (it depends on the latitude actually but should be good enough)
+        return round(ha_lon, precision) != round(last_lon, precision) or round(ha_lat, precision) != round(last_lat, precision)
+    
+    async def update_config_based_on_location(self, current_location) -> None:
+        """
+        Updates the entity config based on location
+        """
+        try:
+            insee_code, city_name, lat, lon = await get_insee_code_fromcoord(self.hass)
+        except ValueError as e:
+            _LOGGER.warning(f"Impossible to fetch insee code from new location: {e}")
+            return
+        await self._custom_store.async_save({CONF_LATITUDE: lat, CONF_LONGITUDE: lon, CONF_INSEE_CODE: insee_code, CONF_CITY: city_name, CONF_ZONE_TYPE: current_location[CONF_ZONE_TYPE]})
+        _LOGGER.info(f"New location detected {city_name} ({insee_code})")
+        
 
 def zone_type_to_str(zone_type: str) -> str:
     names = {
