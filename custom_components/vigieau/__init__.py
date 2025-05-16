@@ -171,7 +171,16 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             version=self.STORE_VERSION,
             minor_version=0,
             key=f"vigieau_current_location_{self.config_entry_id}",
-        )                                                              
+        )
+        self._location = None
+
+    def location(self) -> dict:
+        """
+        Return, if known, the up to date location data
+        """
+        if self._location is not None:
+            return self._location
+        return self.config
 
     async def update_method(self):
         """Fetch data from API endpoint."""
@@ -194,6 +203,7 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
                     # make first save in storage
                     await self._custom_store.async_save({CONF_LATITUDE: self.config[CONF_LATITUDE], CONF_LONGITUDE: self.config[CONF_LONGITUDE], CONF_INSEE_CODE: self.config[CONF_INSEE_CODE], CONF_CITY: self.config[CONF_CITY], CONF_ZONE_TYPE: self.config[CONF_ZONE_TYPE]})
                     continue # one more try
+                self._location = location
                 city_code = location[CONF_INSEE_CODE]
                 lat = location[CONF_LATITUDE]
                 long = location[CONF_LONGITUDE]
@@ -279,35 +289,26 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
         numeric_state: bool,
     ):
         super().__init__(coordinator)
+        self._config_entry = config_entry
         self._numeric_state = numeric_state
         self.hass = hass
-        self._attr_name = f"Alert level in {config_entry.data.get(CONF_CITY)}"
-        if self._numeric_state:
-            self._attr_name += " (numeric)"
+        self._attr_name = self.build_name()
         self._attr_native_value = None
         self._attr_state_attributes = None
         if MIGRATED_FROM_VERSION_1 in config_entry.data:
             self._attr_unique_id = "sensor-vigieau-Alert level"
         elif MIGRATED_FROM_VERSION_5 in config_entry.data:
             self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}"
-        else:
+        elif MIGRATED_FROM_VERSION_6:
             self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_ZONE_TYPE)}"
+        else:
+            self._attr_unique_id = f"sensor-vigieau-alert-{config_entry.entry_id}"
+
         if self._numeric_state:
             self._attr_unique_id += "-numeric"
             self._attr_entity_category = EntityCategory.DIAGNOSTIC
 
-        self._attr_device_info = DeviceInfo(
-            name=f"{NAME} {config_entry.data.get(CONF_CITY)} {zone_type_to_str(config_entry.data.get(CONF_ZONE_TYPE))}",
-            entry_type=DeviceEntryType.SERVICE,
-            identifiers={
-                (
-                    DOMAIN,
-                    str(config_entry.data.get(DEVICE_ID_KEY)),
-                )
-            },
-            manufacturer=NAME,
-            model=config_entry.data.get(CONF_INSEE_CODE),
-        )
+        self._attr_device_info = self.build_device()
 
     def enrich_attributes(self, data: dict, key_source: str, key_target: str):
         if key_source in data:
@@ -315,12 +316,40 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
             if key_source in data:
                 self._attr_state_attributes[key_target] = data[key_source]
 
+    def build_device(self) -> DeviceInfo:
+        data = self._config_entry.data
+        if self.coordinator.location is not None:
+            data = self.coordinator.location()
+        return DeviceInfo(
+            name=f"{NAME} {data.get(CONF_CITY)} {zone_type_to_str(data.get(CONF_ZONE_TYPE))}",
+            entry_type=DeviceEntryType.SERVICE,
+            identifiers={
+                (
+                    DOMAIN,
+                    str(data.get(DEVICE_ID_KEY)),
+                )
+            },
+            manufacturer=NAME,
+            model=data.get(CONF_INSEE_CODE),
+        )
+
+    def build_name(self) -> str:
+        data = self._config_entry.data
+        if self.coordinator.location is not None:
+            data = self.coordinator.location()
+        name = f"Alert level in {data.get(CONF_CITY)}"
+        if self._numeric_state:
+            name += " (numeric)"
+        return name
+
     @callback
     def _handle_coordinator_update(self) -> None:
         _LOGGER.debug(f"Receiving an update for {self.unique_id} sensor")
         if not self.coordinator.last_update_success:
             _LOGGER.debug("Last coordinator failed, assuming state has not changed")
             return
+        self._attr_name = self.build_name()
+        self._attr_device_info = self.build_device()
         self.numeric_state_value = self.coordinator.data["_numeric_state_value"]
 
         if self._numeric_state:
@@ -370,6 +399,7 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
     ):
         super().__init__(coordinator)
         self.hass = hass
+        self._config_entry = config_entry
         # naming the attribute very early before it's updated by first api response is a hack
         # to make sure we have a decent entity_id selected by home assistant
         self._attr_name = (
@@ -387,19 +417,24 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
             self._attr_unique_id = f"sensor-vigieau-{self._config.key}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
         else:
             self._attr_unique_id = f"sensor-vigieau-{self._config.key}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}-{config_entry.data.get(CONF_ZONE_TYPE)}"
-        self._attr_device_info = DeviceInfo(
-            name=f"{NAME} {config_entry.data.get(CONF_CITY)} {zone_type_to_str(config_entry.data.get(CONF_ZONE_TYPE))}",
+        self._attr_device_info = self.build_device()
+
+    def build_device(self) -> DeviceInfo:
+        data = self._config_entry.data
+        if self.coordinator.location is not None:
+            data = self.coordinator.location()
+        return DeviceInfo(
+            name=f"{NAME} {data.get(CONF_CITY)} {zone_type_to_str(data.get(CONF_ZONE_TYPE))}",
             entry_type=DeviceEntryType.SERVICE,
             identifiers={
                 (
                     DOMAIN,
-                    str(config_entry.data.get(DEVICE_ID_KEY)),
+                    str(data.get(DEVICE_ID_KEY)),
                 )
             },
             manufacturer=NAME,
-            model=config_entry.data.get(CONF_INSEE_CODE),
+            model=data.get(CONF_INSEE_CODE),
         )
-
 
     def enrich_attributes(self, usage: dict, key_source: str, key_target: str):
         if key_source in usage:
@@ -416,7 +451,7 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         if not self.coordinator.last_update_success:
             _LOGGER.debug("Last coordinator failed, assuming state has not changed")
             return
-
+        self._attr_device_info = self.build_device()
         self._attr_state_attributes = self._attr_state_attributes or {}
         self._restrictions = []
         self._time_restrictions = {}
