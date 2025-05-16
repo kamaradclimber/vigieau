@@ -28,14 +28,16 @@ from homeassistant.helpers.update_coordinator import (
     DataUpdateCoordinator,
     UpdateFailed,
 )
+from homeassistant.helpers.storage import Store
 
 from .api import VigieauAPI, VigieauAPIError
-from .config_flow import get_insee_code_fromcoord
+from .config_flow import get_insee_code_fromcoord, SetupConfigFlow
 from .const import (
     CONF_CITY,
     CONF_INSEE_CODE,
     CONF_LOCATION_MODE,
     CONF_ZONE_TYPE,
+    CONF_FOLLOW_HA_COORDS,
     DEVICE_ID_KEY,
     DOMAIN,
     HA_COORD,
@@ -45,11 +47,13 @@ from .const import (
     VigieEauSensorEntityDescription,
 )
 
+
 _LOGGER = logging.getLogger(__name__)
 
 MIGRATED_FROM_VERSION_1 = "migrated_from_version_1"
 MIGRATED_FROM_VERSION_3 = "migrated_from_version_3"
 MIGRATED_FROM_VERSION_5 = "migrated_from_version_5"
+MIGRATED_FROM_VERSION_6 = "migrated_from_version_6"
 
 
 async def async_migrate_entry(hass, config_entry: ConfigEntry):
@@ -95,6 +99,12 @@ async def async_migrate_entry(hass, config_entry: ConfigEntry):
         new = {**config_entry.data}
         new[MIGRATED_FROM_VERSION_5] = True
         hass.config_entries.async_update_entry(config_entry, data=new, version=6)
+    if config_entry.version == 6:
+        _LOGGER.warn("config entry version is 6, migrating to version 7")
+        new = {**config_entry.data}
+        new[CONF_FOLLOW_HA_COORDS] = new[CONF_LOCATION_MODE] == HA_COORD
+        new[MIGRATED_FROM_VERSION_6] = True
+        hass.config_entries.async_update_entry(config_entry, data=new, version=7)
 
     return True
 
@@ -106,7 +116,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if entry.entry_id not in hass.data[DOMAIN]:
         hass.data[DOMAIN][entry.entry_id] = {}
         hass.data[DOMAIN][entry.entry_id]["vigieau_coordinator"] = VigieauAPICoordinator(
-        hass, dict(entry.data)
+        hass, dict(entry.data), entry.entry_id
     )
 
     # will make sure async_setup_entry from sensor.py is called
@@ -142,7 +152,9 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 class VigieauAPICoordinator(DataUpdateCoordinator):
     """A coordinator to fetch data from the api only once"""
 
-    def __init__(self, hass, config: ConfigType):
+    STORE_VERSION = 1
+
+    def __init__(self, hass, config: ConfigType, entry_id):
         super().__init__(
             hass,
             _LOGGER,
@@ -152,6 +164,23 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
         )
         self.config = config
         self.hass = hass
+        self.config_entry_id = entry_id
+    
+        self._custom_store = Store(
+            hass,
+            version=self.STORE_VERSION,
+            minor_version=0,
+            key=f"vigieau_current_location_{self.config_entry_id}",
+        )
+        self._location = None
+
+    def location(self) -> dict:
+        """
+        Return, if known, the up to date location data
+        """
+        if self._location is not None:
+            return self._location
+        return self.config
 
     async def update_method(self):
         """Fetch data from API endpoint."""
@@ -159,16 +188,32 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             _LOGGER.debug(
                 f"Calling update method, {len(self._listeners)} listeners subscribed"
             )
+
             if "VIGIEAU_APIFAIL" in os.environ:
                 raise UpdateFailed(
                     "Failing update on purpose to test state restoration"
                 )
+
             _LOGGER.debug("Starting collecting data")
 
-            city_code = self.config[CONF_INSEE_CODE]
-            lat = self.config[CONF_LATITUDE]
-            long = self.config[CONF_LONGITUDE]
-            zone_type = self.config[CONF_ZONE_TYPE]
+            while True:
+                location = await self._custom_store.async_load()
+                if location is None:
+                    _LOGGER.debug("first save in storage")
+                    # make first save in storage
+                    await self._custom_store.async_save({CONF_LATITUDE: self.config[CONF_LATITUDE], CONF_LONGITUDE: self.config[CONF_LONGITUDE], CONF_INSEE_CODE: self.config[CONF_INSEE_CODE], CONF_CITY: self.config[CONF_CITY], CONF_ZONE_TYPE: self.config[CONF_ZONE_TYPE]})
+                    continue # one more try
+                self._location = location
+                city_code = location[CONF_INSEE_CODE]
+                lat = location[CONF_LATITUDE]
+                long = location[CONF_LONGITUDE]
+                zone_type = location[CONF_ZONE_TYPE]
+                
+                if self.config[CONF_FOLLOW_HA_COORDS] and self.changed_location(location):
+                    _LOGGER.info("Coordinates of HA instance changed since last update, will look for vigieau data accordingly")
+                    await self.update_config_based_on_location(location)
+                    continue
+                break
 
             session = async_get_clientsession(self.hass)
             vigieau = VigieauAPI(session)
@@ -199,6 +244,31 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             return data
         except Exception as err:
             raise UpdateFailed(f"Error communicating with API: {err}")
+        
+    def changed_location(self, location: dict) -> bool:
+        """
+        Return true if the location of the HA instance changed _significantly_ (i.e more than a few meters)
+        compared to the configuration of this instance.
+        """
+        ha_lon = self.hass.config.as_dict()["longitude"]
+        ha_lat = self.hass.config.as_dict()["latitude"]
+        last_lon = location[CONF_LONGITUDE]
+        last_lat = location[CONF_LATITUDE]
+        precision = 4 # we use 4 decimals which corresponds to ~10m (it depends on the latitude actually but should be good enough)
+        return round(ha_lon, precision) != round(last_lon, precision) or round(ha_lat, precision) != round(last_lat, precision)
+    
+    async def update_config_based_on_location(self, current_location) -> None:
+        """
+        Updates the entity config based on location
+        """
+        try:
+            insee_code, city_name, lat, lon = await get_insee_code_fromcoord(self.hass)
+        except ValueError as e:
+            _LOGGER.warning(f"Impossible to fetch insee code from new location: {e}")
+            return
+        await self._custom_store.async_save({CONF_LATITUDE: lat, CONF_LONGITUDE: lon, CONF_INSEE_CODE: insee_code, CONF_CITY: city_name, CONF_ZONE_TYPE: current_location[CONF_ZONE_TYPE]})
+        _LOGGER.info(f"New location detected {city_name} ({insee_code})")
+        
 
 def zone_type_to_str(zone_type: str) -> str:
     names = {
@@ -219,35 +289,26 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
         numeric_state: bool,
     ):
         super().__init__(coordinator)
+        self._config_entry = config_entry
         self._numeric_state = numeric_state
         self.hass = hass
-        self._attr_name = f"Alert level in {config_entry.data.get(CONF_CITY)}"
-        if self._numeric_state:
-            self._attr_name += " (numeric)"
+        self._attr_name = self.build_name()
         self._attr_native_value = None
         self._attr_state_attributes = None
         if MIGRATED_FROM_VERSION_1 in config_entry.data:
             self._attr_unique_id = "sensor-vigieau-Alert level"
         elif MIGRATED_FROM_VERSION_5 in config_entry.data:
             self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}"
-        else:
+        elif MIGRATED_FROM_VERSION_6:
             self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_ZONE_TYPE)}"
+        else:
+            self._attr_unique_id = f"sensor-vigieau-alert-{config_entry.entry_id}"
+
         if self._numeric_state:
             self._attr_unique_id += "-numeric"
             self._attr_entity_category = EntityCategory.DIAGNOSTIC
 
-        self._attr_device_info = DeviceInfo(
-            name=f"{NAME} {config_entry.data.get(CONF_CITY)} {zone_type_to_str(config_entry.data.get(CONF_ZONE_TYPE))}",
-            entry_type=DeviceEntryType.SERVICE,
-            identifiers={
-                (
-                    DOMAIN,
-                    str(config_entry.data.get(DEVICE_ID_KEY)),
-                )
-            },
-            manufacturer=NAME,
-            model=config_entry.data.get(CONF_INSEE_CODE),
-        )
+        self._attr_device_info = self.build_device()
 
     def enrich_attributes(self, data: dict, key_source: str, key_target: str):
         if key_source in data:
@@ -255,12 +316,40 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
             if key_source in data:
                 self._attr_state_attributes[key_target] = data[key_source]
 
+    def build_device(self) -> DeviceInfo:
+        data = self._config_entry.data
+        if self.coordinator.location is not None:
+            data = self.coordinator.location()
+        return DeviceInfo(
+            name=f"{NAME} {data.get(CONF_CITY)} {zone_type_to_str(data.get(CONF_ZONE_TYPE))}",
+            entry_type=DeviceEntryType.SERVICE,
+            identifiers={
+                (
+                    DOMAIN,
+                    str(data.get(DEVICE_ID_KEY)),
+                )
+            },
+            manufacturer=NAME,
+            model=data.get(CONF_INSEE_CODE),
+        )
+
+    def build_name(self) -> str:
+        data = self._config_entry.data
+        if self.coordinator.location is not None:
+            data = self.coordinator.location()
+        name = f"Alert level in {data.get(CONF_CITY)}"
+        if self._numeric_state:
+            name += " (numeric)"
+        return name
+
     @callback
     def _handle_coordinator_update(self) -> None:
         _LOGGER.debug(f"Receiving an update for {self.unique_id} sensor")
         if not self.coordinator.last_update_success:
             _LOGGER.debug("Last coordinator failed, assuming state has not changed")
             return
+        self._attr_name = self.build_name()
+        self._attr_device_info = self.build_device()
         self.numeric_state_value = self.coordinator.data["_numeric_state_value"]
 
         if self._numeric_state:
@@ -310,6 +399,7 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
     ):
         super().__init__(coordinator)
         self.hass = hass
+        self._config_entry = config_entry
         # naming the attribute very early before it's updated by first api response is a hack
         # to make sure we have a decent entity_id selected by home assistant
         self._attr_name = (
@@ -327,19 +417,24 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
             self._attr_unique_id = f"sensor-vigieau-{self._config.key}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
         else:
             self._attr_unique_id = f"sensor-vigieau-{self._config.key}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}-{config_entry.data.get(CONF_ZONE_TYPE)}"
-        self._attr_device_info = DeviceInfo(
-            name=f"{NAME} {config_entry.data.get(CONF_CITY)} {zone_type_to_str(config_entry.data.get(CONF_ZONE_TYPE))}",
+        self._attr_device_info = self.build_device()
+
+    def build_device(self) -> DeviceInfo:
+        data = self._config_entry.data
+        if self.coordinator.location is not None:
+            data = self.coordinator.location()
+        return DeviceInfo(
+            name=f"{NAME} {data.get(CONF_CITY)} {zone_type_to_str(data.get(CONF_ZONE_TYPE))}",
             entry_type=DeviceEntryType.SERVICE,
             identifiers={
                 (
                     DOMAIN,
-                    str(config_entry.data.get(DEVICE_ID_KEY)),
+                    str(data.get(DEVICE_ID_KEY)),
                 )
             },
             manufacturer=NAME,
-            model=config_entry.data.get(CONF_INSEE_CODE),
+            model=data.get(CONF_INSEE_CODE),
         )
-
 
     def enrich_attributes(self, usage: dict, key_source: str, key_target: str):
         if key_source in usage:
@@ -356,7 +451,7 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         if not self.coordinator.last_update_success:
             _LOGGER.debug("Last coordinator failed, assuming state has not changed")
             return
-
+        self._attr_device_info = self.build_device()
         self._attr_state_attributes = self._attr_state_attributes or {}
         self._restrictions = []
         self._time_restrictions = {}
