@@ -14,7 +14,6 @@ from custom_components.vigieau.api import InseeAPI, VigieauAPI, VigieauAPIError
 
 
 async def main():
-    restriction_list = {"restrictions": []}
     usages = set()
     async with aiohttp.ClientSession() as session:
 
@@ -29,16 +28,27 @@ async def main():
                 usages.add(frozendict({"usage": restriction["nom"], "thematique": restriction["thematique"]}))
 
         print(f"Found {len(usages)} different usages")
-        dump_restrictions(restriction_list, usages)
+        dump_restrictions(usages)
 
 
-def dump_restrictions(restriction_list, usages):
+def dump_restrictions(new_usages):
+    file = os.path.join(os.path.dirname(__file__), "full_usage_list.json")
+
+    with open(file, "r", encoding="utf-8") as infile:
+        usage_list = json.load(infile)["restrictions"]
+    known_usages = set()
+    for r in usage_list:
+        known_usages.add(r["usage"])
+    for r in new_usages:
+        if r["usage"] not in known_usages:
+            usage_list.append(r)
+    restriction_list = {}
+
     restriction_list["restrictions"] = sorted(
-        list(usages), key=lambda h: h["usage"]
+        list(usage_list), key=lambda h: h["usage"]
     )
 
     finaldata = json.dumps(restriction_list, ensure_ascii=False, indent=2)
-    file = os.path.join(os.path.dirname(__file__), "full_usage_list.json")
 
     with open(file, "w", encoding="utf-8") as outfile:
         outfile.write(finaldata)

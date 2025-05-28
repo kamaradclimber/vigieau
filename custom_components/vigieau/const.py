@@ -75,6 +75,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "arrosage.+arbres.+",
             "arrosage.+plant.+",
             "Cultures en godets et semis.+",
+            "Prélèvement pour le lavage de fruits.*",
+            "Aspersion .+ R214-1.*",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -121,6 +123,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             ".*motorisées.*",
             ".*Arrosage des jardins et parcs ouverts au public.*",
             ".*gazons.*",
+            "Arrosage des terrains sportifs.+",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -193,6 +196,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Remplissage des jacuzzis",
             ".*piscines.*",
             ".*tobbogan aquatique.*",
+            "Remplissage et appoint des bassins individuels dans les établissements recevant.*",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -365,6 +369,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "usages agricoles",
             "Activités industrielles.*",
             "Activités commerciales.*",
+            "Activités artisanales, commerciales et industrielles",
             "Établissements ayant une faible consommation d'eau",
             "Vente de plantations",
             "Prélèvements d’eau à usage industriel.*",
@@ -384,6 +389,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Autres prélèvements à usage industriel ou artisanal",
             "Autre irrigation",
             "Contrôles périodiques des points d.eau d’incendie",
+            "Réservoirs eau potable",
+            "Alimentation en eau des populations.+",
         ],
     ),
 )
