@@ -110,8 +110,8 @@ class VigieauAPI:
         self._session = session or aiohttp.ClientSession()
 
     async def get_data(
-        self, lat: Optional[float], long: Optional[float], insee_code: str, profil: str,
-        zone_type: str) -> dict:
+            self, lat: Optional[float], long: Optional[float], insee_code: str, profil: str,
+            zone_type: str) -> dict:
         url = f"{VIGIEAU_API_URL}/api/zones?commune={insee_code}&profil={profil}&zoneType={zone_type}"
         if lat is not None and long is not None:
             url += f"&lat={lat}&lon={long}"
@@ -123,10 +123,12 @@ class VigieauAPI:
             and re.match("Aucune zone.+en vigueur", (await resp.json())["message"])
         ):
             _LOGGER.debug(f"Vigieau replied with no restriction, faking data")
-            data = [{"niveauGravite": "vigilance", "usages": [], "arrete": {}}]
+            data = [{"niveauGravite": "Pas de restrictions",
+                     "usages": [], "arrete": {}}]
         elif resp.status == 200 and (await resp.json()) == []:
             _LOGGER.debug(f"Vigieau replied with no data at all, faking data")
-            data = [{"niveauGravite": "vigilance", "usages": [], "arrete": {}}]
+            data = [{"niveauGravite": "Pas de restrictions",
+                     "usages": [], "arrete": {}}]
         elif resp.status in range(200, 300):
             data = await resp.json()
         else:
@@ -135,10 +137,11 @@ class VigieauAPI:
         # enriching with numeric state value
         data = data[0]
         data["_numeric_state_value"] = {
-            "vigilance": 0,
-            "alerte": 1,
-            "alerte_renforcée": 2,
-            "alerte_renforcee": 2,
-            "crise": 3,
+            "Pas de restrictions": 0,
+            "vigilance": 1,
+            "alerte": 2,
+            "alerte_renforcée": 3,
+            "alerte_renforcee": 3,
+            "crise": 4,
         }[data["niveauGravite"]]
         return data
