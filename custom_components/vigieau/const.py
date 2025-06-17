@@ -116,7 +116,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Arrosage terrains sport.+",
             "Arrosage des îlots de fraîcheur validés par l’administration",
             "sols équestres et sports motorisés",
-            "Arrosage des pistes d'hippodromes",
+            "Arrosage des pistes d.hippodrome.*",
             "pistes de chevaux",
             ".*équestres.*",
             ".*motorisés.*",
@@ -124,6 +124,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             ".*Arrosage des jardins et parcs ouverts au public.*",
             ".*gazons.*",
             "Arrosage des terrains sportifs.+",
+            "Potagers bac et jardin.*",
+
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -139,6 +141,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "lavage.+professionnel.+",
             "Nettoyage des véhicules et bateaux",
             "Nettoyage des véhicules, des bateaux Y compris par dispositifs mobiles",
+            "Nettoyage des véhicules roulants.*",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -214,6 +217,9 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Alimentation d’étangs",
             "remplissage.*retenues.*",
             "Alimentation des retenues collinaires",
+            "Remplissage des réserves",
+            "Remplissage des réserves  incendie",
+
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -254,6 +260,12 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Installations de production d'électricité d'orignie hydraulique",
             "Prélèvements des centrales hydroélectriques, moulins, barrages",
             "Prélèvement domestique directement dans le cours d'eau",
+            "Création de prélèvement.*",
+            "Essai de pompage",
+            "Gestion des niveaux d’eau des plans en dérivation.*",
+            "Prélèvement dans les eaux souterraines.*",
+            "Rejets dans le milieu naturel",
+            "Réseau d'adduction d'eau potable",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -307,6 +319,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             ".*forages.*",
             "forage domestique",
             "prélèvement dans un cours d.eau",
+
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -391,6 +404,11 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Contrôles périodiques des points d.eau d’incendie",
             "Réservoirs eau potable",
             "Alimentation en eau des populations.+",
+            "Besoins pour les animaux",
+            "Besoins prioritaires.+",
+            "Contrôle des bornes d’incendie.*",
+            "Eau de Paris",
+
         ],
     ),
 )
