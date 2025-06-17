@@ -25,6 +25,13 @@ LOCATION_MODES = {
     SELECT_COORD: "Sélection sur carte",
 }
 
+LEVEL_COLORS = {
+    0: "#e8edff",
+    1: "#ffeda0",
+    2: "#feb24c",
+    3: "#fc4e2a",
+    4: "#b10026",
+}
 NAME = "Vigieau"
 
 VIGIEAU_API_URL = "https://api.vigieau.beta.gouv.fr"
