@@ -25,7 +25,16 @@ async def main():
         # jq '.features | .[].properties.restrictions' ~/Downloads/zones_arretes_en_vigueur.geojson   |less
         for feature in data["features"]:
             for restriction in feature["properties"]["restrictions"]:
-                usages.add(frozendict({"usage": restriction["nom"], "thematique": restriction["thematique"]}))
+                usages.add(frozendict({
+                    "usage": restriction["nom"],
+                    "thematique": restriction["thematique"],
+                    "concerneParticulier": restriction.get("concerneParticulier", False),
+                    "concerneCollectivite": restriction.get("concerneCollectivite", False),
+                    "concerneEtablissement": restriction.get("concerneEtablissement", False),
+                    "concerneActivite": restriction.get("concerneActivite", False),
+                    "concerneExploitation": restriction.get("concerneExploitation", False),
+                    "concerneInstallation": restriction.get("concerneInstallation", False),
+                }))
 
         print(f"Found {len(usages)} different usages")
         dump_restrictions(usages)
