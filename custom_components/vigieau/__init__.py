@@ -233,13 +233,8 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             for usage in data["usages"]:
                 found = False
                 for sensor in SENSOR_DEFINITIONS:
-                    for matcher in sensor.matchers:
-                        if re.search(
-                            matcher,
-                            usage["nom"] + "|" + usage['thematique'],
-                            re.IGNORECASE,
-                        ):
-                            found = True
+                    if sensor.match(usage):
+                        found = True
                 if not found:
                     report_data = json.dumps(
                         {"insee code": city_code, "nom": usage["nom"]},
@@ -470,29 +465,26 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         self._time_restrictions = {}
         self._attr_name = str(self._config.name)
         for usage in self.coordinator.data["usages"]:
-            for matcher in self._config.matchers:
-                fully_qualified_usage = usage["nom"] + \
-                    "|" + usage['thematique']
-                if re.search(matcher, fully_qualified_usage, re.IGNORECASE):
-                    self._attr_state_attributes = self._attr_state_attributes or {}
-                    restriction = usage.get("description")
-                    if restriction is None:
-                        raise UpdateFailed(
-                            "Restriction level is not specified"
-                        )
-                    self._attr_state_attributes[
-                        f"Categorie: {usage['nom']}"
-                    ] = restriction
-                    self._restrictions.append(restriction)
-
-                    self.enrich_attributes(
-                        usage, "details", f"{usage['nom']} (details)"
+            if self._config.match(usage):
+                self._attr_state_attributes = self._attr_state_attributes or {}
+                restriction = usage.get("description")
+                if restriction is None:
+                    raise UpdateFailed(
+                        "Restriction level is not specified"
                     )
-                    if "heureFin" in usage and "heureDebut" in usage:
-                        self._time_restrictions[usage["nom"]] = [
-                            usage["heureDebut"],
-                            usage["heureFin"],
-                        ]
+                self._attr_state_attributes[
+                    f"Categorie: {usage['nom']}"
+                ] = restriction
+                self._restrictions.append(restriction)
+
+                self.enrich_attributes(
+                    usage, "details", f"{usage['nom']} (details)"
+                )
+                if "heureFin" in usage and "heureDebut" in usage:
+                    self._time_restrictions[usage["nom"]] = [
+                        usage["heureDebut"],
+                        usage["heureFin"],
+                    ]
 
         # we only want to add those attributes if they are not ambiguous
         if len(set([repr(r) for r in self._time_restrictions.values()])) == 1:

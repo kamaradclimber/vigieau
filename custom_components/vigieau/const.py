@@ -1,5 +1,6 @@
 from homeassistant.components.sensor import SensorEntityDescription
 from dataclasses import dataclass
+import re
 
 ADDRESS_API_URL = "https://api-adresse.data.gouv.fr"
 
@@ -55,6 +56,12 @@ class VigieEauSensorEntityDescription(
     SensorEntityDescription, VigieEauRequiredKeysMixin
 ):
     """Describes VigieEau sensor entity."""
+
+    def match(self, usage: dict) -> bool:
+        for matcher in self.matchers:
+            if re.search(matcher, usage["usage"] + "|" + usage['thematique']):
+                return True
+        return False
 
 
 SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
