@@ -443,7 +443,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
     ),
     VigieEauSensorEntityDescription(
         name="Arrosage des arbres et plantes",
-        category="mdi:tree",
+        icon="mdi:tree",
+        category="trees",
         key="trees",
         matchers=[
             "Cultures en godets et semis.*Arroser",
@@ -474,7 +475,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
     ),
     VigieEauSensorEntityDescription(
         name="Usage pour animaux",
-        category="mdi:cow",
+        icon="mdi:cow",
+        category="animals",
         key="animals",
         matchers=[
             "Arrosage des pistes pour chevaux.*Arroser",
@@ -485,7 +487,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
     ),
     VigieEauSensorEntityDescription(
         name="Maraîchage et cultures",
-        category="mdi:corn",
+        icon="mdi:corn",
+        category="fields",
         key="fields",
         matchers=[
             "Irrigations des cultures - prélèvements directs rivière, canal de Bourgogne....*Irriguer",
