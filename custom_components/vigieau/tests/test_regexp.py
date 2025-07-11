@@ -7,7 +7,6 @@ sys.path.append(".")
 sys.path.append(parent_dir)
 from custom_components.vigieau.const import SENSOR_DEFINITIONS
 import unittest
-from pathlib import Path
 import json
 import os
 import re
@@ -26,14 +25,9 @@ class TestRegexp(unittest.TestCase):
             ):  # For soft fail, ref https://stackoverflow.com/questions/4732827/continuing-in-pythons-unittest-when-an-assertion-fails
                 found = False
                 for sensor in SENSOR_DEFINITIONS:
-                    # We may have to create a function rather than copy/paste, but it's a 'simple re.search....
-                    for matcher in sensor.matchers:
-                        if re.search(
-                            matcher,
-                            restriction["usage"] + "|" + restriction['thematique'],
-                            re.IGNORECASE,
-                        ):
-                            found = True
+                    if sensor.match(restriction):
+                        found = True
+                        break
                 self.assertTrue(
                     found,
                     f"Value **{restriction['usage']}** in category **{restriction['thematique']}** not found in matcher",
