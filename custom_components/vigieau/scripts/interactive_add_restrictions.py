@@ -60,5 +60,5 @@ def insert_new_matcher(sensor_name: str, matcher: str):
 
 for sensor_name, usages in new_matchers.items():
     for usage in usages:
-        r = usage["usage"] + ".*" + usage['thematique']
+        r = usage["usage"].strip() + ".*" + usage['thematique'].strip()
         insert_new_matcher(sensor_name, r)
