@@ -60,7 +60,7 @@ class VigieEauSensorEntityDescription(
 
     def match(self, usage: dict) -> bool:
         for matcher in self.matchers:
-            if re.search(matcher, usage["usage"] + "|" + usage["thematique"]):
+            if re.search(matcher, usage["nom"] + "|" + usage["thematique"]):
                 return True
         return False
 
