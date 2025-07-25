@@ -475,7 +475,8 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
                 self._attr_state_attributes[
                     f"Categorie: {usage['nom']}"
                 ] = restriction
-                self._restrictions.append(restriction)
+                if restriction not in self._restrictions:
+                    self._restrictions.append(restriction)
 
                 self.enrich_attributes(
                     usage, "details", f"{usage['nom']} (details)"
@@ -548,10 +549,17 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
             return "Sensibilisation"
         if any_restriction_match("Sensibilisation"):
             return "Sensibilisation"
+        if any_restriction_match("il est demandé"):
+            return "Sensibilisation"
         if len(self._restrictions) == 1:
             return self._restrictions[0]
-        _LOGGER.warn(
-            f"Restrictions are hard to interpret: {self._restrictions}")
+        report_data = json.dumps(
+            {"insee code": self._config_entry.data.get(CONF_INSEE_CODE), "restrictions": self._restrictions},
+            ensure_ascii=False,
+        )
+        _LOGGER.warning(
+            f"The following restriction are hard to interpret by this integration, please report an issue with: {report_data}"
+                    )
         return None
 
     @property
