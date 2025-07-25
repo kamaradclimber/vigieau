@@ -475,8 +475,7 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
                 self._attr_state_attributes[
                     f"Categorie: {usage['nom']}"
                 ] = restriction
-                if restriction not in self._restrictions:
-                    self._restrictions.append(restriction)
+                self._restrictions.append(restriction)
 
                 self.enrich_attributes(
                     usage, "details", f"{usage['nom']} (details)"
