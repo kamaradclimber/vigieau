@@ -19,6 +19,7 @@ data = json.loads(input)
 new_matchers = { sensor.name: [] for sensor in SENSOR_DEFINITIONS }
 
 for (i,restriction) in enumerate(data["restrictions"]):
+    restriction["nom"] = restriction["usage"]
     matched = False
     for sensor in SENSOR_DEFINITIONS:
          if sensor.match(restriction):
