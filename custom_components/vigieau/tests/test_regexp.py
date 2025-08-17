@@ -20,6 +20,7 @@ class TestRegexp(unittest.TestCase):
         data = json.loads(input)
 
         for restriction in data["restrictions"]:  # For all restrictions in the list
+            restriction["nom"] = restriction["usage"]
             with self.subTest(
                 msg="One matcher failed"
             ):  # For soft fail, ref https://stackoverflow.com/questions/4732827/continuing-in-pythons-unittest-when-an-assertion-fails
