@@ -550,6 +550,8 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
             return "Sensibilisation"
         if any_restriction_match("il est demandé"):
             return "Sensibilisation"
+        if any_restriction_match("Réduction"):
+            return "Réduction"
         if len(self._restrictions) == 1:
             return self._restrictions[0]
         report_data = json.dumps(
