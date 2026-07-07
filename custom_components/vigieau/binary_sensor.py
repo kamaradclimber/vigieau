@@ -5,8 +5,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import (
-    AlertLevelEntity,
-    UsageRestrictionEntity,
+    UsageRestrictionBinaryEntity,
 )
 from .const import DOMAIN, SENSOR_DEFINITIONS
 
@@ -18,13 +17,10 @@ async def async_setup_entry(
 ) -> None:
     vigieau_coordinator = hass.data[DOMAIN][entry.entry_id]["vigieau_coordinator"]
     sensors = [
-        UsageRestrictionEntity(
+        UsageRestrictionBinaryEntity(
             vigieau_coordinator, hass, entry, sensor_description
         )
         for sensor_description in SENSOR_DEFINITIONS
     ]
-    sensors.append(AlertLevelEntity(vigieau_coordinator, hass, entry, numeric_state=False))
-    sensors.append(AlertLevelEntity(vigieau_coordinator, hass, entry, numeric_state=True))
 
     async_add_entities(sensors)
-    await vigieau_coordinator.async_config_entry_first_refresh()

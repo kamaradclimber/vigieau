@@ -43,3 +43,26 @@ This integration uses a geocoding API to get the city code from INSEE (used as a
 
 A workaround can be used by setting the `VIGIEAU_FORCED_INSEE_CITY_CODE` environment variable with the city code as value.
 ⚠ Value of city code is not necessarily city "postal code". You can find it easily of wikipedia under the name [code commune](https://fr.wikipedia.org/wiki/Code_officiel_g%C3%A9ographique#Code_commune).
+
+## Sensors
+
+Two sensors are created for each water usage category:
+
+| Type | Description | Diagnostic category | Enabled by default |
+|---|---|---|---|
+| `sensor` | Textual restriction level (native value: "Aucune restriction", "Interdiction", "Interdiction sur plage horaire", etc.) | No | No |
+| `binary_sensor` | `on` = allowed, `off` = restricted | Yes | Yes for fountains, vegetable gardens, lawns, car wash, swimming pools |
+
+### Attributes
+
+All sensors expose these additional attributes for automations:
+
+| Attribute | Description |
+|---|---|
+| `currently_restricted` | `true` if a restriction is currently active |
+| `restriction` | Textual restriction level (same as string sensor native value) |
+| `next_restriction_start` | (time-based restrictions only) Next restriction start time (ISO format) |
+| `next_restriction_end` | (time-based restrictions only) Next restriction end time (ISO format) |
+| `Categorie: <name>` | Exact API description for that usage |
+| `<name> (details)` | Additional usage details from the API |
+| `heureDebut` / `heureFin` | (if unambiguous) Restriction time window |

@@ -3,7 +3,7 @@ import re
 import json
 import urllib.parse
 import logging
-from datetime import timedelta, datetime
+from datetime import timedelta, time as dt_time
 from dateutil import tz
 from itertools import dropwhile, takewhile
 from typing import Any, Dict, Optional, Tuple
@@ -11,6 +11,7 @@ from zoneinfo import ZoneInfo
 import aiohttp
 
 from homeassistant.components.sensor import RestoreSensor, SensorEntity
+from homeassistant.components.binary_sensor import BinarySensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_LATITUDE,
@@ -28,6 +29,8 @@ from homeassistant.helpers.update_coordinator import (
     UpdateFailed,
 )
 from homeassistant.helpers.storage import Store
+from homeassistant.helpers.event import async_track_point_in_time
+from homeassistant.util import dt as dt_util
 
 from .api import VigieauAPI, VigieauAPIError
 from .config_flow import get_insee_code_fromcoord, SetupConfigFlow
@@ -125,8 +128,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             hass, dict(entry.data), entry.entry_id
         )
 
-    # will make sure async_setup_entry from sensor.py is called
-    await hass.config_entries.async_forward_entry_setups(entry, [Platform.SENSOR])
+    # will make sure async_setup_entry from sensor.py and binary_sensor.py are called
+    await hass.config_entries.async_forward_entry_setups(
+        entry, [Platform.SENSOR, Platform.BINARY_SENSOR]
+    )
 
     # subscribe to config updates
     entry.async_on_unload(entry.add_update_listener(update_entry))
@@ -148,7 +153,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """This method is called to clean all sensors before re-adding them"""
     _LOGGER.debug("async_unload_entry method called")
     unload_ok = await hass.config_entries.async_unload_platforms(
-        entry, [Platform.SENSOR]
+        entry, [Platform.SENSOR, Platform.BINARY_SENSOR]
     )
     if unload_ok:
         hass.data[DOMAIN].pop(entry.entry_id)
@@ -283,6 +288,23 @@ def zone_type_to_str(zone_type: str) -> str:
     return names.get(zone_type, "Zone inconnue")
 
 
+def _parse_time_str(time_str: str) -> Optional[dt_time]:
+    """Parse time string from API (HH:MM or HHhMM) into datetime.time"""
+    if not time_str:
+        return None
+    time_str = time_str.strip()
+    match = re.match(r'(\d{1,2}):(\d{2})', time_str)
+    if match:
+        return dt_time(int(match.group(1)), int(match.group(2)))
+    match = re.match(r'(\d{1,2})h(\d{2})', time_str)
+    if match:
+        return dt_time(int(match.group(1)), int(match.group(2)))
+    match = re.match(r'(\d{1,2})h\s*$', time_str)
+    if match:
+        return dt_time(int(match.group(1)), 0)
+    return None
+
+
 class AlertLevelEntity(CoordinatorEntity, SensorEntity):
     """Expose the alert level for the location"""
 
@@ -391,48 +413,16 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
         return self._attr_state_attributes
 
 
-class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
-    """Expose a restriction for a given usage"""
+class RestrictionMixin:
+    """Shared logic for restriction entities (string sensors and binary sensors)"""
 
-    entity_description: VigieEauSensorEntityDescription
-
-    def __init__(
-        self,
-        coordinator: VigieauAPICoordinator,
-        hass: HomeAssistant,
-        usage_id: str,
-        config_entry: ConfigEntry,
-        description: VigieEauSensorEntityDescription,
-    ):
-        super().__init__(coordinator)
-        self.hass = hass
-        self._config_entry = config_entry
-        # naming the attribute very early before it's updated by first api response is a hack
-        # to make sure we have a decent entity_id selected by home assistant
-        self._attr_name = (
-            f"{description.name}_restrictions_{config_entry.data.get(CONF_CITY)}"
-        )
-        self._attr_native_value = None
-        self._attr_state_attributes = None
-        self._attr_entity_category = EntityCategory.DIAGNOSTIC
-        self._config = description
-        if MIGRATED_FROM_VERSION_1 in config_entry.data:
-            self._attr_unique_id = f"sensor-vigieau-{self._config.key}"
-        elif MIGRATED_FROM_VERSION_3 in config_entry.data:
-            self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
-        elif MIGRATED_FROM_VERSION_5 in config_entry.data:
-            self._attr_unique_id = f"sensor-vigieau-{self._config.key}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
-        else:
-            self._attr_unique_id = f"sensor-vigieau-{self._config.key}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}-{config_entry.data.get(CONF_ZONE_TYPE)}"
-        self._attr_device_info = self.build_device()
+    @property
+    def state_attributes(self):
+        return self._attr_state_attributes
 
     def build_device(self) -> DeviceInfo:
         data = self._config_entry.data
-        if self.coordinator.location is not None:
-            data = self.coordinator.location()
         return DeviceInfo(
-            name=f"{NAME} {data.get(CONF_CITY)} {zone_type_to_str(data.get(CONF_ZONE_TYPE))}",
-            entry_type=DeviceEntryType.SERVICE,
             identifiers={
                 (
                     DOMAIN,
@@ -448,64 +438,6 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
             self._attr_state_attributes = self._attr_state_attributes or {}
             self._attr_state_attributes[key_target] = usage[key_source]
 
-    @property
-    def icon(self):
-        return self._config.icon
-
-    @callback
-    def _handle_coordinator_update(self) -> None:
-        _LOGGER.debug(f"Receiving an update for {self.unique_id} sensor")
-        if not self.coordinator.last_update_success:
-            _LOGGER.debug(
-                "Last coordinator failed, assuming state has not changed")
-            return
-        self._attr_device_info = self.build_device()
-        self._attr_state_attributes = self._attr_state_attributes or {}
-        self._restrictions = []
-        self._time_restrictions = {}
-        self._attr_name = str(self._config.name)
-        for usage in self.coordinator.data["usages"]:
-            if self._config.match(usage):
-                self._attr_state_attributes = self._attr_state_attributes or {}
-                restriction = usage.get("description")
-                if restriction is None:
-                    raise UpdateFailed(
-                        "Restriction level is not specified"
-                    )
-                self._attr_state_attributes[
-                    f"Categorie: {usage['nom']}"
-                ] = restriction
-                self._restrictions.append(restriction)
-
-                self.enrich_attributes(
-                    usage, "details", f"{usage['nom']} (details)"
-                )
-                if "heureFin" in usage and "heureDebut" in usage:
-                    self._time_restrictions[usage["nom"]] = [
-                        usage["heureDebut"],
-                        usage["heureFin"],
-                    ]
-
-        # we only want to add those attributes if they are not ambiguous
-        if len(set([repr(r) for r in self._time_restrictions.values()])) == 1:
-            restrictions = list(self._time_restrictions.values())[0]
-            self._attr_state_attributes["heureDebut"] = restrictions[0]
-            self._attr_state_attributes["heureFin"] = restrictions[1]
-        elif len(self._time_restrictions) > 0:
-            _LOGGER.debug(
-                f"There are {len(self._time_restrictions)} usage with time restrictions for this sensor, exposing info per usage"
-            )
-            for name in self._time_restrictions:
-                self._attr_state_attributes[
-                    f"{name} (heureDebut)"
-                ] = self._time_restrictions[name][0]
-                self._attr_state_attributes[
-                    f"{name} (heureFin)"
-                ] = self._time_restrictions[name][1]
-
-        self._attr_native_value = self.compute_native_value()
-        self.async_write_ha_state()
-
     def compute_native_value(self) -> Optional[str]:
         """This method extract the most relevant restriction level to display as aggregate"""
 
@@ -516,10 +448,33 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
                     return True
             return False
 
+        TIME_PATTERNS = [r"interdiction sur plage horaire", r"interdiction.*\d+\s*h"]
+
+        def has_time_based_interdiction():
+            for pattern in TIME_PATTERNS:
+                r = re.compile(pattern, re.IGNORECASE)
+                for restriction in self._restrictions:
+                    if r.search(restriction):
+                        return True
+            return False
+
+        def has_non_time_interdiction():
+            r_inter = re.compile(r"interdiction", re.IGNORECASE)
+            r_time = re.compile("|".join(TIME_PATTERNS), re.IGNORECASE)
+            for restriction in self._restrictions:
+                if r_inter.search(restriction) and not r_time.search(restriction):
+                    return True
+            return False
+
+        self._native_is_time_based = False
+
         if len(self._restrictions) == 0:
             return "Aucune restriction"
-        if any_restriction_match("interdiction sur plage horaire"):
+
+        if not has_non_time_interdiction() and has_time_based_interdiction():
+            self._native_is_time_based = True
             return "Interdiction sur plage horaire"
+
         if any_restriction_match("interdi.*sauf"):
             return "Interdiction sauf exception"
         if any_restriction_match("à l’exception"):
@@ -560,9 +515,309 @@ class UsageRestrictionEntity(CoordinatorEntity, SensorEntity):
         )
         _LOGGER.warning(
             f"The following restriction are hard to interpret by this integration, please report an issue with: {report_data}"
-                    )
+        )
         return None
 
+    def _is_time_based(self) -> bool:
+        return self._native_is_time_based
+
+    def _extract_time_range_from_descriptions(self):
+        for restriction in self._restrictions:
+            match = re.search(r"(\d{1,2})\s*h.*?(\d{1,2})\s*h", restriction)
+            if match:
+                start_str = f"{match.group(1)}h"
+                end_str = f"{match.group(2)}h"
+                start_time = _parse_time_str(start_str)
+                end_time = _parse_time_str(end_str)
+                if start_time is not None and end_time is not None:
+                    _LOGGER.debug(
+                        f"Extracted time range {start_time}-{end_time} from description: {restriction}"
+                    )
+                    return (start_time, end_time)
+        return None
+
+    def _get_effective_time_ranges(self):
+        ranges = []
+        for name, (start_str, end_str) in self._time_restrictions.items():
+            start = _parse_time_str(start_str)
+            end = _parse_time_str(end_str)
+            if start is not None and end is not None:
+                ranges.append((start, end))
+        if not ranges and self._extracted_time_range is not None:
+            ranges.append(self._extracted_time_range)
+        return ranges
+
+    def _is_currently_restricted(self, now_time=None):
+        if now_time is None:
+            now_time = dt_util.now().time()
+        for start_time, end_time in self._get_effective_time_ranges():
+            if start_time <= end_time:
+                if start_time <= now_time < end_time:
+                    return True
+            else:
+                if now_time >= start_time or now_time < end_time:
+                    return True
+        return False
+
+    def _update_dynamic_attributes(self):
+        R = self._attr_state_attributes.get("restriction") if self._attr_state_attributes else None
+
+        if self._native_is_time_based:
+            now_time = dt_util.now().time()
+            is_restricted = self._is_currently_restricted(now_time)
+            time_ranges = self._get_effective_time_ranges()
+            _LOGGER.debug(f"Dynamic attr for {self.unique_id}: time_based=True, now_time={now_time}, ranges={time_ranges}, is_restricted={is_restricted}, R={R}")
+        elif R in ("Aucune restriction", "Autorisé sauf exception", "Sensibilisation"):
+            is_restricted = False
+        else:
+            is_restricted = True
+
+        self._attr_state_attributes["currently_restricted"] = is_restricted
+
+        if self._native_is_time_based:
+            now = dt_util.now()
+            now_time = now.time()
+            ranges = self._get_effective_time_ranges()
+
+            if ranges:
+                start_time, end_time = ranges[0]
+                start_dt = now.replace(hour=start_time.hour, minute=start_time.minute, second=0, microsecond=0)
+                end_dt = now.replace(hour=end_time.hour, minute=end_time.minute, second=0, microsecond=0)
+
+                if start_dt <= now:
+                    start_dt += timedelta(days=1)
+                if end_dt <= now:
+                    end_dt += timedelta(days=1)
+
+                if start_time > end_time:
+                    if is_restricted:
+                        next_autorisation = end_dt
+                        next_coupure = start_dt
+                    else:
+                        next_coupure = start_dt
+                        next_autorisation = end_dt
+                else:
+                    if is_restricted:
+                        next_autorisation = end_dt
+                        next_coupure = start_dt
+                    else:
+                        next_coupure = start_dt
+                        next_autorisation = end_dt
+
+                self._attr_state_attributes["next_restriction_start"] = next_coupure.isoformat()
+                self._attr_state_attributes["next_restriction_end"] = next_autorisation.isoformat()
+        else:
+            self._attr_state_attributes.pop("next_restriction_start", None)
+            self._attr_state_attributes.pop("next_restriction_end", None)
+
+    def _cancel_timer(self):
+        if self._unsub_timer is not None:
+            _LOGGER.debug(f"Cancelling timer for {getattr(self, 'unique_id', 'unknown')}")
+            self._unsub_timer()
+            self._unsub_timer = None
+
+    def _schedule_next_time_update(self):
+        now = dt_util.now()
+        now_time = now.time()
+        next_boundary = None
+        ranges = self._get_effective_time_ranges()
+
+        _LOGGER.debug(f"Schedule compute for {self.unique_id}: now={now.isoformat()}, now_time={now_time}, ranges={ranges}, time_restrictions={getattr(self, '_time_restrictions', {})}, extracted_range={getattr(self, '_extracted_time_range', None)}")
+
+        for start_time, end_time in ranges:
+            start_dt = now.replace(hour=start_time.hour, minute=start_time.minute, second=0, microsecond=0)
+            end_dt = now.replace(hour=end_time.hour, minute=end_time.minute, second=0, microsecond=0)
+
+            _LOGGER.debug(f"Range raw: start_time={start_time}, end_time={end_time}, start_dt={start_dt}, end_dt={end_dt}")
+
+            if start_dt <= now:
+                start_dt += timedelta(days=1)
+                _LOGGER.debug(f"start_dt adjusted to {start_dt} (was <= now)")
+            if end_dt <= now:
+                end_dt += timedelta(days=1)
+                _LOGGER.debug(f"end_dt adjusted to {end_dt} (was <= now)")
+
+            if start_time > end_time:
+                if now_time >= start_time or now_time < end_time:
+                    candidate = end_dt
+                else:
+                    candidate = start_dt
+            else:
+                candidate = min(start_dt, end_dt)
+
+            _LOGGER.debug(f"Candidate for range {start_time}-{end_time}: {candidate.isoformat()}, start_dt={start_dt.isoformat()}, end_dt={end_dt.isoformat()}")
+
+            if next_boundary is None or candidate < next_boundary:
+                next_boundary = candidate
+
+        if next_boundary is not None:
+            _LOGGER.debug(f"Scheduling next attribute update for {self.unique_id} at {next_boundary.isoformat()} (tzinfo={next_boundary.tzinfo})")
+            self._unsub_timer = async_track_point_in_time(
+                self.hass,
+                self._time_boundary_reached,
+                next_boundary,
+            )
+        else:
+            _LOGGER.debug(f"No next boundary to schedule for {self.unique_id}")
+
+    @callback
+    def _time_boundary_reached(self, now):
+        _LOGGER.debug(f"Time boundary reached for {self.unique_id}, updating attributes. event_time={now}, system_time={dt_util.now().isoformat()}, timer_active={self._unsub_timer is not None}")
+        self._update_dynamic_attributes()
+        self._schedule_next_time_update()
+        self.async_write_ha_state()
+
+    async def async_will_remove_from_hass(self):
+        self._cancel_timer()
+        await super().async_will_remove_from_hass()
+
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        _LOGGER.debug(f"Receiving an update for {self.unique_id} sensor (timer_active={self._unsub_timer is not None})")
+        if not self.coordinator.last_update_success:
+            _LOGGER.debug(
+                "Last coordinator failed, assuming state has not changed")
+            return
+        self._cancel_timer()
+        self._attr_device_info = self.build_device()
+        self._attr_state_attributes = self._attr_state_attributes or {}
+        self._restrictions = []
+        self._time_restrictions = {}
+        self._extracted_time_range = None
+        self._attr_name = str(self._config.name)
+        for usage in self.coordinator.data["usages"]:
+            if self._config.match(usage):
+                self._attr_state_attributes = self._attr_state_attributes or {}
+                restriction = usage.get("description")
+                if restriction is None:
+                    raise UpdateFailed(
+                        "Restriction level is not specified"
+                    )
+                self._attr_state_attributes[
+                    f"Categorie: {usage['nom']}"
+                ] = restriction
+                self._restrictions.append(restriction)
+
+                self.enrich_attributes(
+                    usage, "details", f"{usage['nom']} (details)"
+                )
+                if "heureFin" in usage and "heureDebut" in usage:
+                    self._time_restrictions[usage["nom"]] = [
+                        usage["heureDebut"],
+                        usage["heureFin"],
+                    ]
+
+        if len(set([repr(r) for r in self._time_restrictions.values()])) == 1:
+            restrictions = list(self._time_restrictions.values())[0]
+            self._attr_state_attributes["heureDebut"] = restrictions[0]
+            self._attr_state_attributes["heureFin"] = restrictions[1]
+        elif len(self._time_restrictions) > 0:
+            _LOGGER.debug(
+                f"There are {len(self._time_restrictions)} usage with time restrictions for this sensor, exposing info per usage"
+            )
+            for name in self._time_restrictions:
+                self._attr_state_attributes[
+                    f"{name} (heureDebut)"
+                ] = self._time_restrictions[name][0]
+                self._attr_state_attributes[
+                    f"{name} (heureFin)"
+                ] = self._time_restrictions[name][1]
+
+        if not self._time_restrictions:
+            self._extracted_time_range = self._extract_time_range_from_descriptions()
+
+        native_value = self.compute_native_value()
+        self._attr_state_attributes["restriction"] = native_value
+        self._update_dynamic_attributes()
+        self._on_restrictions_updated(native_value)
+        _LOGGER.debug(f"Coordinator update for {self.unique_id}: is_time_based={self._is_time_based()}, _native_is_time_based={self._native_is_time_based}, _time_restrictions={self._time_restrictions}, extracted_range={self._extracted_time_range}")
+        if self._is_time_based():
+            self._schedule_next_time_update()
+        self.async_write_ha_state()
+
+    def _on_restrictions_updated(self, native_value: str):
+        """Hook for subclasses to update entity state after restriction data changes"""
+        pass
+
+
+class UsageRestrictionEntity(RestrictionMixin, CoordinatorEntity, SensorEntity):
+    """Expose a restriction for a given usage as a string sensor"""
+
+    entity_description: VigieEauSensorEntityDescription
+
+    def __init__(
+        self,
+        coordinator: VigieauAPICoordinator,
+        hass: HomeAssistant,
+        config_entry: ConfigEntry,
+        description: VigieEauSensorEntityDescription,
+    ):
+        super().__init__(coordinator)
+        self.hass = hass
+        self._config_entry = config_entry
+        self._attr_name = (
+            f"{description.name}_restrictions_{config_entry.data.get(CONF_CITY)}"
+        )
+        self._attr_native_value = None
+        self._attr_state_attributes = None
+        self._attr_entity_registry_enabled_default = False
+        self._config = description
+        self._unsub_timer = None
+        self._native_is_time_based = False
+        self._extracted_time_range = None
+        if MIGRATED_FROM_VERSION_1 in config_entry.data:
+            self._attr_unique_id = f"sensor-vigieau-{self._config.key}"
+        elif MIGRATED_FROM_VERSION_3 in config_entry.data:
+            self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
+        elif MIGRATED_FROM_VERSION_5 in config_entry.data:
+            self._attr_unique_id = f"sensor-vigieau-{self._config.key}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
+        else:
+            self._attr_unique_id = f"sensor-vigieau-{self._config.key}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}-{config_entry.data.get(CONF_ZONE_TYPE)}"
+        self._attr_device_info = self.build_device()
+
     @property
-    def state_attributes(self):
-        return self._attr_state_attributes
+    def icon(self):
+        return self._config.icon
+
+    def _on_restrictions_updated(self, native_value: str):
+        self._attr_native_value = native_value
+
+
+class UsageRestrictionBinaryEntity(RestrictionMixin, CoordinatorEntity, BinarySensorEntity):
+    """Expose a restriction for a given usage as a binary sensor (on=restricted)"""
+
+    entity_description: VigieEauSensorEntityDescription
+
+    def __init__(
+        self,
+        coordinator: VigieauAPICoordinator,
+        hass: HomeAssistant,
+        config_entry: ConfigEntry,
+        description: VigieEauSensorEntityDescription,
+    ):
+        super().__init__(coordinator)
+        self.hass = hass
+        self._config_entry = config_entry
+        self._attr_name = (
+            f"{description.name}_binary_{config_entry.data.get(CONF_CITY)}"
+        )
+        self._attr_is_on = False
+        self._attr_state_attributes = None
+        self._attr_entity_category = EntityCategory.DIAGNOSTIC
+        self._attr_entity_registry_enabled_default = description.commonly_used
+        self._config = description
+        self._unsub_timer = None
+        self._native_is_time_based = False
+        self._extracted_time_range = None
+        self._attr_unique_id = f"binary_sensor-vigieau-{self._config.key}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}-{config_entry.data.get(CONF_ZONE_TYPE)}"
+        self._attr_device_info = self.build_device()
+
+    @property
+    def is_on(self):
+        return not self._attr_state_attributes.get("currently_restricted", True) if self._attr_state_attributes else True
+
+    @property
+    def icon(self):
+        if self._attr_state_attributes and self._attr_state_attributes.get("currently_restricted"):
+            return "mdi:water-off"
+        return "mdi:water-check"

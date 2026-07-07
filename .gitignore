@@ -9,3 +9,11 @@ deps/
 home-assistant.log*
 home-assistant_v2.db
 *.pyc
+
+# virtualenv
+lib/
+bin/
+include/
+pyvenv.cfg
+.cache/
+release.sh

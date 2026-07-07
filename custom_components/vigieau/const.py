@@ -50,6 +50,7 @@ class VigieEauRequiredKeysMixin:
 
     category: str
     matchers: list[str]
+    commonly_used: bool
 
 
 @dataclass
@@ -71,6 +72,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:fountain",
         category="fountains",
         key="fountains",
+        commonly_used=True,
         matchers=[
 "Jeux d’eau.*Prélever",
             "Surfaces accueillant des manifestations temporaires sportives et culturelles.*Arroser",
@@ -87,6 +89,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:watering-can",
         category="potagers",
         key="potagers",
+        commonly_used=True,
         matchers=[
             "Arrosage des .*potagers",
             "Prélèvement pour le lavage de fruits.*",
@@ -97,6 +100,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:road",
         category="roads",
         key="roads",
+        commonly_used=False,
         matchers=[
             "Surfaces accueillant des manifestations temporaires.+sportives et culturelles.*Arroser",
             "trottoirs",
@@ -109,9 +113,10 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
     ),
     VigieEauSensorEntityDescription(
         name="Arrosage des pelouses",
-        icon="mdi:sprinkler-variant",
+        icon="mdi:grass",
         category="lawn",
         key="lawn",
+        commonly_used=True,
         matchers=[
             "Arrosage des massifs arbustifs publics et privés.*Arroser",
             ".*pelouses.*",
@@ -147,6 +152,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:car-wash",
         category="car_wash",
         key="car_wash",
+        commonly_used=True,
         matchers=[
 "Usagers d'un centre de lavage automobile.*Nettoyer",
 "Lavage automobile à domicile.*Nettoyer",
@@ -183,6 +189,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:sail-boat",
         category="nautical_vehicules",
         key="nautical_vehicules",
+        commonly_used=False,
         matchers=[
 "Engins nautiques et matériel.*Nettoyer",
             ".*nautiques.*Travaux et activités en cours d'eau",
@@ -208,6 +215,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:home-roof",
         category="roof_clean",
         key="roof_clean",
+        commonly_used=False,
         matchers=[
             "Nettoyage de terrasses.*Nettoyer",
             "Nettoyages des facades, murs, toits, terrasses et travaux.*Nettoyer",
@@ -226,6 +234,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:pool",
         category="pool",
         key="pool",
+        commonly_used=True,
         matchers=[
 "Jeux d’eau.*Remplir ou vidanger",
 "ACI - Baignades artificielles en système fermé alimentées les ressources stockées.*Remplir ou vidanger",
@@ -259,6 +268,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:waves",
         category="ponds",
         key="ponds",
+        commonly_used=False,
         matchers=[
 "Vidange de plan d’eau, d’étangs privés ou publics, bassins d’agrément.*Remplir ou vidanger",
 "Remplissage des  retenues de stockage en vue d’irrigation déconnectées de la ressource en eau.*Irriguer",
@@ -319,6 +329,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:hydro-power",
         category="river_rate",
         key="river_rate",
+        commonly_used=False,
         matchers=[
 "prélèvement en nappe alluviale de la Loire.*Irriguer",
 "Prélèvement pour alimenter le canal de Berry.*Prélever",
@@ -405,6 +416,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:ferry",
         category="river_movement",
         key="river_movement",
+        commonly_used=False,
         matchers=[
             "navigation fluviale sur le bassin Seine Normandie.*Travaux et activités en cours d'eau",
             "navigation fluviale sur le bassin Loire Bretagne.*Travaux et activités en cours d'eau",
@@ -418,6 +430,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:golf",
         category="golfs",
         key="golfs",
+        commonly_used=False,
         matchers=[
 "Golfs et terrains de sports hippodromes et terrain en terre battue.*Arroser",
             "arrosage des golfs",
@@ -432,6 +445,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:water-pump",
         category="canals",
         key="canals",
+        commonly_used=False,
         matchers=[
 "Prélèvements d’eau à usage domestique directement réalisés dans les cours d’eau.*Prélever",
 "Prélèvement individuel ou collectif.*Irriguer",
@@ -469,6 +483,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:tree",
         category="trees",
         key="trees",
+        commonly_used=False,
         matchers=[
 "Arrosage de plantes et de fleurs des jardineries, des fleuristes, des pépiniéristes.*Arroser",
             "Cultures en godets et semis.*Arroser",
@@ -502,6 +517,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:cow",
         category="animals",
         key="animals",
+        commonly_used=False,
         matchers=[
 "Hygiène de l’élevage et abreuvement du bétail.*Abreuver",
             "Arrosage des pistes pour chevaux.*Arroser",
@@ -515,6 +531,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         icon="mdi:corn",
         category="fields",
         key="fields",
+        commonly_used=False,
         matchers=[
 "Irrigation à partir d'eaux souterraines profondes.*Irriguer",
 "Irrigation localisée.*des cultures",
@@ -573,6 +590,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         name="Restriction spécifique",
         category="misc",
         key="misc",
+        commonly_used=False,
         matchers=[
             "Usages prioritaires liés à la santé, à la salubrité et à la sécurité civile.*",
             "Fonctionnement d'une pompe à chaleur pour usage non familial.*Installations de production d'électricité",
