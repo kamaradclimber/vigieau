@@ -219,9 +219,8 @@ class TestTimeAttributes(unittest.TestCase):
         entity._native_is_time_based = True
         entity._attr_state_attributes = {"restriction": "Interdiction sur plage horaire"}
         fake_now = dt_datetime(2026, 7, 6, 14, 0, 0)
-        with patch('custom_components.vigieau.__init__.datetime') as mock_dt:
+        with patch('custom_components.vigieau.__init__.dt_util') as mock_dt:
             mock_dt.now.return_value = fake_now
-            mock_dt.time = dt_datetime.time
             entity._update_dynamic_attributes()
         self.assertTrue(entity._attr_state_attributes["currently_restricted"])
         self.assertIn("next_restriction_start", entity._attr_state_attributes)
@@ -236,9 +235,8 @@ class TestTimeAttributes(unittest.TestCase):
         entity._native_is_time_based = True
         entity._attr_state_attributes = {"restriction": "Interdiction sur plage horaire"}
         fake_now = dt_datetime(2026, 7, 6, 22, 0, 0)
-        with patch('custom_components.vigieau.__init__.datetime') as mock_dt:
+        with patch('custom_components.vigieau.__init__.dt_util') as mock_dt:
             mock_dt.now.return_value = fake_now
-            mock_dt.time = dt_datetime.time
             entity._update_dynamic_attributes()
         self.assertFalse(entity._attr_state_attributes["currently_restricted"])
         self.assertIn("next_restriction_start", entity._attr_state_attributes)

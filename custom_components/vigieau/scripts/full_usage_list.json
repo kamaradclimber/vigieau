@@ -11,6 +11,26 @@
       "concerneInstallation": false
     },
     {
+      "usage": " Arrosage des plantations d'arbres et arbustes de moins de 3 ans par les collectivités et sur les canaux",
+      "thematique": "Arroser",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": " Irrigation des CIVE, des cultures non destinées à l’alimentation humaine ou animale et les cultures destinées à servir d’intrants de méthanisation",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": " Irrigation gravitaire et aspersion",
       "thematique": "Irriguer",
       "concerneParticulier": false,
@@ -241,10 +261,50 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Abreuvement des animaux domestiques et de la faune sauvage captive",
+      "thematique": "Abreuver",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Abreuvement des animaux et autres usages agricoles",
+      "thematique": "Abreuver",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Abreuvement des animaux.",
+      "thematique": "Abreuver",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Abreuvement du bétail",
       "thematique": "Abreuver",
       "concerneParticulier": false,
       "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Abreuvement du gibier et remplissage des souilles forestières",
+      "thematique": "Abreuver",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": true,
@@ -491,10 +551,30 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Activités industrielles (dont ICPE), commerciales et artisanales dont la consommation est inférieure à 7000m3/an",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Activités industrielles (dont ICPE), commerciales et artisanales dont la consommation est supérieure à 7000m3/an",
       "thematique": "Activités économiques",
       "concerneParticulier": false,
       "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Activités industrielles (dont ICPE), commerciales et artisanales dont la consommation est supérieure à 7000m3/an ",
+      "thematique": "Activités économiques",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": true,
@@ -631,6 +711,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Activités industrielles et commerciales hors ICPE",
+      "thematique": "Activités économiques",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Activités industrielles hors ICPE, activités commerciales et artisanales",
       "thematique": "Activités économiques",
       "concerneParticulier": false,
@@ -691,6 +781,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Activités nautiques",
+      "thematique": "Activités économiques",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Activités nautiques : cas général",
       "thematique": "Travaux et activités en cours d'eau",
       "concerneParticulier": true,
@@ -698,6 +798,26 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Activités nautiques sur les zones sans enjeux liés aux milieux naturels",
+      "thematique": "Travaux et activités en cours d'eau",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Alimentation / Prélèvement en canaux",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
       "concerneInstallation": false
     },
     {
@@ -801,6 +921,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Alimentation des canaux agricoles dont ceux participant à la recharge d’aquifères, non destinés à la navigation fluviale ou l’agrément",
+      "thematique": "Prélever",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Alimentation des canaux de navigation",
       "thematique": "Prélever",
       "concerneParticulier": true,
@@ -828,6 +958,16 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Alimentation des douches de plage",
+      "thematique": "Nettoyer",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
       "concerneInstallation": false
     },
     {
@@ -944,6 +1084,16 @@
       "usage": "Alimentation des fontaines publiques (sauf brumisateurs) et privées",
       "thematique": "Alimenter des fontaines et autres usages de loisirs",
       "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Alimentation des fontaines publiques (sauf brumisateurs) et privées ",
+      "thematique": "Alimenter des fontaines et autres usages de loisirs",
+      "concerneParticulier": true,
       "concerneCollectivite": true,
       "concerneEtablissement": false,
       "concerneActivite": false,
@@ -1081,6 +1231,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Alimentation des fontaines publiques et privées d’ornement (Hors fontaines publiques et privées permettant l’accès à l’eau potable)",
+      "thematique": "Alimenter des fontaines et autres usages de loisirs",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Alimentation des fontaines publiques et privées d’ornement, cimetières",
       "thematique": "Alimenter des fontaines et autres usages de loisirs",
       "concerneParticulier": true,
@@ -1092,6 +1252,26 @@
     },
     {
       "usage": "Alimentation des fontaines publiques et privées d’ornement, des « jeux d’eau » (miroirs, jet…)",
+      "thematique": "Alimenter des fontaines et autres usages de loisirs",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Alimentation des fontaines publiques et privées d’ornement.",
+      "thematique": "Alimenter des fontaines et autres usages de loisirs",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Alimentation des fontaines publiques et privées d’ornement‍",
       "thematique": "Alimenter des fontaines et autres usages de loisirs",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -1178,6 +1358,16 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Alimentation des ouvrages nécessaires à la navigation fluviale",
+      "thematique": "Prélever",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
       "concerneInstallation": false
     },
     {
@@ -1361,6 +1551,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Alimentation en eau potable des populations ((usages prioritaires : santé, salubrité, sécurité civile).",
+      "thematique": "Abreuver",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Alimentation en eau potable des populations (usages prioritaires : santé, salubrité, sécurité civile)",
       "thematique": "Prélever",
       "concerneParticulier": true,
@@ -1381,8 +1581,28 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Alimentation en eau potable des populations (usages prioritaires : santé, salubrité et sécurité civile).",
+      "thematique": "Prélever",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Alimentation en eau potable des populations. Usages prioritaires (santé, salubrité, sécurité civile)",
       "thematique": "Abreuver",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Alimentation et remplissage des plans d'eau avec prise d'eau en rivière/ vidange des plans d'eau",
+      "thematique": "Remplir ou vidanger",
       "concerneParticulier": true,
       "concerneCollectivite": true,
       "concerneEtablissement": false,
@@ -1641,6 +1861,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Arrosage des arbres ou arbustes plantés en pleine terre depuis moins de deux ans.",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Arrosage des carrières et centres équestres",
       "thematique": "Arroser",
       "concerneParticulier": false,
@@ -1751,6 +1981,26 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Arrosage des espaces arborés publics et privés",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage des espaces arborés, des pelouses, des massifs fleuris et des espaces verts privés",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Arrosage des espaces arborés, massifs fleuris",
       "thematique": "Arroser",
       "concerneParticulier": true,
@@ -1791,6 +2041,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Arrosage des espaces arborés, pelouses, massifs fleuris ou végétalisés.",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Arrosage des espaces arborés, pelouses, massifs fleuris, espace verts, jardinières, ...",
       "thematique": "Arroser",
       "concerneParticulier": true,
@@ -1802,6 +2062,16 @@
     },
     {
       "usage": "Arrosage des espaces arborés, pelouses, massifs fleuris, espaces verts",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage des espaces arborés, pelouses, massifs fleuris, espaces verts publics",
       "thematique": "Arroser",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -1824,6 +2094,26 @@
       "usage": "Arrosage des espaces arborés, pelouses, massifs fleuris, végétaux décoratifs et espaces verts (hors usage agricole)",
       "thematique": "Arroser",
       "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage des espaces sportifs",
+      "thematique": "Arroser",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage des espaces sportifs de toute nature et de loisirs",
+      "thematique": "Arroser",
+      "concerneParticulier": false,
       "concerneCollectivite": true,
       "concerneEtablissement": false,
       "concerneActivite": false,
@@ -1872,6 +2162,16 @@
     },
     {
       "usage": "Arrosage des espaces verts (hors pelouses, fleurs et massifs fleuris ainsi que jardins potagers)",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage des espaces verts (pelouse, massifs fleuris, jardin d’agrément, jardinières, plantes en pot)",
       "thematique": "Arroser",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -1951,6 +2251,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Arrosage des espaces verts et terrains de sport",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Arrosage des espaces verts hors pelouses et massifs fleuris",
       "thematique": "Arroser",
       "concerneParticulier": false,
@@ -1981,7 +2291,27 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Arrosage des espaces verts publics et privés",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Arrosage des espaces verts type pelouses",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage des espaces verts,  pelouses ",
       "thematique": "Arroser",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -2062,6 +2392,16 @@
     },
     {
       "usage": "Arrosage des espaces verts, pelouses, jardins d’agrément, publics ou privés, des massifs de fleurs, jardinières",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage des fleurs et des massifs fleuris",
       "thematique": "Arroser",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -2212,6 +2552,16 @@
     },
     {
       "usage": "Arrosage des golfs (conformément à l'accord cadre golf et environnement 2019-2024)",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage des golfs (conformément à l'accord cadre golf et environnement 2019-2024.",
       "thematique": "Arroser",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -2671,6 +3021,26 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Arrosage des jardins potagers ‍",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage des jardins potagers.",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Arrosage des jardins, pelouses, massifs fleuris, espaces verts publics ou privés",
       "thematique": "Arroser",
       "concerneParticulier": true,
@@ -2881,6 +3251,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Arrosage des pelouses, espaces verts, espaces arborés, massifs fleuris en pleine terre ou en contenants divers",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Arrosage des pelouses, espaces verts, massifs floraux ou arbustifs, etc (ressources \"autres\"  [eaux usées traitées, eaux de pluies, eau de process])",
       "thematique": "Arroser",
       "concerneParticulier": true,
@@ -3072,6 +3452,16 @@
     },
     {
       "usage": "Arrosage des pelouses, massifs fleuris, fleurs en pots, arbres et arbustes",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage des pelouses, massifs fleuris, jardins agrément, espaces verts, golfs particuliers",
       "thematique": "Arroser",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -3511,6 +3901,26 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Arrosage des surfaces accueillant des manifestations temporaires sportives et/ou culturelles (patinoires, terrains de motocross, festivals...)",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage des surfaces pouvant  accueillir des manifestations  temporaires sportives / culturelles (terrains de sport, motocross,  festivals, comices…)",
+      "thematique": "Arroser",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Arrosage des terrains de golf",
       "thematique": "Arroser",
       "concerneParticulier": true,
@@ -3552,6 +3962,16 @@
     },
     {
       "usage": "Arrosage des terrains de golf (ressource \"eau potable\")",
+      "thematique": "Arroser",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage des terrains de golfs",
       "thematique": "Arroser",
       "concerneParticulier": false,
       "concerneCollectivite": true,
@@ -3661,6 +4081,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Arrosage des terrains de sport (stades, terrains de tennis, carrières des centres équestres, hippodromes...).",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Arrosage des terrains de sport (stades, terrains de tennis, carrières des centres équestres...)",
       "thematique": "Arroser",
       "concerneParticulier": true,
@@ -3701,6 +4131,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Arrosage des terrains de sport (y compris aires et centres équestres, circuits VTT et motocross)",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Arrosage des terrains de sport (y compris aires et centres équestres, circuits VTT motocross)",
       "thematique": "Arroser",
       "concerneParticulier": true,
@@ -3711,6 +4151,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Arrosage des terrains de sport (y compris aires et centres équestres, hippodromes, circuits de VTT et motocross",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Arrosage des terrains de sport (y compris aires équestres,circuits motocross, circuit vtt) ",
       "thematique": "Arroser",
       "concerneParticulier": true,
@@ -3718,6 +4168,16 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage des terrains de sport (y compris centres équestres, hippodromes, motocross ou autres véhicules)",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
       "concerneInstallation": false
     },
     {
@@ -3771,6 +4231,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Arrosage des terrains de sport dont aires et centres équestres, hippodromes, circuits motocross et VTT",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Arrosage des terrains de sport dont aires et centres équestres, hippodromes, circuits motocross/VTT",
       "thematique": "Arroser",
       "concerneParticulier": true,
@@ -3802,6 +4272,16 @@
     },
     {
       "usage": "Arrosage des terrains de sport et de loisirs",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage des terrains de sport et de loisirs (dont centres équestres, hippodromes, circuits de véhicules terrestres motorisés ou VTT)",
       "thematique": "Arroser",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -4001,6 +4481,26 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Arrosage des terrains de sports et des hippodromes.",
+      "thematique": "Arroser",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage des terrains de sports et hippodromes.",
+      "thematique": "Arroser",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Arrosage des terrains de sports, pistes de chevaux et champs de courses",
       "thematique": "Arroser",
       "concerneParticulier": true,
@@ -4041,6 +4541,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Arrosage desespaces arborés publics et privés",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Arrosage en jardinerie (activité professionnelle commerciale)",
       "thematique": "Arroser",
       "concerneParticulier": false,
@@ -4048,6 +4558,16 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage espaces arborés, espaces verts, pelouses",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
       "concerneInstallation": false
     },
     {
@@ -4072,6 +4592,16 @@
     },
     {
       "usage": "Arrosage massifs fleuris",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Arrosage massifs fleuris et plantes ornementales (hors production)",
       "thematique": "Arroser",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -4141,6 +4671,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Arrosage terrains de sport et espaces verts",
+      "thematique": "Arroser",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Arrosage terrains sport yc aires d’évolutions et centres équestres, hippodromes, motocross, VTT",
       "thematique": "Arroser",
       "concerneParticulier": true,
@@ -4191,6 +4731,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Aspersion relevant d'un régime d'autorisation ou déclaration R214-1 du CE",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Autre irrigation",
       "thematique": "Irriguer",
       "concerneParticulier": false,
@@ -4198,6 +4748,16 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Autres activités de process non ICPE et visées par ailleurs prélevant plus de 10.000 m³/an",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
       "concerneInstallation": false
     },
     {
@@ -4531,6 +5091,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Circulation dans le lit des cours d’eau",
+      "thematique": "Travaux et activités en cours d'eau",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Consommation d'eau par les ICPE soumises à autorisation,enregistrement, déclaration dont le prélèvement est supérieur à 10 000m3",
       "thematique": "ICPE",
       "concerneParticulier": false,
@@ -4561,7 +5131,37 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Contrôle des bornes incendies",
+      "thematique": "Sécurité incendie",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Contrôle technique des points d'eau incendie",
+      "thematique": "Sécurité incendie",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Contrôles de mesure des hydrants destinés à la défense incendie",
+      "thematique": "Sécurité incendie",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Contrôles des bornes incendies",
       "thematique": "Sécurité incendie",
       "concerneParticulier": false,
       "concerneCollectivite": true,
@@ -4601,8 +5201,38 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Création de prélèvement : réalisation et mise en service de nouveaux forages, pompages et retenues d’eau destinés à d’autres usages que l’AEP",
+      "thematique": "Prélever",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Cultures en godets et semis (jeunes plants)",
       "thematique": "Arroser",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Cultures irriguées par aspersion.",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Cultures irriguées par système localisé (gte-à-gte, micro-aspersion).",
+      "thematique": "Irriguer",
       "concerneParticulier": false,
       "concerneCollectivite": false,
       "concerneEtablissement": false,
@@ -4701,6 +5331,36 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Dispositifs de prélèvements en cours d'eau et sa nappe d'accompagnement pour usages domestiques",
+      "thematique": "Prélever",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Dispositifs de prélèvements en cours d'eau et sa nappe d'accompagnement pour usages domestiques",
+      "thematique": "Prélever",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Dispositifs de prélèvements sous pression gravitaire en cours d'eau et nappes d'accompagnement ",
+      "thematique": "Prélever",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Dispositifs de récupération des eaux de pluie",
       "thematique": "Arroser",
       "concerneParticulier": true,
@@ -4751,6 +5411,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Douches de plages et dispositifs analogues",
+      "thematique": "Alimenter des fontaines et autres usages de loisirs",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Douches des plages (publiques ; privées installées par ou dans le domaine public maritime)",
       "thematique": "Alimenter des fontaines et autres usages de loisirs",
       "concerneParticulier": true,
@@ -4763,6 +5433,16 @@
     {
       "usage": "Douches des sites d’eaux de baignade",
       "thematique": "Alimenter des fontaines et autres usages de loisirs",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Défense incendie",
+      "thematique": "Sécurité incendie",
       "concerneParticulier": false,
       "concerneCollectivite": true,
       "concerneEtablissement": false,
@@ -4881,6 +5561,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Exploitation de sites, activités industrielles avec prélèvements ou rejets au milieu naturel",
+      "thematique": "Activités économiques",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Exploitation des ICPE",
       "thematique": "ICPE",
       "concerneParticulier": false,
@@ -4898,6 +5588,16 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Exploitation des ICPE soumises à déclaration, enregistrement ou autorisation dont le prélèvement d'eau est inférieur ou égal 10 000m3/an",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
       "concerneInstallation": false
     },
     {
@@ -4991,6 +5691,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Exploitation des installations classées pour la protection de l’environnement (ICPE).",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Exploitation des installations classées pour la protection de l’environnement (ICPE). ",
       "thematique": "ICPE",
       "concerneParticulier": false,
@@ -5061,6 +5771,36 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Exploitation des sites industriels classés ICPE avec prescriptions sécheresse spécifiques",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Exploitations des installations classées pour la protection de l’environnement (ICPE) hors élevage",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Exploitations des installations classées pour la protection de l’environnement (ICPE) liées aux élevages",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Exploitations des installations classées pour protection de l'environnement (ICPE) si APC",
       "thematique": "ICPE",
       "concerneParticulier": false,
@@ -5091,9 +5831,39 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Faucardage en cours d’eau.",
+      "thematique": "Travaux et activités en cours d'eau",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Faucardement",
+      "thematique": "Travaux et activités en cours d'eau",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Fonctionnement d'une pompe à chaleur pour usage non familial",
       "thematique": "Installations de production d'électricité",
       "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Fonctionnement des douches de plage et de toute autre dispositif analogue",
+      "thematique": "Alimenter des fontaines et autres usages de loisirs",
+      "concerneParticulier": false,
       "concerneCollectivite": true,
       "concerneEtablissement": false,
       "concerneActivite": false,
@@ -5164,6 +5934,16 @@
       "usage": "Fonctionnement des fontaines publiques et privées",
       "thematique": "Alimenter des fontaines et autres usages de loisirs",
       "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Fonctionnement douches de plage ou tout autre dispositif analogue",
+      "thematique": "Alimenter des fontaines et autres usages de loisirs",
+      "concerneParticulier": false,
       "concerneCollectivite": true,
       "concerneEtablissement": false,
       "concerneActivite": false,
@@ -5311,8 +6091,28 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Gestion des ouvrages hydrauliques [axe de la Seine et annexes hydrauliques]. Situation de VIGILANCE.",
+      "thematique": "Ouvrages hydrauliques",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Gestion des ouvrages hydrauliques sur les cours d'eau et bras secondaires",
       "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Gestion des ouvrages hydrauliques transversaux implantés en lit mineur du cours d'eau",
+      "thematique": "Ouvrages hydrauliques",
       "concerneParticulier": true,
       "concerneCollectivite": true,
       "concerneEtablissement": false,
@@ -5411,6 +6211,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Hygiène de l’élevage et abreuvement du bétail",
+      "thematique": "Abreuver",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Hygiène de l’élevage et abreuvement du bétail (report d'un forage vers l'eau potable)",
       "thematique": "Abreuver",
       "concerneParticulier": false,
@@ -5418,6 +6228,16 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "ICPE (dont prélèvement inférieur à 10 000 m³/an) et autres activités industrielles et commerciales (hors ICPE)",
+      "thematique": "Activités économiques",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
       "concerneInstallation": false
     },
     {
@@ -5471,6 +6291,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "ICPE disposant d’un arrêté préfectoral sécheresse qui prescrit les mesures découlant des études technico-économiques.",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "ICPE enregistrement et autorisation (hors élevage, sécurité, incendie, AEP, cf.arrêté)",
       "thematique": "ICPE",
       "concerneParticulier": false,
@@ -5501,7 +6331,37 @@
       "concerneInstallation": false
     },
     {
+      "usage": "ICPE non soumises à prescriptions spécifiques ou non soumises/exemptées des dispositions de l'AM du 30/6/2023",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "ICPE pouvant démontrer une consommation en eau minimale via un PSH",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "ICPE soumises à autorisation ou à enregistrement (Prélèvement d’eau supérieur à 10 000 m3/an et hors régime d’exemptions art.3 de l’AM du 30/06/23)",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "ICPE soumises à prescriptions spécifiques par arrêté préfectoral ou arrêté ministériel du 30/06/2023",
       "thematique": "ICPE",
       "concerneParticulier": false,
       "concerneCollectivite": false,
@@ -5751,6 +6611,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Installations de production d'électricité hydraulique visées dans le Code de l'énergie",
+      "thematique": "Installations de production d'électricité",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Installations de production d‘électricité d’origine hydraulique",
       "thematique": "Installations de production d'électricité",
       "concerneParticulier": false,
@@ -5811,6 +6681,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Installations de production d’électricité d’origine hydroélectrique, visées dans le Code de l’énergie‍",
+      "thematique": "Installations de production d'électricité",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Installations de production d’électricité d’origine nucléaire",
       "thematique": "Installations de production d'électricité",
       "concerneParticulier": false,
@@ -5822,6 +6702,26 @@
     },
     {
       "usage": "Installations de production d’électricité d’origine nucléaire, hydraulique, et thermique à flamme",
+      "thematique": "Installations de production d'électricité",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Installations de production d’électricité d’origine nucléaire, hydraulique, et thermique à flamme, visées dans le Code de l’énergie",
+      "thematique": "Installations de production d'électricité",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Installations de production d’électricité d’origine nucléaire, hydraulique, et thermique à flamme, visées dans le Code de l’énergie.",
       "thematique": "Installations de production d'électricité",
       "concerneParticulier": false,
       "concerneCollectivite": false,
@@ -5878,6 +6778,16 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Installations, ouvrages, travaux et activités en lit mineur de cours d’eau",
+      "thematique": "Travaux et activités en cours d'eau",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
       "concerneInstallation": false
     },
     {
@@ -6161,6 +7071,36 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Irrigation agricole des cultures de maraîchage, horticulture et irrigation localisée au goutte-à-goutte et micro-aspersion",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation agricole des cultures de maraîchage, pépinières, horticulture et irrigation localisée au goutte-à-goutte et micro-aspersion",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation agricole des cultures en maraîchage, pépinière, horticulture et arboriculture en goutte-à-goutte et micro-aspersion",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Irrigation agricole des cultures sauf prélèvements à partir de retenues de stockage déconnectées",
       "thematique": "Irriguer",
       "concerneParticulier": false,
@@ -6331,6 +7271,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Irrigation cultures sensibles : maraîchage, pépinière, floriculture, arboriculture, plantes à parfums aromatiques et médicinales, semences potagères.",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Irrigation dans le cadre de la gestion collective (OUGC)",
       "thematique": "Irriguer",
       "concerneParticulier": false,
@@ -6365,6 +7315,16 @@
       "thematique": "Irriguer",
       "concerneParticulier": false,
       "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation de certaines cultures (voir AP) par système d'irrigation localisée (goutte à goutte,... )",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": true,
@@ -6442,6 +7402,16 @@
     },
     {
       "usage": "Irrigation des arbres et arbustes plantés en pleine terre depuis moins de 2 ans",
+      "thematique": "Irriguer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation des arbres etarbustes plantés en pleine terre depuis moins de 2 ans",
       "thematique": "Irriguer",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -6571,6 +7541,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Irrigation des cultures non destinées à l’alimentation humaine ou animale dont CIVE et destinées à servir d’intrants de méthanisation",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Irrigation des cultures non destinées à l’alimentation humaine ou animale dont CIVE et méthanisation",
       "thematique": "Irriguer",
       "concerneParticulier": false,
@@ -6641,6 +7621,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Irrigation des cultures par système d'irrigation localisée (goutte à goutte, micro-aspersion par exemple) hors cultures sensibles",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Irrigation des cultures par système d'irrigation localisée (goutte à goutte, micro-aspersion)",
       "thematique": "Irriguer",
       "concerneParticulier": false,
@@ -6701,6 +7691,26 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Irrigation des cultures par système d’irrigation localisée (goutte à goutte,  micro-aspersion ) y compris pour plantes sous-serres, jeunes plants",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation des cultures par système d’irrigation localisée (goutte à goutte, micro-aspersion par exemple)",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Irrigation des cultures par système d’irrigation localisée (goutte à goutte, micro-aspersion)",
       "thematique": "Irriguer",
       "concerneParticulier": false,
@@ -6722,6 +7732,16 @@
     },
     {
       "usage": "Irrigation des cultures par système d’irrigation localisée (goutte-à-goutte, micro-aspersion par exemple)",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation des cultures par système d’irrigation localisée. (goutte-à-goutte, micro-aspersion par exemple)",
       "thematique": "Irriguer",
       "concerneParticulier": false,
       "concerneCollectivite": false,
@@ -6762,6 +7782,16 @@
     },
     {
       "usage": "Irrigation des cultures sauf prélèvements à partir de retenues de stockage autorisées déconnectées de la ressource en eau en période d'étiage",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation des cultures sous serres",
       "thematique": "Irriguer",
       "concerneParticulier": false,
       "concerneCollectivite": false,
@@ -6881,6 +7911,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Irrigation des grandes cultures",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Irrigation des grandes cultures, cultures légumières de plein champ et prairies temporaires",
       "thematique": "Irriguer",
       "concerneParticulier": false,
@@ -6932,6 +7972,16 @@
     },
     {
       "usage": "Irrigation des plantiers agricoles de moins de 3ans",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation des plantiers agricoles de moins de trois ans",
       "thematique": "Irriguer",
       "concerneParticulier": false,
       "concerneCollectivite": false,
@@ -7001,10 +8051,30 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Irrigation des productions maraîchères, horticoles, pépinières professionnelles",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Irrigation des replantations en maraîchage",
       "thematique": "Irriguer",
       "concerneParticulier": false,
       "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation des semences, plantes ornementales et PPAM, maraîchage",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": true,
@@ -7261,6 +8331,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Irrigation par aspersion des cultures (aspersion sous frondaison par exemple)",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Irrigation par aspersion des cultures (sauf prélève­ments à partir de retenues de stockage déconnectées du réseau hydrographique en pé­riode d’étiage)",
       "thematique": "Irriguer",
       "concerneParticulier": false,
@@ -7311,6 +8391,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Irrigation par aspersion des cultures dérogeables (voir arrêté cadre départemental approuvé le 19 mai 2026)",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Irrigation par aspersion des cultures dérogeables : voir ACD 2023 pdf",
       "thematique": "Irriguer",
       "concerneParticulier": false,
@@ -7322,6 +8412,16 @@
     },
     {
       "usage": "Irrigation par aspersion des cultures fourragères et autres",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation par aspersion des cultures hors cultures sensibles.",
       "thematique": "Irriguer",
       "concerneParticulier": false,
       "concerneCollectivite": false,
@@ -7431,6 +8531,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Irrigation par aspersion des cultures.",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Irrigation par aspersion des grandes cultures et des cultures fourragères",
       "thematique": "Irriguer",
       "concerneParticulier": false,
@@ -7521,6 +8631,56 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Irrigation par la technique du goutte-à-goutte pour semences et plans.",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation par micro-aspersion pour maraîchage, cultures légumières, plantes aromatiques et médicinales.",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation par micro-aspersion pour plantes ornementales en pots.",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation par micro-aspersion pour pépinières arbres ou arbustes.",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation par micro-aspersion pour semences et plants.",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Irrigation par submersion",
       "thematique": "Irriguer",
       "concerneParticulier": false,
@@ -7532,6 +8692,16 @@
     },
     {
       "usage": "Irrigation par submersion des cultures",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation par système d'irrigation localisée (goute à goutte, micro-aspersion par exemple)",
       "thematique": "Irriguer",
       "concerneParticulier": false,
       "concerneCollectivite": false,
@@ -7572,6 +8742,36 @@
     },
     {
       "usage": "Irrigation par système localisé et équipé d’un outil de pilotage",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation par techique du goutte à goutte pour maraîchage, cultures légumières, plantes aromatiques et médicinales.",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation par techique du goutte-à-goutte pour plantes ornementales en pots.",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation par technique du goutte-à-goutte pour pépinières productrices d'arbres ou d'arbustes.",
       "thematique": "Irriguer",
       "concerneParticulier": false,
       "concerneCollectivite": false,
@@ -7672,6 +8872,16 @@
     },
     {
       "usage": "Irrigation à partir d'un cours d'eau (eau de surface)",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Irrigation à partir d'un cours d'eau (eau de surface, y compris la Loire))",
       "thematique": "Irriguer",
       "concerneParticulier": false,
       "concerneCollectivite": false,
@@ -7881,6 +9091,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Lavage de véhicules : installations de pros, collectivités, stations lavage, unités lavage garages & stations-services, stations des entreprises)",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Lavage de véhicules automobiles en centres professionnels avec dispositif de recyclage à 70%",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
@@ -7951,6 +9171,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Lavage de véhicules chez les particuliers.",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Lavage de véhicules dans des installations de professionnels ou collectivités",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
@@ -7982,6 +9212,26 @@
     },
     {
       "usage": "Lavage de véhicules en station ",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Lavage de véhicules en station (précisions dans l'arrêté)",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Lavage de véhicules en station (voir la définition complète de cet usage dans l'arrêté préfectoral).",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -8091,6 +9341,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Lavage de véhicules et bateaux chez les particuliers",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Lavage de véhicules et bateaux dans des stations de lavage ou aires de carénage professionnelles",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
@@ -8122,6 +9382,16 @@
     },
     {
       "usage": "Lavage de véhicules et engins nautiques dans des installations de professionnels",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Lavage de véhicules et engins nautiques en station de lavage ou installation de professionnelle",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -8301,6 +9571,26 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Lavage de véhicules par des professionnels du lavage avec portique",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Lavage de véhicules par des professionnels ou en station de lavage",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Lavage de véhicules par les particuliers",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
@@ -8341,6 +9631,26 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Lavage de véhicules terrestres et engins nautiques chez les particuliers",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Lavage de véhicules terrestres et engins nautiques par les professionnels",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Lavage de véhicules, bateaux et engins nautiques chez les particuliers",
       "thematique": "Arroser",
       "concerneParticulier": true,
@@ -8371,7 +9681,37 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Lavage des bateaux dans les aires portuaires",
+      "thematique": "Nettoyer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Lavage des bâtiments, façades, toitures, trottoirs, voiries et autres surfaces imperméabilisées‍ (dont les cours)",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Lavage des embarcations",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Lavage des embarcations motorisées ou non",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -8422,6 +9762,26 @@
     },
     {
       "usage": "Lavage des réservoirs d'eau potable prévus dans les contrats d'affermage et essai de bornes incendie",
+      "thematique": "Nettoyer",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Lavage des réservoirs d'eau potable prévus par les contrats d'affermage et essai bornes incendie",
+      "thematique": "Nettoyer",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Lavage des voies et trottoirs Nettoyage des terrasses et façades ne faisant pas l’objet de travaux",
       "thematique": "Nettoyer",
       "concerneParticulier": false,
       "concerneCollectivite": true,
@@ -8531,6 +9891,26 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Lavage des véhicules dans une station professionnelle (y compris celles d’entreprises de transport)",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Lavage des véhicules des pariculiers ou des professionnels par des professionnels et/ou dans des stations professionnelles",
+      "thematique": "Nettoyer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Lavage des véhicules des particuliers, hors des installations professionnelles",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
@@ -8542,6 +9922,16 @@
     },
     {
       "usage": "Lavage des véhicules en station",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Lavage des véhicules en station de lavage‍",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -8571,7 +9961,27 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Lavage des véhicules par des professionels du lavage avec un système équipé de recyclage de l'eau (minimum 70% d'eau recyclée)",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Lavage des véhicules par des professionnels",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Lavage des véhicules station, sauf ayant une obligation réglementaire (véhicules sanitaires ou alimentaires) ou technique (ex. bétonnières)",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -8588,6 +9998,16 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Lavage des véhicules, engins, bateaux (hors station de lavage)",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
       "concerneInstallation": false
     },
     {
@@ -8651,6 +10071,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Loisirs nautiques et pêche",
+      "thematique": "Alimenter des fontaines et autres usages de loisirs",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "L’éclusage ou la manœuvres des vannes d’ouvrages, d’installations hydrauliques (moulins, étangs, micro-centrales, biefs, mares et retenues)",
       "thematique": "Ouvrages hydrauliques",
       "concerneParticulier": true,
@@ -8658,6 +10088,16 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Manoeuvre d'ouvrage (vannages, clapets mobiles, déversoirs mobiles…) hors plans d’eau",
+      "thematique": "Ouvrages hydrauliques",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
       "concerneInstallation": false
     },
     {
@@ -8971,6 +10411,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Navigation fluviale [axe de la Seine et annexes hydrauliques]. Situation de VIGILANCE.",
+      "thematique": "Travaux et activités en cours d'eau",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Navigation fluviale et alimentation des canaux",
       "thematique": "Travaux et activités en cours d'eau",
       "concerneParticulier": false,
@@ -9071,6 +10521,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Nettoyage de la voirie (chaussées, trottoirs, caniveaux, …) y compris travaux routiers",
+      "thematique": "Nettoyer",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Nettoyage de la voirie (chaussées, trottoirs, caniveaux…), Y compris travaux routiers",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
@@ -9141,6 +10601,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Nettoyage des extérieurs des bâtiments (murs, toitures, sols) et nettoyage à l’eau des chaussées, caniveaux et surfaces extérieures imperméabilisées",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Nettoyage des façades et toitures",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
@@ -9152,6 +10622,16 @@
     },
     {
       "usage": "Nettoyage des façades et toitures",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Nettoyage des façades et toitures, trottoirs et autres surfaces imperméabilisées",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -9182,6 +10662,16 @@
     },
     {
       "usage": "Nettoyage des façades, terrasses, murs, escaliers, et vitres des locaux et bâtiments prof., tombes",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Nettoyage des façades, terrasses, murs, escaliers, toitures, et vitres des locaux et bâtiments professionnels, ainsi que les monuments funéraires",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -9271,7 +10761,27 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Nettoyage des façades, toitures, trottoirs et autres surfaces imperméabilisées.",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Nettoyage des façades, toitures, trottoirs, terrasses et autres surfaces imperméabilisées",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Nettoyage des façades, toitures, trottoirs, terrasses, façades imperméabilisées...",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -9531,6 +11041,26 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Nettoyage des voiries, trottoirs, terrasses, façades, toitures et autres surfaces imperméabilisées",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Nettoyage des voiries, trottoirs, terrasses, façades, toitures et autres surfaces imperméabilisées y compris clôtures, murets, portails...",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Nettoyage des véhicules (y compris par dispositifs mobiles) EN station de lavage autorisée",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
@@ -9661,6 +11191,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Nettoyage, carénage, rinçage bateaux (y compris par dispositifs mobiles)  EN aire de carénage autorisée",
+      "thematique": "Nettoyer",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Nettoyages des facades, murs, toits, terrasses et travaux ",
       "thematique": "Nettoyer",
       "concerneParticulier": true,
@@ -9771,7 +11311,27 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Orpaillage (professionnel et amateur), pratiques et activités dans le lit des cours d'eau",
+      "thematique": "Travaux et activités en cours d'eau",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Orpaillage et activités dans le lit ou sur les berges cours d'eau (cf arrêté) ",
+      "thematique": "Travaux et activités en cours d'eau",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Orpaillage et activités dans le lit ou sur les berges cours d'eau (voir détails dans le tableau annexé à l'arrêté en vigueur)",
       "thematique": "Travaux et activités en cours d'eau",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -9792,6 +11352,16 @@
     },
     {
       "usage": "Orpaillage et pêche à l’aimant.",
+      "thematique": "Travaux et activités en cours d'eau",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Orpaillage professionnel et amateur, autres pratiques et activités dans le lit ou sur les berges susceptibles d’affecter les milieux aquatiques",
       "thematique": "Travaux et activités en cours d'eau",
       "concerneParticulier": true,
       "concerneCollectivite": false,
@@ -9858,6 +11428,16 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Ouvrages hydrauliques : gestion des barrages réservoirs et des ouvrages transversaux sur cours d’eau",
+      "thematique": "Installations de production d'électricité",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
       "concerneInstallation": false
     },
     {
@@ -9931,6 +11511,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Piscines ouvertes au public (collectives), y compris les installations aquatiques de loisirs provisoires",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Piscines ouvertes au public (y compris camping, hôtel, ...)",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": false,
@@ -9962,6 +11552,16 @@
     },
     {
       "usage": "Piscines privées (de plus d'1 m3)",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Piscines privées et bains à remous de plus de 1m3",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": true,
       "concerneCollectivite": false,
@@ -10095,6 +11695,26 @@
       "thematique": "Arroser",
       "concerneParticulier": true,
       "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Potences agricoles",
+      "thematique": "Prélever",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Pratique de la navigation de loisir, y compris le canoë et le kayak",
+      "thematique": "Travaux et activités en cours d'eau",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": false,
@@ -10291,6 +11911,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Prélèvement dans un cours d’eau ou une voie d’eau, hors activités agricoles, artisanales, commerciales et industrielles",
+      "thematique": "Prélever",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Prélèvement direct dans la Loire",
       "thematique": "Prélever",
       "concerneParticulier": false,
@@ -10341,6 +11971,36 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Prélèvement d’eau pour les périmètres irrigués‍",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Prélèvement d’eau pour l’alimentation en eau potable des populations (usages prioritaires : santé, salubrité, sécurité civile)‍",
+      "thematique": "Prélever",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Prélèvement d’eau pour l’irrigation par système ‍d’irrigation localisée (goutte à gouttes, micro-aspersion) (hors périmètres irrigués)",
+      "thematique": "Prélever",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Prélèvement d’eau superficielle (cours d’eau, fossés et canaux)",
       "thematique": "Prélever",
       "concerneParticulier": true,
@@ -10348,6 +12008,26 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Prélèvement d’eau superficielle (cours d’eau, fossés et canaux)  sous le seuil de 1 000 m3/an - Hors abreuvement des animaux",
+      "thematique": "Prélever",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Prélèvement en canaux",
+      "thematique": "Prélever",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
       "concerneInstallation": false
     },
     {
@@ -10441,6 +12121,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Prélèvement par camion citerne dans le milieu naturel",
+      "thematique": "Prélever",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Prélèvement pour alimenter le canal de Berry (en aval du bief de la Loue) ",
       "thematique": "Prélever",
       "concerneParticulier": false,
@@ -10455,6 +12145,16 @@
       "thematique": "Prélever",
       "concerneParticulier": true,
       "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Prélèvement pour le lavage de fruits",
+      "thematique": "Prélever",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": true,
@@ -10481,6 +12181,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Prélèvement sur le site des Marais de Sacy (labellisé RAMSAR pour les ZH depuis 09/10/2017)",
+      "thematique": "Prélever",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Prélèvements d''eau à partir d’eaux superficielles et nappes d’accompagnement hors horticulture",
       "thematique": "Prélever",
       "concerneParticulier": false,
@@ -10488,6 +12198,16 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Prélèvements d'eau",
+      "thematique": "Prélever",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
       "concerneInstallation": false
     },
     {
@@ -10525,6 +12245,16 @@
       "thematique": "Prélever",
       "concerneParticulier": true,
       "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Prélèvements destinés aux activités cynégétiques",
+      "thematique": "Prélever",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": false,
@@ -10711,6 +12441,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Prélèvements à usage domestique dans le milieu naturel",
+      "thematique": "Prélever",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Prélèvements à usage non domestique dans les plans d'eau en travers de cours d'eau (toute irrigation",
       "thematique": "Prélever",
       "concerneParticulier": false,
@@ -10801,6 +12541,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Rejet dans le milieu naturel : travaux nécessitant le délestage direct dans le milieu récepteur",
+      "thematique": "Rejeter",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Rejet de stations d'épuration ou de potabilisation d'eaux brutes",
       "thematique": "Rejeter",
       "concerneParticulier": true,
@@ -10861,6 +12611,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Rejets ICPE",
+      "thematique": "Rejeter",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Rejets dans le milieu naturel",
       "thematique": "Rejeter",
       "concerneParticulier": false,
@@ -10872,6 +12632,36 @@
     },
     {
       "usage": "Rejets dans le milieu naturel",
+      "thematique": "Rejeter",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Rejets dans le milieu naturel : piscicultures",
+      "thematique": "Rejeter",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Rejets dans le milieu naturel : piscicultures",
+      "thematique": "Rejeter",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Rejets de station d'épuration",
       "thematique": "Rejeter",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -10911,8 +12701,38 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Rejets des stations d'épuration et collecteurs pluviaux",
+      "thematique": "Rejeter",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Rejets des stations d'épuration urbaines et collecteurs pluviaux",
       "thematique": "Ouvrages hydrauliques",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Rejets des stations d'épuration urbaines et collecteurs pluviaux.",
+      "thematique": "Rejeter",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Rejets des stations d’épuration des eaux usées et des réseaux dédiés à la gestion des eaux pluviales.",
+      "thematique": "Rejeter",
       "concerneParticulier": false,
       "concerneCollectivite": true,
       "concerneEtablissement": false,
@@ -11131,6 +12951,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Remplissage de citernes, réserves et cuves",
+      "thematique": "Prélever",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Remplissage de piscine non collective (de plus d'1 m3)",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": true,
@@ -11212,6 +13042,16 @@
     },
     {
       "usage": "Remplissage de piscines familiales",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage de piscines privées ",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": true,
       "concerneCollectivite": false,
@@ -11351,6 +13191,26 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Remplissage des piscines et bains à remous à usage non collectif de plus de 1m3 (*1)",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage des piscines et bains à remous, d’une capacité supérieure à 1 m³ et réservés à un usage unifamilial",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Remplissage des piscines et bassins à usage collectif",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": false,
@@ -11431,7 +13291,27 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Remplissage des piscines privées (plus d’un m³)",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Remplissage des piscines publiques et privées destinées à un usage collectif",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage des piscines publiques et privées et autres bains à remous et baignades artificielles destinées à usage collectif",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": false,
       "concerneCollectivite": true,
@@ -11552,6 +13432,16 @@
     },
     {
       "usage": "Remplissage des plans d’eau ",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage des plans d’eau (hors gabions)",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -11721,7 +13611,47 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Remplissage et du maintien du niveau des plans d’eau de loisirs et piscines privées",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage et maintien à niveau des piscines à usage collectif‍",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Remplissage et vidange de  piscines privés (de plus d’1 m³)",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage et vidange de piscine non collective (de plus d’1 m³)",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage et vidange de piscines et spas non collectifs (de plus d'1 m3)",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": true,
       "concerneCollectivite": false,
@@ -11742,6 +13672,16 @@
     },
     {
       "usage": "Remplissage et vidange de piscines non collectives (de plus d'1 m3)",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage et vidange de piscines non collectives (de plus d'1 m3).",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": true,
       "concerneCollectivite": false,
@@ -11805,6 +13745,16 @@
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": false,
       "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage et vidange de piscines privées",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": false,
@@ -11951,6 +13901,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Remplissage et vidange de plan d’eau",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Remplissage et vidange de plans d'eau, étangs",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": true,
@@ -11962,6 +13922,16 @@
     },
     {
       "usage": "Remplissage et vidange des piscines  non collective (de plus d’1 m3)",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage et vidange des piscines non collectives  (≥ 1 m³)",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": true,
       "concerneCollectivite": false,
@@ -12011,6 +13981,26 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Remplissage et vidange des piscines ouvertes au public.",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage et vidange des piscines privées et des bains à remous de plus de 1 m³, enterrés, semi-enterrés ou hors-sol",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Remplissage et vidange des piscines privées et des bains à remous de plus de 1 m³",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": true,
@@ -12041,6 +14031,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Remplissage et vidange des piscines publiques",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Remplissage et vidange des piscines publiques.",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": false,
@@ -12065,6 +14065,26 @@
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": false,
       "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage et vidange des piscines à usage collectif (voir la définition complète de cet usage dans l'arrêté préfectoral).",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage et vidange des piscines à usage individuel",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": false,
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": false,
@@ -12121,7 +14141,47 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Remplissage et vidange des plans d'eau et canaux d'agrément",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Remplissage et vidange des plans d'eau, étangs de pêche à usages commerciaux et piscicultures",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage et vidange des plans d'eau, étangs, bassin d'agrément et manoeuvre de vannes",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage et vidange des plans d’eau (HORS étangs de pêche à usages commerciaux et piscicultures)",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage et vidange des étangs de pêche à usages commerciaux et bassins de piscicultures",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -12241,6 +14301,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Remplissage, mise à niveau ou vidange des plans d'eau",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Remplissage, mise à niveau ou vidange des plans d’eau",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": true,
@@ -12268,6 +14338,16 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Remplissage, vidange, mise à niveau des plans d'eau.",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
       "concerneInstallation": false
     },
     {
@@ -12341,6 +14421,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Remplissage/vidanges des plans d’eau et/ou manoeuvres de vannage (hors canaux de centrale hydroélectrique en activité)",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Remplissages des retenues d’irrigation",
       "thematique": "Irriguer",
       "concerneParticulier": false,
@@ -12381,8 +14471,28 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Réalisation de seuils provisoires en cours d'eau",
+      "thematique": "Travaux et activités en cours d'eau",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Réseau d'adduction d'eau potable (AEP)",
       "thematique": "Activités économiques",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Réservoirs eau potable",
+      "thematique": "Remplir ou vidanger",
       "concerneParticulier": false,
       "concerneCollectivite": true,
       "concerneEtablissement": false,
@@ -12451,6 +14561,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Stations d'épuration hors ICPE",
+      "thematique": "Rejeter",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Stations d'épuration urbaines",
       "thematique": "Rejeter",
       "concerneParticulier": false,
@@ -12492,6 +14612,16 @@
     },
     {
       "usage": "Structures gonflables/tubulaires privées à usage collectif > 1m3 nécessitant 1 vidange quotidienne",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Structures gonflables/tubulaires privées à usage collectif > 1m3 nécessitant 1 vidange quotidienne pour raison sanitaire",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -12621,6 +14751,26 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Toutes les ICPE",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Travaux",
+      "thematique": "Activités économiques",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Travaux avec rejet d'assainissement dépassant les normes autorisées",
       "thematique": "Travaux et activités en cours d'eau",
       "concerneParticulier": false,
@@ -12632,6 +14782,16 @@
     },
     {
       "usage": "Travaux avec rejet d'assainissement dépassant les normes autorisées",
+      "thematique": "Travaux et activités en cours d'eau",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Travaux conduisant à dégrader les performances de la collecte ou du traitement des eaux usées",
       "thematique": "Travaux et activités en cours d'eau",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -12741,6 +14901,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Travaux en cours d’eau‍",
+      "thematique": "Travaux et activités en cours d'eau",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Travaux en lit mouillé d’un cours d’eau",
       "thematique": "Travaux et activités en cours d'eau",
       "concerneParticulier": true,
@@ -12762,6 +14932,16 @@
     },
     {
       "usage": "Travaux en rivières, zones de chantier en eau ou en zone de protection",
+      "thematique": "Travaux et activités en cours d'eau",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Travaux nécessitant des rejets non traités dans les cours d'eau",
       "thematique": "Travaux et activités en cours d'eau",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -12901,7 +15081,27 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Usage ICPE non soumis à un APC relatif à la sécheresse pris ou revu depuis janvier 2024 ; voir exceptions listées dans l’arrêté préfectoral",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Usage de l'eau non directement lié au process industriel ou non indispensable à l'activité",
+      "thematique": "Activités économiques",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Usage de l'eau non strictement nécessaire au process de production ou à l'activité exercée",
       "thematique": "Activités économiques",
       "concerneParticulier": false,
       "concerneCollectivite": false,
@@ -12928,6 +15128,16 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Usage de l'eau strictement nécessaires au process de production ou à l'activité exercée",
+      "thematique": "Activités économiques",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
       "concerneInstallation": false
     },
     {
@@ -12961,10 +15171,60 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Usages de l'eau non strictement nécessaires au process de production ou à l'activité exercée : artisanat, industrie, y compris ICPE",
+      "thematique": "Activités économiques",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Usages de l'eau strictement nécessaires au process de production ou à l'activité exercée",
       "thematique": "Activités économiques",
       "concerneParticulier": false,
       "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Usages de l'eau strictement nécessaires au process de production ou à l'activité exercée : artisanat, industrie, y compris ICPE",
+      "thematique": "Activités économiques",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Usages de l’eau au sein de pépinières et jardineries",
+      "thematique": "Activités économiques",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Usages de l’eau au sein des ICPE industrielles A et E prélevant plus de 10.000 m3/an, y compris les nouveaux établissements et les existants A/E",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Usages de l’eau au sein des ICPE industrielles soumises à déclaration prélevant plus de 10.000 m³/an",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": true,
@@ -12978,6 +15238,16 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Usages de l’eau non strictement nécessaires au process de production ou à l’activité exercée : artisanat, industrie, y compris les ICPE‍",
+      "thematique": "Activités économiques",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
       "concerneInstallation": false
     },
     {
@@ -13068,6 +15338,26 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Utilisation des brumisateurs",
+      "thematique": "Alimenter des fontaines et autres usages de loisirs",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Utilisation des brumisateurs",
+      "thematique": "Alimenter des fontaines et autres usages de loisirs",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
       "concerneInstallation": false
     },
     {
@@ -13321,6 +15611,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Vidange et remplissage des piscines publiques et des piscines privées ouvertes au public",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Vidange et remplissage des piscines publiques ou privées à usage collectif",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": false,
@@ -13412,6 +15712,16 @@
     },
     {
       "usage": "Vidange totale de plans d’eau vers le réseau hydrographique",
+      "thematique": "Remplir ou vidanger",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "Vidange totale des plans d'eau vers le réseau hydrographique",
       "thematique": "Remplir ou vidanger",
       "concerneParticulier": true,
       "concerneCollectivite": true,
@@ -13691,6 +16001,16 @@
       "concerneInstallation": false
     },
     {
+      "usage": "Éclusage ou manœuvre de vannes d’ouvrages ou installations hydrauliques (moulins, micro-centrales, biefs, plans d’eau)",
+      "thematique": "Ouvrages hydrauliques",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
       "usage": "Établissements ayant une faible consommation d'eau ",
       "thematique": "Activités économiques",
       "concerneParticulier": false,
@@ -13698,6 +16018,56 @@
       "concerneEtablissement": false,
       "concerneActivite": false,
       "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "‍Arrosage des pelouses",
+      "thematique": "Arroser",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "‍Exploitation des installations classées pour la protection de l’environnement (ICPE)",
+      "thematique": "ICPE",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": false,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "‍Prélèvement d’eau pour l’irrigation par aspersion des cultures (hors périmètres irrigués)",
+      "thematique": "Irriguer",
+      "concerneParticulier": false,
+      "concerneCollectivite": false,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "‍Prélèvement d’eau souterraine sous le seuil d’eau de 1 000 m3/an - Hors abreuvement des animaux",
+      "thematique": "Prélever",
+      "concerneParticulier": true,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
+      "concerneInstallation": false
+    },
+    {
+      "usage": "‍Usages de l’eau strictement nécessaires au process de production ou à l’activité exercée : artisanat, industrie, y compris les ICPE",
+      "thematique": "Activités économiques",
+      "concerneParticulier": false,
+      "concerneCollectivite": true,
+      "concerneEtablissement": false,
+      "concerneActivite": false,
+      "concerneExploitation": true,
       "concerneInstallation": false
     }
   ]
