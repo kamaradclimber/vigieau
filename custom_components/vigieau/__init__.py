@@ -383,7 +383,8 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
         if self._numeric_state:
             self._attr_native_value = self.numeric_state_value
         else:
-            self._attr_native_value = self.coordinator.data["niveauGravite"]
+            niveauGravite = self.coordinator.data["niveauGravite"]
+            self._attr_native_value = niveauGravite.replace("_", " ").capitalize()
 
         self._attr_icon = {
             0: "mdi:water-check",
