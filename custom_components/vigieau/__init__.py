@@ -449,7 +449,7 @@ class RestrictionMixin:
                     return True
             return False
 
-        TIME_PATTERNS = [r"interdiction sur plage horaire", r"interdiction.*\d+\s*h"]
+        TIME_PATTERNS = [r"interdiction sur plage horaire", r"(?:interdiction|interdit).*\d+\s*h"]
 
         def has_time_based_interdiction():
             for pattern in TIME_PATTERNS:
@@ -531,6 +531,10 @@ class RestrictionMixin:
                 start_time = _parse_time_str(start_str)
                 end_time = _parse_time_str(end_str)
                 if start_time is not None and end_time is not None:
+                    # "uniquement de X h à Y h" describes the ALLOWED window.
+                    # We need the RESTRICTED window, so swap start and end.
+                    if re.search(r"uniquement\s+de\s+\d", restriction, re.IGNORECASE):
+                        start_time, end_time = end_time, start_time
                     _LOGGER.debug(
                         f"Extracted time range {start_time}-{end_time} from description: {restriction}"
                     )

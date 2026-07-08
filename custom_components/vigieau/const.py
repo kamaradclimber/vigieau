@@ -61,7 +61,13 @@ class VigieEauSensorEntityDescription(
 
     def match(self, usage: dict) -> bool:
         for matcher in self.matchers:
-            if re.search(matcher, usage["nom"] + "|" + usage["thematique"]):
+            nom = usage["nom"]
+            # Strip parenthesized exclusion clauses ("(hors ...)") before
+            # matching, unless the matcher itself contains "hors" (meaning
+            # it intentionally targets text with that keyword).
+            if "hors" not in matcher.lower():
+                nom = re.sub(r"\(hors[^)]*\)", "", nom)
+            if re.search(matcher, nom + "|" + usage["thematique"]):
                 return True
         return False
 
@@ -91,9 +97,10 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         key="potagers",
         commonly_used=True,
         matchers=[
-"Prélèvement d’eau pour l’irrigation par système ‍d’irrigation localisée (goutte à gouttes, micro-aspersion) (hors périmètres irrigués).*Prélever",
+            "Prélèvement d’eau pour l’irrigation par système ‍d’irrigation localisée \(goutte à gouttes, micro-aspersion\) \(hors périmètres irrigués\).*Prélever",
             "Arrosage des .*potagers",
             "Prélèvement pour le lavage de fruits.*",
+            "plants destinés à l'alimentation",
         ],
     ),
     VigieEauSensorEntityDescription(

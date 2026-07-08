@@ -79,6 +79,15 @@ class TestComputeNativeValue(unittest.TestCase):
         self.assertEqual(result, "Interdiction sur plage horaire")
         self.assertTrue(entity._is_time_based())
 
+    def test_time_based_interdit_with_time_pattern(self):
+        """'Interdit' (not 'Interdiction') with a time pattern should be detected as time-based."""
+        entity = self._make_entity(
+            ["Interdit sauf plantations (arbres) et îlots de fraîcheur uniquement de 20 h à 8 h"]
+        )
+        result = entity.compute_native_value()
+        self.assertEqual(result, "Interdiction sur plage horaire")
+        self.assertTrue(entity._is_time_based())
+
     def test_total_interdiction(self):
         entity = self._make_entity(["Interdiction"])
         result = entity.compute_native_value()
@@ -136,6 +145,27 @@ class TestExtractTimeRange(unittest.TestCase):
     def test_extract_no_match(self):
         entity = self._make_entity(["Interdiction"])
         self.assertIsNone(entity._extract_time_range_from_descriptions())
+
+    def test_extract_interdit_sauf_uniquement_de_inverts_range(self):
+        """'uniquement de X h à Y h' describes the allowed window, so the
+        extracted restricted window should be the complement (Y-X)."""
+        entity = self._make_entity(
+            ["Interdit sauf plantations (arbres) et îlots de fraîcheur uniquement de 20 h à 8 h"]
+        )
+        result = entity._extract_time_range_from_descriptions()
+        self.assertIsNotNone(result)
+        start, end = result
+        self.assertEqual(start, dt_time(8, 0))
+        self.assertEqual(end, dt_time(20, 0))
+
+    def test_extract_interdit_sauf_uniquement_de_does_not_affect_normal(self):
+        """Normal patterns like 'de X h à Y h' are not affected by the uniquement fix."""
+        entity = self._make_entity(["Interdiction de 11h à 18h."])
+        result = entity._extract_time_range_from_descriptions()
+        self.assertIsNotNone(result)
+        start, end = result
+        self.assertEqual(start, dt_time(11, 0))
+        self.assertEqual(end, dt_time(18, 0))
 
 
 class TestTimeAttributes(unittest.TestCase):
