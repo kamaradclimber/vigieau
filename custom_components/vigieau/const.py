@@ -97,7 +97,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
         key="potagers",
         commonly_used=True,
         matchers=[
-            "Prélèvement d’eau pour l’irrigation par système ‍d’irrigation localisée \(goutte à gouttes, micro-aspersion\) \(hors périmètres irrigués\).*Prélever",
+            r"Prélèvement d’eau pour l’irrigation par système ‍d’irrigation localisée \(goutte à gouttes, micro-aspersion\) \(hors périmètres irrigués\).*Prélever",
             "Arrosage des .*potagers",
             "Prélèvement pour le lavage de fruits.*",
             "plants destinés à l'alimentation",
