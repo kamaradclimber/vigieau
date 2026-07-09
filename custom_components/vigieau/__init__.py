@@ -508,7 +508,7 @@ class RestrictionMixin:
             return "Sensibilisation"
         if any_restriction_match("Réduction"):
             return "Réduction"
-        if len(self._restrictions) == 1:
+        if len(set(self._restrictions)) == 1:
             return self._restrictions[0]
         report_data = json.dumps(
             {"insee code": self._config_entry.data.get(CONF_INSEE_CODE), "restrictions": self._restrictions},

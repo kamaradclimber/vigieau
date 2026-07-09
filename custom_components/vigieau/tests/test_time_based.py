@@ -118,6 +118,14 @@ class TestComputeNativeValue(unittest.TestCase):
         self.assertEqual(result, "Réduction de prélèvement")
         self.assertFalse(entity._is_time_based())
 
+    def test_identical_duplicate_restrictions_fallback(self):
+        entity = self._make_entity(
+            ["Information via communiqué de presse", "Information via communiqué de presse", "Information via communiqué de presse"]
+        )
+        result = entity.compute_native_value()
+        self.assertEqual(result, "Information via communiqué de presse")
+        self.assertFalse(entity._is_time_based())
+
 
 class TestExtractTimeRange(unittest.TestCase):
     def _make_entity(self, restrictions):
