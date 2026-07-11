@@ -8,7 +8,7 @@ parent_dir = path.dirname(current_dir)
 sys.path.append(".")
 sys.path.append(parent_dir)
 
-from custom_components.vigieau.__init__ import _parse_time_str, UsageRestrictionEntity, UsageRestrictionBinaryEntity
+from custom_components.vigieau.__init__ import _parse_time_str, UsageRestrictionEntity, UsageRestrictionBinaryEntity, classify_restrictions, extract_time_range
 import unittest
 
 
@@ -32,6 +32,80 @@ class TestParseTimeStr(unittest.TestCase):
 
     def test_parse_invalid(self):
         self.assertIsNone(_parse_time_str("abc"))
+
+
+class TestClassifyRestrictions(unittest.TestCase):
+    def test_empty(self):
+        level, is_time = classify_restrictions([])
+        self.assertEqual(level, "Aucune restriction")
+        self.assertFalse(is_time)
+
+    def test_time_based_interdiction(self):
+        level, is_time = classify_restrictions(["Interdiction sur plage horaire"])
+        self.assertEqual(level, "Interdiction sur plage horaire")
+        self.assertTrue(is_time)
+
+    def test_interdiction_sauf(self):
+        level, is_time = classify_restrictions(["Interdiction sauf exception"])
+        self.assertEqual(level, "Interdiction sauf exception")
+        self.assertFalse(is_time)
+
+    def test_interdiction(self):
+        level, is_time = classify_restrictions(["Interdiction totale"])
+        self.assertEqual(level, "Interdiction")
+        self.assertFalse(is_time)
+
+    def test_sensibilisation(self):
+        level, is_time = classify_restrictions(["Sensibilisation aux règles de bon usage"])
+        self.assertEqual(level, "Sensibilisation")
+        self.assertFalse(is_time)
+
+    def test_reduction(self):
+        level, is_time = classify_restrictions(["Réduction de prélèvement"])
+        self.assertEqual(level, "Réduction de prélèvement")
+        self.assertFalse(is_time)
+
+    def test_mixed_time_and_total_interdiction(self):
+        level, is_time = classify_restrictions(["Interdiction de 8 h à 20 h", "Interdiction"])
+        self.assertEqual(level, "Interdiction")
+        self.assertFalse(is_time)
+
+    def test_interdit_with_time_pattern_is_time_based(self):
+        level, is_time = classify_restrictions(
+            ["Interdit sauf plantations (arbres) et îlots de fraîcheur uniquement de 20 h à 8 h"]
+        )
+        self.assertEqual(level, "Interdiction sur plage horaire")
+        self.assertTrue(is_time)
+
+    def test_single_restriction_fallback(self):
+        level, is_time = classify_restrictions(["Information via communiqué de presse"])
+        self.assertEqual(level, "Information via communiqué de presse")
+        self.assertFalse(is_time)
+
+
+class TestExtractTimeRangeStandalone(unittest.TestCase):
+    def test_simple(self):
+        result = extract_time_range(["Interdiction de 11h à 18h."])
+        self.assertEqual(result, (dt_time(11, 0), dt_time(18, 0)))
+
+    def test_with_spaces(self):
+        result = extract_time_range(["Interdiction de 8 h à 20 h"])
+        self.assertEqual(result, (dt_time(8, 0), dt_time(20, 0)))
+
+    def test_no_match(self):
+        self.assertIsNone(extract_time_range(["Interdiction"]))
+
+    def test_uniquement_inverts(self):
+        result = extract_time_range(
+            ["Interdit sauf plantations (arbres) et îlots de fraîcheur uniquement de 20 h à 8 h"]
+        )
+        self.assertEqual(result, (dt_time(8, 0), dt_time(20, 0)))
+
+    def test_uniquement_overnight_inverts_to_daytime(self):
+        result = extract_time_range(
+            ["Autorisé uniquement de 18 h à 10 h pour l'abreuvement"]
+        )
+        self.assertEqual(result, (dt_time(10, 0), dt_time(18, 0)))
 
 
 class TestComputeNativeValue(unittest.TestCase):

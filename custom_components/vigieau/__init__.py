@@ -301,7 +301,107 @@ def _parse_time_str(time_str: str) -> Optional[dt_time]:
         return dt_time(int(match.group(1)), int(match.group(2)))
     match = re.match(r'(\d{1,2})h\s*$', time_str)
     if match:
-        return dt_time(int(match.group(1)), 0)
+        hour = int(match.group(1))
+        if hour == 24:
+            hour = 0
+        if hour > 23:
+            return None
+        return dt_time(hour, 0)
+    return None
+
+
+_TIME_CLASSIFICATION_PATTERNS = [r"interdiction sur plage horaire", r"(?:interdiction|interdit).*\d+\s*h"]
+
+
+def classify_restrictions(restrictions):
+    """Classify a list of restriction descriptions into a restriction level.
+
+    Returns (level_string, is_time_based).
+    level_string is None when the restrictions cannot be interpreted.
+    """
+    def any_restriction_match(matcher):
+        r = re.compile(matcher, re.IGNORECASE)
+        for restriction in restrictions:
+            if r.search(restriction):
+                return True
+        return False
+
+    def has_time_based_interdiction():
+        for pattern in _TIME_CLASSIFICATION_PATTERNS:
+            r = re.compile(pattern, re.IGNORECASE)
+            for restriction in restrictions:
+                if r.search(restriction):
+                    return True
+        return False
+
+    def has_non_time_interdiction():
+        r_inter = re.compile(r"interdiction", re.IGNORECASE)
+        r_time = re.compile("|".join(_TIME_CLASSIFICATION_PATTERNS), re.IGNORECASE)
+        for restriction in restrictions:
+            if r_inter.search(restriction) and not r_time.search(restriction):
+                return True
+        return False
+
+    if len(restrictions) == 0:
+        return ("Aucune restriction", False)
+
+    if not has_non_time_interdiction() and has_time_based_interdiction():
+        return ("Interdiction sur plage horaire", True)
+
+    if any_restriction_match("interdi.*sauf"):
+        return ("Interdiction sauf exception", False)
+    if any_restriction_match("à l\u2019exception"):
+        return ("Interdiction sauf exception", False)
+    if any_restriction_match("à l\u2019exclusion"):
+        return ("Interdiction sauf exception", False)
+    if any_restriction_match("Interdit.*dès lors"):
+        return ("Interdiction sauf exception", False)
+    if any_restriction_match("Interdiction"):
+        return ("Interdiction", False)
+    if any_restriction_match("interdit"):
+        return ("Interdiction", False)
+    if any_restriction_match("interdiction"):
+        return ("Interdiction", False)
+    if any_restriction_match("limitation au strict nécessaire"):
+        return ("Interdiction sauf strict nécessaire", False)
+    if any_restriction_match("Réduction de prélèvement"):
+        return ("Réduction de prélèvement", False)
+    if any_restriction_match("Consulter l\u2019arrêté"):
+        return ("Erreur: consulter l'arrêté", False)
+    if any_restriction_match("Se référer à l'arrêté de restriction en cours de validité."):
+        return ("Erreur: consulter l'arrêté", False)
+    if any_restriction_match("Pas de restriction sauf arrêté spécifique."):
+        return ("Autorisé sauf exception", False)
+    if any_restriction_match("Sensibiliser"):
+        return ("Sensibilisation", False)
+    if any_restriction_match("Sensibilisation"):
+        return ("Sensibilisation", False)
+    if any_restriction_match("il est demandé"):
+        return ("Sensibilisation", False)
+    if any_restriction_match("Réduction"):
+        return ("Réduction", False)
+    if len(set(restrictions)) == 1:
+        return (restrictions[0], False)
+    return (None, False)
+
+
+def extract_time_range(restrictions):
+    """Extract a time range from restriction description strings.
+
+    Returns (start_time, end_time) or None.
+    Handles the "uniquement de X h à Y h" inversion (allowed window → restricted window).
+    """
+    for restriction in restrictions:
+        match = re.search(r"(\d{1,2})\s*h.*?(\d{1,2})\s*h", restriction)
+        if match:
+            start_str = f"{match.group(1)}h"
+            end_str = f"{match.group(2)}h"
+            start_time = _parse_time_str(start_str)
+            end_time = _parse_time_str(end_str)
+            if start_time is not None and end_time is not None:
+                if re.search(r"uniquement\s+de\s+\d", restriction, re.IGNORECASE):
+                    start_time, end_time = end_time, start_time
+                return (start_time, end_time)
     return None
 
 
@@ -441,105 +541,23 @@ class RestrictionMixin:
 
     def compute_native_value(self) -> Optional[str]:
         """This method extract the most relevant restriction level to display as aggregate"""
-
-        def any_restriction_match(matcher):
-            r = re.compile(matcher, re.IGNORECASE)
-            for restriction in self._restrictions:
-                if r.search(restriction):
-                    return True
-            return False
-
-        TIME_PATTERNS = [r"interdiction sur plage horaire", r"(?:interdiction|interdit).*\d+\s*h"]
-
-        def has_time_based_interdiction():
-            for pattern in TIME_PATTERNS:
-                r = re.compile(pattern, re.IGNORECASE)
-                for restriction in self._restrictions:
-                    if r.search(restriction):
-                        return True
-            return False
-
-        def has_non_time_interdiction():
-            r_inter = re.compile(r"interdiction", re.IGNORECASE)
-            r_time = re.compile("|".join(TIME_PATTERNS), re.IGNORECASE)
-            for restriction in self._restrictions:
-                if r_inter.search(restriction) and not r_time.search(restriction):
-                    return True
-            return False
-
-        self._native_is_time_based = False
-
-        if len(self._restrictions) == 0:
-            return "Aucune restriction"
-
-        if not has_non_time_interdiction() and has_time_based_interdiction():
-            self._native_is_time_based = True
-            return "Interdiction sur plage horaire"
-
-        if any_restriction_match("interdi.*sauf"):
-            return "Interdiction sauf exception"
-        if any_restriction_match("à l’exception"):
-            return "Interdiction sauf exception"
-        if any_restriction_match("à l’exclusion"):
-            return "Interdiction sauf exception"
-        if any_restriction_match("Interdit.*dès lors"):
-            return "Interdiction sauf exception"
-        if any_restriction_match("Interdiction"):
-            return "Interdiction"
-        if any_restriction_match("interdit"):
-            return "Interdiction"
-        if any_restriction_match("interdiction"):
-            return "Interdiction"
-        if any_restriction_match("limitation au strict nécessaire"):
-            return "Interdiction sauf strict nécessaire"
-        if any_restriction_match("Réduction de prélèvement"):
-            return "Réduction de prélèvement"
-        if any_restriction_match("Consulter l’arrêté"):
-            return "Erreur: consulter l'arrêté"
-        if any_restriction_match("Se référer à l'arrêté de restriction en cours de validité."):
-            return "Erreur: consulter l'arrêté"
-        if any_restriction_match("Pas de restriction sauf arrêté spécifique."):
-            return "Autorisé sauf exception"
-        if any_restriction_match("Sensibiliser"):
-            return "Sensibilisation"
-        if any_restriction_match("Sensibilisation"):
-            return "Sensibilisation"
-        if any_restriction_match("il est demandé"):
-            return "Sensibilisation"
-        if any_restriction_match("Réduction"):
-            return "Réduction"
-        if len(set(self._restrictions)) == 1:
-            return self._restrictions[0]
-        report_data = json.dumps(
-            {"insee code": self._config_entry.data.get(CONF_INSEE_CODE), "restrictions": self._restrictions},
-            ensure_ascii=False,
-        )
-        _LOGGER.warning(
-            f"The following restriction are hard to interpret by this integration, please report an issue with: {report_data}"
-        )
-        return None
+        result, is_time_based = classify_restrictions(self._restrictions)
+        self._native_is_time_based = is_time_based
+        if result is None:
+            report_data = json.dumps(
+                {"insee code": self._config_entry.data.get(CONF_INSEE_CODE), "restrictions": self._restrictions},
+                ensure_ascii=False,
+            )
+            _LOGGER.warning(
+                f"The following restriction are hard to interpret by this integration, please report an issue with: {report_data}"
+            )
+        return result
 
     def _is_time_based(self) -> bool:
         return self._native_is_time_based
 
     def _extract_time_range_from_descriptions(self):
-        for restriction in self._restrictions:
-            match = re.search(r"(\d{1,2})\s*h.*?(\d{1,2})\s*h", restriction)
-            if match:
-                start_str = f"{match.group(1)}h"
-                end_str = f"{match.group(2)}h"
-                start_time = _parse_time_str(start_str)
-                end_time = _parse_time_str(end_str)
-                if start_time is not None and end_time is not None:
-                    # "uniquement de X h à Y h" describes the ALLOWED window.
-                    # We need the RESTRICTED window, so swap start and end.
-                    if re.search(r"uniquement\s+de\s+\d", restriction, re.IGNORECASE):
-                        start_time, end_time = end_time, start_time
-                    _LOGGER.debug(
-                        f"Extracted time range {start_time}-{end_time} from description: {restriction}"
-                    )
-                    return (start_time, end_time)
-        return None
+        return extract_time_range(self._restrictions)
 
     def _get_effective_time_ranges(self):
         ranges = []
