@@ -707,10 +707,13 @@ class RestrictionMixin:
                     usage, "details", f"{usage['nom']} (details)"
                 )
                 if "heureFin" in usage and "heureDebut" in usage:
-                    self._time_restrictions[usage["nom"]] = [
-                        usage["heureDebut"],
-                        usage["heureFin"],
-                    ]
+                    debut = usage["heureDebut"]
+                    fin = usage["heureFin"]
+                    # "uniquement de X à Y" describes the ALLOWED window.
+                    # We need the RESTRICTED window, so swap start and end.
+                    if re.search(r"uniquement\s+de\s+\d", restriction, re.IGNORECASE):
+                        debut, fin = fin, debut
+                    self._time_restrictions[usage["nom"]] = [debut, fin]
 
         if len(set([repr(r) for r in self._time_restrictions.values()])) == 1:
             restrictions = list(self._time_restrictions.values())[0]
