@@ -281,6 +281,91 @@ class TestTimeAttributes(unittest.TestCase):
         self.assertIn("next_restriction_end", entity._attr_state_attributes)
 
 
+class TestHandleCoordinatorUpdate(unittest.TestCase):
+    def _make_entity_with_coordinator(self, usages):
+        from custom_components.vigieau.__init__ import RestrictionMixin
+        entity = MagicMock(spec=UsageRestrictionEntity)
+        entity.coordinator = MagicMock()
+        entity.coordinator.last_update_success = True
+        entity.coordinator.data = {"usages": usages}
+        entity._config = MagicMock()
+        entity._config.match.return_value = True
+        entity._restrictions = []
+        entity._time_restrictions = {}
+        entity._extracted_time_range = None
+        entity._attr_state_attributes = {}
+        entity._attr_name = "test"
+        entity._attr_device_info = None
+        entity._unsub_timer = None
+        entity._native_is_time_based = False
+        entity._attr_native_value = None
+
+        entity._cancel_timer = MagicMock()
+        entity.build_device = MagicMock(return_value=None)
+        entity.enrich_attributes = MagicMock()
+        entity.async_write_ha_state = MagicMock()
+        entity.compute_native_value = UsageRestrictionEntity.compute_native_value.__get__(entity, UsageRestrictionEntity)
+        entity._is_time_based = UsageRestrictionEntity._is_time_based.__get__(entity, UsageRestrictionEntity)
+        entity._extract_time_range_from_descriptions = UsageRestrictionEntity._extract_time_range_from_descriptions.__get__(entity, UsageRestrictionEntity)
+        entity._get_effective_time_ranges = UsageRestrictionEntity._get_effective_time_ranges.__get__(entity, UsageRestrictionEntity)
+        entity._is_currently_restricted = UsageRestrictionEntity._is_currently_restricted.__get__(entity, UsageRestrictionEntity)
+        entity._update_dynamic_attributes = UsageRestrictionEntity._update_dynamic_attributes.__get__(entity, UsageRestrictionEntity)
+        entity._schedule_next_time_update = MagicMock()
+        entity._on_restrictions_updated = MagicMock()
+        entity.hass = MagicMock()
+
+        entity._handle_coordinator_update = UsageRestrictionEntity._handle_coordinator_update.__get__(entity, UsageRestrictionEntity)
+        return entity
+
+    def test_api_time_range_swapped_when_uniquement(self):
+        """API heureDebut/heureFin should be swapped when description says 'uniquement de'"""
+        usages = [{
+            "nom": "Abreuvement des animaux",
+            "description": "Interdit sauf abreuvement des animaux uniquement de 18 h à 10 h",
+            "heureDebut": "18h",
+            "heureFin": "10h",
+        }]
+        entity = self._make_entity_with_coordinator(usages)
+        entity._handle_coordinator_update()
+        ranges = entity._get_effective_time_ranges()
+        self.assertEqual(len(ranges), 1)
+        start, end = ranges[0]
+        self.assertEqual(start, dt_time(10, 0))
+        self.assertEqual(end, dt_time(18, 0))
+
+    def test_api_time_range_not_swapped_without_uniquement(self):
+        """API heureDebut/heureFin should NOT be swapped for normal descriptions"""
+        usages = [{
+            "nom": "Arrosage des pelouses",
+            "description": "Interdiction de 8 h à 20 h",
+            "heureDebut": "8h",
+            "heureFin": "20h",
+        }]
+        entity = self._make_entity_with_coordinator(usages)
+        entity._handle_coordinator_update()
+        ranges = entity._get_effective_time_ranges()
+        self.assertEqual(len(ranges), 1)
+        start, end = ranges[0]
+        self.assertEqual(start, dt_time(8, 0))
+        self.assertEqual(end, dt_time(20, 0))
+
+    def test_api_time_range_swapped_overnight_uniquement(self):
+        """Overnight 'uniquement' from API should result in daytime restriction"""
+        usages = [{
+            "nom": "Abreuvement des animaux",
+            "description": "Autorisé uniquement de 20 h à 6 h pour l'abreuvement",
+            "heureDebut": "20h",
+            "heureFin": "6h",
+        }]
+        entity = self._make_entity_with_coordinator(usages)
+        entity._handle_coordinator_update()
+        ranges = entity._get_effective_time_ranges()
+        self.assertEqual(len(ranges), 1)
+        start, end = ranges[0]
+        self.assertEqual(start, dt_time(6, 0))
+        self.assertEqual(end, dt_time(20, 0))
+
+
 class TestBinarySensorEntity(unittest.TestCase):
     def _make_binary_entity(self, state_attributes=None):
         entity = MagicMock(spec=UsageRestrictionBinaryEntity)
