@@ -2,6 +2,373 @@
   "config": {
     "step": {
       "user": {
+        "data": {
+          "location_mode": ""
+        },
+        "description": "Choose how to locate the property",
+        "title": "Location mode"
+      },
+      "zone_type": {
+        "data": {
+          "zone_type": ""
+        },
+        "description": "Choose a water withdrawal type",
+        "title": "Water withdrawal type"
+      },
+      "location": {
+        "data": {
+          "code_postal": "Postcode"
+        },
+        "description": "Enter your postcode",
+        "title": "Location"
+      },
+      "multilocation": {
+        "data": {
+          "city": "City"
+        },
+        "description": "Select the city",
+        "title": "Several INSEE codes were found for this postcode"
+      },
+      "location_map": {
+        "data": {
+          "latitude": "Latitude",
+          "longitude": "Longitude"
+        },
+        "title": "Map location"
+      }
+    }
+  },
+  "selector": {
+    "location_mode": {
+      "options": {
+        "ha_coord": "Home Assistant coordinates",
+        "zip_code": "Postcode",
+        "select_coord": "Select on map"
+      }
+    },
+    "zone_type": {
+      "options": {
+        "SUP": "Surface water",
+        "AEP": "Drinking water supply",
+        "SOU": "Groundwater"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "alert_level": {
+        "name": "Alert level in {city}"
+      },
+      "alert_level_numeric": {
+        "name": "Alert level in {city} (numeric)"
+      },
+      "fountains_restrictions": {
+        "name": "Fountain supply restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "potagers_restrictions": {
+        "name": "Vegetable garden watering restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "roads_restrictions": {
+        "name": "Road and pavement watering restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "lawn_restrictions": {
+        "name": "Lawn watering restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "car_wash_restrictions": {
+        "name": "Vehicle washing restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "nautical_vehicules_restrictions": {
+        "name": "Boat washing restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "roof_clean_restrictions": {
+        "name": "Roof and facade washing restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "pool_restrictions": {
+        "name": "Swimming pool filling and draining restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "ponds_restrictions": {
+        "name": "Pond and lake filling/draining restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "river_rate_restrictions": {
+        "name": "Watercourse works restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "river_movement_restrictions": {
+        "name": "River navigation restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "golfs_restrictions": {
+        "name": "Golf course watering restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "canals_restrictions": {
+        "name": "Canal water withdrawal restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "trees_restrictions": {
+        "name": "Tree and plant watering restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "animals_restrictions": {
+        "name": "Animal use restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "fields_restrictions": {
+        "name": "Market gardening and crops restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      },
+      "misc_restrictions": {
+        "name": "Specific restriction restrictions in {city}",
+        "state": {
+          "no_restriction": "No restriction",
+          "time_based_ban": "Time-based ban",
+          "ban_with_exceptions": "Ban with exceptions",
+          "ban": "Ban",
+          "ban_except_strictly_necessary": "Ban except strictly necessary use",
+          "water_withdrawal_reduction": "Water withdrawal reduction",
+          "error_check_decree": "Error: check the decree",
+          "allowed_except_specific_decree": "Allowed except by specific decree",
+          "awareness": "Awareness",
+          "reduction": "Reduction"
+        }
+      }
+    },
+    "binary_sensor": {
+      "fountains_binary": {
+        "name": "Fountain supply allowed in {city}"
+      },
+      "potagers_binary": {
+        "name": "Vegetable garden watering allowed in {city}"
+      },
+      "roads_binary": {
+        "name": "Road and pavement watering allowed in {city}"
+      },
+      "lawn_binary": {
+        "name": "Lawn watering allowed in {city}"
+      },
+      "car_wash_binary": {
+        "name": "Vehicle washing allowed in {city}"
+      },
+      "nautical_vehicules_binary": {
+        "name": "Boat washing allowed in {city}"
+      },
+      "roof_clean_binary": {
+        "name": "Roof and facade washing allowed in {city}"
+      },
+      "pool_binary": {
+        "name": "Swimming pool filling and draining allowed in {city}"
+      },
+      "ponds_binary": {
+        "name": "Pond and lake filling/draining allowed in {city}"
+      },
+      "river_rate_binary": {
+        "name": "Watercourse works allowed in {city}"
+      },
+      "river_movement_binary": {
+        "name": "River navigation allowed in {city}"
+      },
+      "golfs_binary": {
+        "name": "Golf course watering allowed in {city}"
+      },
+      "canals_binary": {
+        "name": "Canal water withdrawal allowed in {city}"
+      },
+      "trees_binary": {
+        "name": "Tree and plant watering allowed in {city}"
+      },
+      "animals_binary": {
+        "name": "Animal use allowed in {city}"
+      },
+      "fields_binary": {
+        "name": "Market gardening and crops allowed in {city}"
+      },
+      "misc_binary": {
+        "name": "Specific restriction allowed in {city}"
       }
     }
   }

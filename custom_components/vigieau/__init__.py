@@ -43,6 +43,7 @@ from .const import (
     DEVICE_ID_KEY,
     DOMAIN,
     HA_COORD,
+    LEGACY_HA_COORD,
     LOCATION_MODES,
     NAME,
     SENSOR_DEFINITIONS,
@@ -57,6 +58,23 @@ MIGRATED_FROM_VERSION_1 = "migrated_from_version_1"
 MIGRATED_FROM_VERSION_3 = "migrated_from_version_3"
 MIGRATED_FROM_VERSION_5 = "migrated_from_version_5"
 MIGRATED_FROM_VERSION_6 = "migrated_from_version_6"
+
+STATE_NO_RESTRICTION = "no_restriction"
+STATE_TIME_BASED_BAN = "time_based_ban"
+STATE_BAN_WITH_EXCEPTIONS = "ban_with_exceptions"
+STATE_BAN = "ban"
+STATE_BAN_EXCEPT_STRICTLY_NECESSARY = "ban_except_strictly_necessary"
+STATE_WATER_WITHDRAWAL_REDUCTION = "water_withdrawal_reduction"
+STATE_ERROR_CHECK_DECREE = "error_check_decree"
+STATE_ALLOWED_EXCEPT_SPECIFIC_DECREE = "allowed_except_specific_decree"
+STATE_AWARENESS = "awareness"
+STATE_REDUCTION = "reduction"
+
+NON_RESTRICTED_STATES = {
+    STATE_NO_RESTRICTION,
+    STATE_ALLOWED_EXCEPT_SPECIFIC_DECREE,
+    STATE_AWARENESS,
+}
 
 
 async def async_migrate_entry(hass, config_entry: ConfigEntry):
@@ -110,7 +128,7 @@ async def async_migrate_entry(hass, config_entry: ConfigEntry):
     if config_entry.version == 6:
         _LOGGER.warn("config entry version is 6, migrating to version 7")
         new = {**config_entry.data}
-        new[CONF_FOLLOW_HA_COORDS] = new[CONF_LOCATION_MODE] == HA_COORD
+        new[CONF_FOLLOW_HA_COORDS] = new[CONF_LOCATION_MODE] in (HA_COORD, LEGACY_HA_COORD)
         new[MIGRATED_FROM_VERSION_6] = True
         hass.config_entries.async_update_entry(
             config_entry, data=new, version=7)
@@ -280,12 +298,7 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
 
 
 def zone_type_to_str(zone_type: str) -> str:
-    names = {
-        "SUP": "Eaux de surface",
-        "AEP": "Alimentation en eau potable",
-        "SOU": "Eaux souterraines",
-    }
-    return names.get(zone_type, "Zone inconnue")
+    return zone_type or "unknown"
 
 
 def _parse_time_str(time_str: str) -> Optional[dt_time]:
@@ -319,15 +332,19 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
         self._config_entry = config_entry
         self._numeric_state = numeric_state
         self.hass = hass
-        self._attr_name = self.build_name()
+        self._attr_has_entity_name = True
+        self._attr_translation_key = "alert_level_numeric" if numeric_state else "alert_level"
+        self._attr_translation_placeholders = self.translation_placeholders()
+        legacy_name = self.build_name()
+        self._attr_name = None
         self._attr_native_value = None
         self._attr_state_attributes = None
         if MIGRATED_FROM_VERSION_1 in config_entry.data:
             self._attr_unique_id = "sensor-vigieau-Alert level"
         elif MIGRATED_FROM_VERSION_5 in config_entry.data:
-            self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}"
+            self._attr_unique_id = f"sensor-vigieau-{legacy_name}-{config_entry.data.get(CONF_INSEE_CODE)}"
         elif MIGRATED_FROM_VERSION_6:
-            self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_ZONE_TYPE)}"
+            self._attr_unique_id = f"sensor-vigieau-{legacy_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_ZONE_TYPE)}"
         else:
             self._attr_unique_id = f"sensor-vigieau-alert-{config_entry.entry_id}"
 
@@ -369,6 +386,12 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
             name += " (numeric)"
         return name
 
+    def translation_placeholders(self) -> dict[str, str]:
+        data = self._config_entry.data
+        if self.coordinator.location is not None:
+            data = self.coordinator.location()
+        return {"city": data.get(CONF_CITY)}
+
     @callback
     def _handle_coordinator_update(self) -> None:
         _LOGGER.debug(f"Receiving an update for {self.unique_id} sensor")
@@ -376,7 +399,7 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
             _LOGGER.debug(
                 "Last coordinator failed, assuming state has not changed")
             return
-        self._attr_name = self.build_name()
+        self._attr_translation_placeholders = self.translation_placeholders()
         self._attr_device_info = self.build_device()
         self.numeric_state_value = self.coordinator.data["_numeric_state_value"]
 
@@ -470,44 +493,44 @@ class RestrictionMixin:
         self._native_is_time_based = False
 
         if len(self._restrictions) == 0:
-            return "Aucune restriction"
+            return STATE_NO_RESTRICTION
 
         if not has_non_time_interdiction() and has_time_based_interdiction():
             self._native_is_time_based = True
-            return "Interdiction sur plage horaire"
+            return STATE_TIME_BASED_BAN
 
         if any_restriction_match("interdi.*sauf"):
-            return "Interdiction sauf exception"
+            return STATE_BAN_WITH_EXCEPTIONS
         if any_restriction_match("à l’exception"):
-            return "Interdiction sauf exception"
+            return STATE_BAN_WITH_EXCEPTIONS
         if any_restriction_match("à l’exclusion"):
-            return "Interdiction sauf exception"
+            return STATE_BAN_WITH_EXCEPTIONS
         if any_restriction_match("Interdit.*dès lors"):
-            return "Interdiction sauf exception"
+            return STATE_BAN_WITH_EXCEPTIONS
         if any_restriction_match("Interdiction"):
-            return "Interdiction"
+            return STATE_BAN
         if any_restriction_match("interdit"):
-            return "Interdiction"
+            return STATE_BAN
         if any_restriction_match("interdiction"):
-            return "Interdiction"
+            return STATE_BAN
         if any_restriction_match("limitation au strict nécessaire"):
-            return "Interdiction sauf strict nécessaire"
+            return STATE_BAN_EXCEPT_STRICTLY_NECESSARY
         if any_restriction_match("Réduction de prélèvement"):
-            return "Réduction de prélèvement"
+            return STATE_WATER_WITHDRAWAL_REDUCTION
         if any_restriction_match("Consulter l’arrêté"):
-            return "Erreur: consulter l'arrêté"
+            return STATE_ERROR_CHECK_DECREE
         if any_restriction_match("Se référer à l'arrêté de restriction en cours de validité."):
-            return "Erreur: consulter l'arrêté"
+            return STATE_ERROR_CHECK_DECREE
         if any_restriction_match("Pas de restriction sauf arrêté spécifique."):
-            return "Autorisé sauf exception"
+            return STATE_ALLOWED_EXCEPT_SPECIFIC_DECREE
         if any_restriction_match("Sensibiliser"):
-            return "Sensibilisation"
+            return STATE_AWARENESS
         if any_restriction_match("Sensibilisation"):
-            return "Sensibilisation"
+            return STATE_AWARENESS
         if any_restriction_match("il est demandé"):
-            return "Sensibilisation"
+            return STATE_AWARENESS
         if any_restriction_match("Réduction"):
-            return "Réduction"
+            return STATE_REDUCTION
         if len(set(self._restrictions)) == 1:
             return self._restrictions[0]
         report_data = json.dumps(
@@ -572,7 +595,7 @@ class RestrictionMixin:
             is_restricted = self._is_currently_restricted(now_time)
             time_ranges = self._get_effective_time_ranges()
             _LOGGER.debug(f"Dynamic attr for {self.unique_id}: time_based=True, now_time={now_time}, ranges={time_ranges}, is_restricted={is_restricted}, R={R}")
-        elif R in ("Aucune restriction", "Autorisé sauf exception", "Sensibilisation"):
+        elif R in NON_RESTRICTED_STATES:
             is_restricted = False
         else:
             is_restricted = True
@@ -689,7 +712,9 @@ class RestrictionMixin:
         self._restrictions = []
         self._time_restrictions = {}
         self._extracted_time_range = None
-        self._attr_name = str(self._config.name)
+        self._attr_translation_placeholders = {
+            "city": self._config_entry.data.get(CONF_CITY)
+        }
         for usage in self.coordinator.data["usages"]:
             if self._config.match(usage):
                 self._attr_state_attributes = self._attr_state_attributes or {}
@@ -699,7 +724,7 @@ class RestrictionMixin:
                         "Restriction level is not specified"
                     )
                 self._attr_state_attributes[
-                    f"Categorie: {usage['nom']}"
+                    f"usage: {usage['nom']}"
                 ] = restriction
                 self._restrictions.append(restriction)
 
@@ -714,18 +739,18 @@ class RestrictionMixin:
 
         if len(set([repr(r) for r in self._time_restrictions.values()])) == 1:
             restrictions = list(self._time_restrictions.values())[0]
-            self._attr_state_attributes["heureDebut"] = restrictions[0]
-            self._attr_state_attributes["heureFin"] = restrictions[1]
+            self._attr_state_attributes["start_time"] = restrictions[0]
+            self._attr_state_attributes["end_time"] = restrictions[1]
         elif len(self._time_restrictions) > 0:
             _LOGGER.debug(
                 f"There are {len(self._time_restrictions)} usage with time restrictions for this sensor, exposing info per usage"
             )
             for name in self._time_restrictions:
                 self._attr_state_attributes[
-                    f"{name} (heureDebut)"
+                    f"{name} (start_time)"
                 ] = self._time_restrictions[name][0]
                 self._attr_state_attributes[
-                    f"{name} (heureFin)"
+                    f"{name} (end_time)"
                 ] = self._time_restrictions[name][1]
 
         if not self._time_restrictions:
@@ -760,9 +785,15 @@ class UsageRestrictionEntity(RestrictionMixin, CoordinatorEntity, SensorEntity):
         super().__init__(coordinator)
         self.hass = hass
         self._config_entry = config_entry
-        self._attr_name = (
+        self._attr_has_entity_name = True
+        self._attr_translation_key = f"{description.key}_restrictions"
+        self._attr_translation_placeholders = {
+            "city": config_entry.data.get(CONF_CITY)
+        }
+        legacy_name = (
             f"{description.name}_restrictions_{config_entry.data.get(CONF_CITY)}"
         )
+        self._attr_name = None
         self._attr_native_value = None
         self._attr_state_attributes = None
         self._attr_entity_registry_enabled_default = False
@@ -773,7 +804,7 @@ class UsageRestrictionEntity(RestrictionMixin, CoordinatorEntity, SensorEntity):
         if MIGRATED_FROM_VERSION_1 in config_entry.data:
             self._attr_unique_id = f"sensor-vigieau-{self._config.key}"
         elif MIGRATED_FROM_VERSION_3 in config_entry.data:
-            self._attr_unique_id = f"sensor-vigieau-{self._attr_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
+            self._attr_unique_id = f"sensor-vigieau-{legacy_name}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
         elif MIGRATED_FROM_VERSION_5 in config_entry.data:
             self._attr_unique_id = f"sensor-vigieau-{self._config.key}-{config_entry.data.get(CONF_INSEE_CODE)}-{config_entry.data.get(CONF_LATITUDE)}-{config_entry.data.get(CONF_LONGITUDE)}"
         else:
@@ -803,9 +834,12 @@ class UsageRestrictionBinaryEntity(RestrictionMixin, CoordinatorEntity, BinarySe
         super().__init__(coordinator)
         self.hass = hass
         self._config_entry = config_entry
-        self._attr_name = (
-            f"{description.name}_binary_{config_entry.data.get(CONF_CITY)}"
-        )
+        self._attr_has_entity_name = True
+        self._attr_translation_key = f"{description.key}_binary"
+        self._attr_translation_placeholders = {
+            "city": config_entry.data.get(CONF_CITY)
+        }
+        self._attr_name = None
         self._attr_is_on = False
         self._attr_state_attributes = None
         self._attr_entity_category = EntityCategory.DIAGNOSTIC

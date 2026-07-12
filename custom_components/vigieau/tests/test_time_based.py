@@ -53,30 +53,30 @@ class TestComputeNativeValue(unittest.TestCase):
 
     def test_no_restrictions(self):
         entity = self._make_entity([])
-        self.assertEqual(entity.compute_native_value(), "Aucune restriction")
+        self.assertEqual(entity.compute_native_value(), "no_restriction")
         self.assertFalse(entity._is_time_based())
 
     def test_time_based_sur_plage_horaire(self):
         entity = self._make_entity(["Interdiction sur plage horaire"])
         result = entity.compute_native_value()
-        self.assertEqual(result, "Interdiction sur plage horaire")
+        self.assertEqual(result, "time_based_ban")
         self.assertTrue(entity._is_time_based())
 
     def test_time_based_de_8h_a_20h_stable_native(self):
-        """Native value stays 'Interdiction sur plage horaire'; dynamic info is in attributes"""
+        """Native value stays 'time_based_ban'; dynamic info is in attributes"""
         entity = self._make_entity(
             ["Interdiction de 8 h à 20 h"],
             {"Arrosage potager": ["8h", "20h"]},
             {"Categorie: Arrosage potager": "Interdiction de 8 h à 20 h"}
         )
         result = entity.compute_native_value()
-        self.assertEqual(result, "Interdiction sur plage horaire")
+        self.assertEqual(result, "time_based_ban")
         self.assertTrue(entity._is_time_based())
 
     def test_time_based_no_time_data_fallback(self):
         entity = self._make_entity(["Interdiction de 8 h à 20 h"])
         result = entity.compute_native_value()
-        self.assertEqual(result, "Interdiction sur plage horaire")
+        self.assertEqual(result, "time_based_ban")
         self.assertTrue(entity._is_time_based())
 
     def test_time_based_interdit_with_time_pattern(self):
@@ -85,37 +85,37 @@ class TestComputeNativeValue(unittest.TestCase):
             ["Interdit sauf plantations (arbres) et îlots de fraîcheur uniquement de 20 h à 8 h"]
         )
         result = entity.compute_native_value()
-        self.assertEqual(result, "Interdiction sur plage horaire")
+        self.assertEqual(result, "time_based_ban")
         self.assertTrue(entity._is_time_based())
 
     def test_total_interdiction(self):
         entity = self._make_entity(["Interdiction"])
         result = entity.compute_native_value()
-        self.assertEqual(result, "Interdiction")
+        self.assertEqual(result, "ban")
         self.assertFalse(entity._is_time_based())
 
     def test_mixed_time_and_total_interdiction(self):
         entity = self._make_entity(["Interdiction de 8 h à 20 h", "Interdiction"])
         result = entity.compute_native_value()
-        self.assertEqual(result, "Interdiction")
+        self.assertEqual(result, "ban")
         self.assertFalse(entity._is_time_based())
 
     def test_interdiction_sauf_exception(self):
         entity = self._make_entity(["Interdiction sauf exception"])
         result = entity.compute_native_value()
-        self.assertEqual(result, "Interdiction sauf exception")
+        self.assertEqual(result, "ban_with_exceptions")
         self.assertFalse(entity._is_time_based())
 
     def test_autorise_sauf_exception(self):
         entity = self._make_entity(["Pas de restriction sauf arrêté spécifique."])
         result = entity.compute_native_value()
-        self.assertEqual(result, "Autorisé sauf exception")
+        self.assertEqual(result, "allowed_except_specific_decree")
         self.assertFalse(entity._is_time_based())
 
     def test_single_restriction_fallback(self):
         entity = self._make_entity(["Réduction de prélèvement"])
         result = entity.compute_native_value()
-        self.assertEqual(result, "Réduction de prélèvement")
+        self.assertEqual(result, "water_withdrawal_reduction")
         self.assertFalse(entity._is_time_based())
 
     def test_identical_duplicate_restrictions_fallback(self):
@@ -227,7 +227,7 @@ class TestTimeAttributes(unittest.TestCase):
         """Total ban should have currently_restricted=True, no time attributes"""
         entity = self._make_entity(["Interdiction"])
         entity._native_is_time_based = False
-        entity._attr_state_attributes = {"restriction": "Interdiction"}
+        entity._attr_state_attributes = {"restriction": "ban"}
         entity._update_dynamic_attributes()
         self.assertTrue(entity._attr_state_attributes["currently_restricted"])
         self.assertNotIn("next_restriction_start", entity._attr_state_attributes)
@@ -236,7 +236,7 @@ class TestTimeAttributes(unittest.TestCase):
     def test_dynamic_attributes_aucune_restriction(self):
         entity = self._make_entity([])
         entity._native_is_time_based = False
-        entity._attr_state_attributes = {"restriction": "Aucune restriction"}
+        entity._attr_state_attributes = {"restriction": "no_restriction"}
         entity._update_dynamic_attributes()
         self.assertFalse(entity._attr_state_attributes["currently_restricted"])
         self.assertNotIn("next_restriction_start", entity._attr_state_attributes)
@@ -244,7 +244,7 @@ class TestTimeAttributes(unittest.TestCase):
     def test_dynamic_attributes_autorise_sauf_exception(self):
         entity = self._make_entity(["Pas de restriction sauf arrêté spécifique."])
         entity._native_is_time_based = False
-        entity._attr_state_attributes = {"restriction": "Autorisé sauf exception"}
+        entity._attr_state_attributes = {"restriction": "allowed_except_specific_decree"}
         entity._update_dynamic_attributes()
         self.assertFalse(entity._attr_state_attributes["currently_restricted"])
 
@@ -255,7 +255,7 @@ class TestTimeAttributes(unittest.TestCase):
             extracted_range=(dt_time(11, 0), dt_time(18, 0))
         )
         entity._native_is_time_based = True
-        entity._attr_state_attributes = {"restriction": "Interdiction sur plage horaire"}
+        entity._attr_state_attributes = {"restriction": "time_based_ban"}
         fake_now = dt_datetime(2026, 7, 6, 14, 0, 0)
         with patch('custom_components.vigieau.__init__.dt_util') as mock_dt:
             mock_dt.now.return_value = fake_now
@@ -271,7 +271,7 @@ class TestTimeAttributes(unittest.TestCase):
             extracted_range=(dt_time(11, 0), dt_time(18, 0))
         )
         entity._native_is_time_based = True
-        entity._attr_state_attributes = {"restriction": "Interdiction sur plage horaire"}
+        entity._attr_state_attributes = {"restriction": "time_based_ban"}
         fake_now = dt_datetime(2026, 7, 6, 22, 0, 0)
         with patch('custom_components.vigieau.__init__.dt_util') as mock_dt:
             mock_dt.now.return_value = fake_now

@@ -5,28 +5,370 @@
         "data": {
           "location_mode": ""
         },
-        "description": "Selecionar o modo de localização",
-        "title": "Modo de localizacao"
+        "description": "Selecione o modo de localização",
+        "title": "Modo de localização"
       },
       "location": {
         "data": {
-          "code_postal": "Codigo postal"
+          "code_postal": "Código postal"
         },
-        "description": "Inserir o código postal",
+        "description": "Insira o código postal",
         "title": "Localização"
       },
       "multilocation": {
         "data": {
           "city": "Cidade"
         },
-        "title": "Muitos codigos encontrados",
+        "title": "Vários códigos INSEE encontrados para este código postal",
         "description": "Selecione a cidade"
       },
       "location_map": {
         "data": {
-          "latitude": "latitude",
-          "longitude": "longitude"
+          "latitude": "Latitude",
+          "longitude": "Longitude"
+        },
+        "title": "Localização no mapa"
+      },
+      "zone_type": {
+        "data": {
+          "zone_type": ""
+        },
+        "description": "Selecione um tipo de captação de água",
+        "title": "Tipo de captação de água"
+      }
+    }
+  },
+  "selector": {
+    "location_mode": {
+      "options": {
+        "ha_coord": "Coordenadas do Home Assistant",
+        "zip_code": "Código postal",
+        "select_coord": "Selecionar no mapa"
+      }
+    },
+    "zone_type": {
+      "options": {
+        "SUP": "Águas superficiais",
+        "AEP": "Abastecimento de água potável",
+        "SOU": "Águas subterrâneas"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "alert_level": {
+        "name": "Nível de alerta em {city}"
+      },
+      "alert_level_numeric": {
+        "name": "Nível de alerta em {city} (numérico)"
+      },
+      "fountains_restrictions": {
+        "name": "Restrições - Abastecimento de fontes em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
         }
+      },
+      "potagers_restrictions": {
+        "name": "Restrições - Rega de hortas em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      },
+      "roads_restrictions": {
+        "name": "Restrições - Rega de vias e passeios em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      },
+      "lawn_restrictions": {
+        "name": "Restrições - Rega de relvados em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      },
+      "car_wash_restrictions": {
+        "name": "Restrições - Lavagem de veículos em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      },
+      "nautical_vehicules_restrictions": {
+        "name": "Restrições - Lavagem de embarcações em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      },
+      "roof_clean_restrictions": {
+        "name": "Restrições - Lavagem de telhados e fachadas em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      },
+      "pool_restrictions": {
+        "name": "Restrições - Enchimento e esvaziamento de piscinas em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      },
+      "ponds_restrictions": {
+        "name": "Restrições - Enchimento/esvaziamento de lagos e lagoas em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      },
+      "river_rate_restrictions": {
+        "name": "Restrições - Obras em cursos de água em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      },
+      "river_movement_restrictions": {
+        "name": "Restrições - Navegação fluvial em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      },
+      "golfs_restrictions": {
+        "name": "Restrições - Rega de campos de golfe em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      },
+      "canals_restrictions": {
+        "name": "Restrições - Captação de água em canais em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      },
+      "trees_restrictions": {
+        "name": "Restrições - Rega de árvores e plantas em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      },
+      "animals_restrictions": {
+        "name": "Restrições - Uso para animais em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      },
+      "fields_restrictions": {
+        "name": "Restrições - Horticultura e culturas em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      },
+      "misc_restrictions": {
+        "name": "Restrições - Restrição específica em {city}",
+        "state": {
+          "no_restriction": "Sem restrição",
+          "time_based_ban": "Proibição por horário",
+          "ban_with_exceptions": "Proibição com exceções",
+          "ban": "Proibição",
+          "ban_except_strictly_necessary": "Proibição exceto uso estritamente necessário",
+          "water_withdrawal_reduction": "Redução de captação de água",
+          "error_check_decree": "Erro: consulte o decreto",
+          "allowed_except_specific_decree": "Permitido exceto por decreto específico",
+          "awareness": "Sensibilização",
+          "reduction": "Redução"
+        }
+      }
+    },
+    "binary_sensor": {
+      "fountains_binary": {
+        "name": "Abastecimento de fontes permitido em {city}"
+      },
+      "potagers_binary": {
+        "name": "Rega de hortas permitido em {city}"
+      },
+      "roads_binary": {
+        "name": "Rega de vias e passeios permitido em {city}"
+      },
+      "lawn_binary": {
+        "name": "Rega de relvados permitido em {city}"
+      },
+      "car_wash_binary": {
+        "name": "Lavagem de veículos permitido em {city}"
+      },
+      "nautical_vehicules_binary": {
+        "name": "Lavagem de embarcações permitido em {city}"
+      },
+      "roof_clean_binary": {
+        "name": "Lavagem de telhados e fachadas permitido em {city}"
+      },
+      "pool_binary": {
+        "name": "Enchimento e esvaziamento de piscinas permitido em {city}"
+      },
+      "ponds_binary": {
+        "name": "Enchimento/esvaziamento de lagos e lagoas permitido em {city}"
+      },
+      "river_rate_binary": {
+        "name": "Obras em cursos de água permitido em {city}"
+      },
+      "river_movement_binary": {
+        "name": "Navegação fluvial permitido em {city}"
+      },
+      "golfs_binary": {
+        "name": "Rega de campos de golfe permitido em {city}"
+      },
+      "canals_binary": {
+        "name": "Captação de água em canais permitido em {city}"
+      },
+      "trees_binary": {
+        "name": "Rega de árvores e plantas permitido em {city}"
+      },
+      "animals_binary": {
+        "name": "Uso para animais permitido em {city}"
+      },
+      "fields_binary": {
+        "name": "Horticultura e culturas permitido em {city}"
+      },
+      "misc_binary": {
+        "name": "Restrição específica permitido em {city}"
       }
     }
   }
