@@ -16,14 +16,18 @@ DEVICE_ID_KEY = "device_id"
 DOMAIN = "vigieau"
 
 GEOAPI_GOUV_URL = "https://geo.api.gouv.fr/communes?&fields=code,nom,centre"
-HA_COORD = 0
-ZIP_CODE = 1
-SELECT_COORD = 2
+HA_COORD = "ha_coord"
+ZIP_CODE = "zip_code"
+SELECT_COORD = "select_coord"
+
+LEGACY_HA_COORD = 0
+LEGACY_ZIP_CODE = 1
+LEGACY_SELECT_COORD = 2
 
 LOCATION_MODES = {
-    HA_COORD: "Coordonnées Home Assistant",
-    ZIP_CODE: "Code Postal",
-    SELECT_COORD: "Sélection sur carte",
+    HA_COORD: "ha_coord",
+    ZIP_CODE: "zip_code",
+    SELECT_COORD: "select_coord",
 }
 
 LEVEL_COLORS = {
@@ -38,9 +42,9 @@ NAME = "Vigieau"
 VIGIEAU_API_URL = "https://api.vigieau.beta.gouv.fr"
 
 ZONE_TYPES = {
-    "SUP": "Eaux de surface",
-    "AEP": "Alimentation en eau potable",
-    "SOU": "Eaux souterraines",
+    "SUP": "SUP",
+    "AEP": "AEP",
+    "SOU": "SOU",
 }
 
 

@@ -38,7 +38,7 @@ class TestRegexp(unittest.TestCase):
         """Usages with '(hors ... jardins potagers)' must NOT match the potagers sensor."""
         potagers_sensor = None
         for s in SENSOR_DEFINITIONS:
-            if s.name == "Arrosage des jardins potagers":
+            if s.key == "potagers":
                 potagers_sensor = s
                 break
         self.assertIsNotNone(potagers_sensor)
@@ -56,7 +56,7 @@ class TestRegexp(unittest.TestCase):
         """Genuine potager usages must still match the potagers sensor."""
         potagers_sensor = None
         for s in SENSOR_DEFINITIONS:
-            if s.name == "Arrosage des jardins potagers":
+            if s.key == "potagers":
                 potagers_sensor = s
                 break
         self.assertIsNotNone(potagers_sensor)
@@ -102,7 +102,7 @@ class TestRegexp(unittest.TestCase):
         """Usage with '(hors usage agricole)' must NOT match Maraîchage et cultures."""
         maraichage_sensor = None
         for s in SENSOR_DEFINITIONS:
-            if s.name == "Maraîchage et cultures":
+            if s.key == "fields":
                 maraichage_sensor = s
                 break
         self.assertIsNotNone(maraichage_sensor)
@@ -120,7 +120,7 @@ class TestRegexp(unittest.TestCase):
         """Usage '(hors usage agricole)' reclassified should match potagers."""
         potagers_sensor = None
         for s in SENSOR_DEFINITIONS:
-            if s.name == "Arrosage des jardins potagers":
+            if s.key == "potagers":
                 potagers_sensor = s
                 break
         self.assertIsNotNone(potagers_sensor)

@@ -8,7 +8,11 @@ from homeassistant import config_entries
 from homeassistant.const import CONF_LATITUDE, CONF_LONGITUDE
 from homeassistant.core import callback, HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.helpers.selector import LocationSelector
+from homeassistant.helpers.selector import (
+    LocationSelector,
+    SelectSelector,
+    SelectSelectorConfig,
+)
 
 from .api import InseeAPI, AddressAPI
 from .const import (
@@ -22,6 +26,9 @@ from .const import (
     DEVICE_ID_KEY,
     DOMAIN,
     HA_COORD,
+    LEGACY_HA_COORD,
+    LEGACY_SELECT_COORD,
+    LEGACY_ZIP_CODE,
     LOCATION_MODES,
     SELECT_COORD,
     ZIP_CODE,
@@ -40,7 +47,12 @@ _LOGGER = logging.getLogger(__name__)
 
 LOCATION_SCHEMA = vol.Schema(
     {
-        vol.Required(CONF_LOCATION_MODE, default=HA_COORD): vol.In(LOCATION_MODES)
+        vol.Required(CONF_LOCATION_MODE, default=HA_COORD): SelectSelector(
+            SelectSelectorConfig(
+                options=list(LOCATION_MODES),
+                translation_key="location_mode",
+            )
+        )
     }
 )
 
@@ -52,9 +64,23 @@ ZIPCODE_SCHEMA = vol.Schema(
 
 ZONE_TYPE_SCHEMA = vol.Schema(
     {
-        vol.Required(CONF_ZONE_TYPE, default="AEP"): vol.In(ZONE_TYPES)
+        vol.Required(CONF_ZONE_TYPE, default="AEP"): SelectSelector(
+            SelectSelectorConfig(
+                options=list(ZONE_TYPES),
+                translation_key="zone_type",
+            )
+        )
     }
 )
+
+
+def _normalize_location_mode(location_mode):
+    legacy_modes = {
+        LEGACY_HA_COORD: HA_COORD,
+        LEGACY_ZIP_CODE: ZIP_CODE,
+        LEGACY_SELECT_COORD: SELECT_COORD,
+    }
+    return legacy_modes.get(location_mode, location_mode)
 
 
 async def get_insee_code_fromzip(hass: HomeAssistant, data: dict) -> None:
@@ -111,9 +137,10 @@ class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         """Called once with None as user_input, then a second time with user provided input"""
         errors = {}
         if user_input is not None:
+            location_mode = _normalize_location_mode(user_input[CONF_LOCATION_MODE])
             self.data[CONF_ZONE_TYPE] = "SUP"
-            self.data[CONF_LOCATION_MODE] = user_input[CONF_LOCATION_MODE]
-            if user_input[CONF_LOCATION_MODE] == HA_COORD:
+            self.data[CONF_LOCATION_MODE] = location_mode
+            if location_mode == HA_COORD:
                 try:
                     city_infos = await get_insee_code_fromcoord(self.hass)
                 except ValueError:
@@ -126,10 +153,10 @@ class SetupConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     self.data[DEVICE_ID_KEY] = city_infos[0]
                     self.data[CONF_FOLLOW_HA_COORDS] = True
                     return await self.async_step_location(user_input=self.data)
-            elif user_input[CONF_LOCATION_MODE] == ZIP_CODE:
-                self.data = user_input
+            elif location_mode == ZIP_CODE:
+                self.data = {**user_input, CONF_LOCATION_MODE: location_mode}
                 return await self.async_step_location()
-            elif user_input[CONF_LOCATION_MODE] == SELECT_COORD:
+            elif location_mode == SELECT_COORD:
                 return await self.async_step_map_select()
 
         return self._show_setup_form("user", user_input, LOCATION_SCHEMA, errors)
