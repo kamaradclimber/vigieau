@@ -70,6 +70,21 @@ STATE_ALLOWED_EXCEPT_SPECIFIC_DECREE = "allowed_except_specific_decree"
 STATE_AWARENESS = "awareness"
 STATE_REDUCTION = "reduction"
 
+ALERT_STATE_NO_RESTRICTION = "no_restriction"
+ALERT_STATE_VIGILANCE = "vigilance"
+ALERT_STATE_ALERT = "alert"
+ALERT_STATE_REINFORCED_ALERT = "reinforced_alert"
+ALERT_STATE_CRISIS = "crisis"
+
+ALERT_LEVEL_MAP = {
+    "Pas de restrictions": ALERT_STATE_NO_RESTRICTION,
+    "vigilance": ALERT_STATE_VIGILANCE,
+    "alerte": ALERT_STATE_ALERT,
+    "alerte_renforcée": ALERT_STATE_REINFORCED_ALERT,
+    "alerte_renforcee": ALERT_STATE_REINFORCED_ALERT,
+    "crise": ALERT_STATE_CRISIS,
+}
+
 NON_RESTRICTED_STATES = {
     STATE_NO_RESTRICTION,
     STATE_ALLOWED_EXCEPT_SPECIFIC_DECREE,
@@ -437,9 +452,8 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
         self._attr_has_entity_name = True
         self._attr_translation_key = "alert_level_numeric" if numeric_state else "alert_level"
         self._attr_translation_placeholders = self.translation_placeholders()
-        legacy_name = self.build_name()
-        self._attr_name = None
         self._attr_native_value = None
+        legacy_name = self.build_name()
         self._attr_state_attributes = None
         if MIGRATED_FROM_VERSION_1 in config_entry.data:
             self._attr_unique_id = "sensor-vigieau-Alert level"
@@ -509,7 +523,7 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
             self._attr_native_value = self.numeric_state_value
         else:
             niveauGravite = self.coordinator.data["niveauGravite"]
-            self._attr_native_value = niveauGravite.replace("_", " ").capitalize()
+            self._attr_native_value = ALERT_LEVEL_MAP.get(niveauGravite, niveauGravite)
 
         self._attr_icon = {
             0: "mdi:water-check",
@@ -815,10 +829,6 @@ class UsageRestrictionEntity(RestrictionMixin, CoordinatorEntity, SensorEntity):
         self._attr_translation_placeholders = {
             "city": config_entry.data.get(CONF_CITY)
         }
-        legacy_name = (
-            f"{description.name}_restrictions_{config_entry.data.get(CONF_CITY)}"
-        )
-        self._attr_name = None
         self._attr_native_value = None
         self._attr_state_attributes = None
         self._attr_entity_registry_enabled_default = False
@@ -826,6 +836,7 @@ class UsageRestrictionEntity(RestrictionMixin, CoordinatorEntity, SensorEntity):
         self._unsub_timer = None
         self._native_is_time_based = False
         self._extracted_time_range = None
+        legacy_name = f"{description.name}_restrictions_{config_entry.data.get(CONF_CITY)}"
         if MIGRATED_FROM_VERSION_1 in config_entry.data:
             self._attr_unique_id = f"sensor-vigieau-{self._config.key}"
         elif MIGRATED_FROM_VERSION_3 in config_entry.data:
@@ -864,7 +875,6 @@ class UsageRestrictionBinaryEntity(RestrictionMixin, CoordinatorEntity, BinarySe
         self._attr_translation_placeholders = {
             "city": config_entry.data.get(CONF_CITY)
         }
-        self._attr_name = None
         self._attr_is_on = False
         self._attr_state_attributes = None
         self._attr_entity_category = EntityCategory.DIAGNOSTIC

@@ -57,7 +57,14 @@
   "entity": {
     "sensor": {
       "alert_level": {
-        "name": "Niveau d'alerte à {city}"
+        "name": "Niveau d'alerte à {city}",
+        "state": {
+          "no_restriction": "Pas de restriction",
+          "vigilance": "Vigilance",
+          "alert": "Alerte",
+          "reinforced_alert": "Alerte renforcée",
+          "crisis": "Crise"
+        }
       },
       "alert_level_numeric": {
         "name": "Niveau d'alerte à {city} (numérique)"
