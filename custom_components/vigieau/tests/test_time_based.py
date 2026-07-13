@@ -107,6 +107,18 @@ class TestExtractTimeRangeStandalone(unittest.TestCase):
         )
         self.assertEqual(result, (dt_time(10, 0), dt_time(18, 0)))
 
+    def test_interdit_sauf_overnight_inverts_to_daytime(self):
+        result = extract_time_range(
+            ["Interdit sauf terrain de compétition engazonné entre 18h et 10h"]
+        )
+        self.assertEqual(result, (dt_time(10, 0), dt_time(18, 0)))
+
+    def test_interdit_sauf_daytime_not_inverted(self):
+        result = extract_time_range(
+            ["Interdit sauf plantations entre 8h et 20h"]
+        )
+        self.assertEqual(result, (dt_time(8, 0), dt_time(20, 0)))
+
 
 class TestComputeNativeValue(unittest.TestCase):
     def _make_entity(self, restrictions, time_restrictions=None, attributes=None):
@@ -438,6 +450,22 @@ class TestHandleCoordinatorUpdate(unittest.TestCase):
         start, end = ranges[0]
         self.assertEqual(start, dt_time(6, 0))
         self.assertEqual(end, dt_time(20, 0))
+
+    def test_api_time_range_swapped_overnight_interdit_sauf(self):
+        """Overnight 'interdit sauf' from API should swap to daytime restriction"""
+        usages = [{
+            "nom": "Arrosage des pelouses",
+            "description": "Interdit sauf terrain de compétition engazonné entre 18h et 10h",
+            "heureDebut": "18h",
+            "heureFin": "10h",
+        }]
+        entity = self._make_entity_with_coordinator(usages)
+        entity._handle_coordinator_update()
+        ranges = entity._get_effective_time_ranges()
+        self.assertEqual(len(ranges), 1)
+        start, end = ranges[0]
+        self.assertEqual(start, dt_time(10, 0))
+        self.assertEqual(end, dt_time(18, 0))
 
 
 class TestBinarySensorEntity(unittest.TestCase):
