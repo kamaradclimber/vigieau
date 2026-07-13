@@ -399,7 +399,9 @@ def extract_time_range(restrictions):
             start_time = _parse_time_str(start_str)
             end_time = _parse_time_str(end_str)
             if start_time is not None and end_time is not None:
-                if re.search(r"uniquement\s+de\s+\d", restriction, re.IGNORECASE):
+                # Overnight range with exception wording (sauf/except/uniquement)
+                # describes the ALLOWED window. Swap to get the RESTRICTED window.
+                if start_time > end_time and re.search(r"sauf|except|uniquement", restriction, re.IGNORECASE):
                     start_time, end_time = end_time, start_time
                 return (start_time, end_time)
     return None
@@ -727,9 +729,11 @@ class RestrictionMixin:
                 if "heureFin" in usage and "heureDebut" in usage:
                     debut = usage["heureDebut"]
                     fin = usage["heureFin"]
-                    # "uniquement de X à Y" describes the ALLOWED window.
-                    # We need the RESTRICTED window, so swap start and end.
-                    if re.search(r"uniquement\s+de\s+\d", restriction, re.IGNORECASE):
+                    debut_time = _parse_time_str(debut)
+                    fin_time = _parse_time_str(fin)
+                    # Overnight range with exception wording (sauf/except/uniquement)
+                    # describes the ALLOWED window. Swap to get the RESTRICTED window.
+                    if debut_time is not None and fin_time is not None and debut_time > fin_time and re.search(r"sauf|except|uniquement", restriction, re.IGNORECASE):
                         debut, fin = fin, debut
                     self._time_restrictions[usage["nom"]] = [debut, fin]
 
