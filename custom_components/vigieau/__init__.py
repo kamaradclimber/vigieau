@@ -451,7 +451,7 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
         self.hass = hass
         self._attr_has_entity_name = True
         self._attr_translation_key = "alert_level_numeric" if numeric_state else "alert_level"
-        self._attr_translation_placeholders = self.translation_placeholders()
+        self._attr_translation_placeholders = self._build_translation_placeholders()
         self._attr_native_value = None
         legacy_name = self.build_name()
         self._attr_state_attributes = None
@@ -502,7 +502,7 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
             name += " (numeric)"
         return name
 
-    def translation_placeholders(self) -> dict[str, str]:
+    def _build_translation_placeholders(self) -> dict[str, str]:
         data = self._config_entry.data
         if self.coordinator.location is not None:
             data = self.coordinator.location()
@@ -515,7 +515,7 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
             _LOGGER.debug(
                 "Last coordinator failed, assuming state has not changed")
             return
-        self._attr_translation_placeholders = self.translation_placeholders()
+        self._attr_translation_placeholders = self._build_translation_placeholders()
         self._attr_device_info = self.build_device()
         self.numeric_state_value = self.coordinator.data["_numeric_state_value"]
 
