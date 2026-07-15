@@ -59,11 +59,11 @@
       "alert_level": {
         "name": "Niveau d'alerte à {city}",
         "state": {
-          "no_restriction": "Pas de restriction",
-          "vigilance": "Vigilance",
-          "alert": "Alerte",
-          "reinforced_alert": "Alerte renforcée",
-          "crisis": "Crise"
+          "Pas de restriction": "Pas de restriction",
+          "Vigilance": "Vigilance",
+          "Alerte": "Alerte",
+          "Alerte renforcée": "Alerte renforcée",
+          "Crise": "Crise"
         }
       },
       "alert_level_numeric": {
@@ -72,256 +72,256 @@
       "fountains_restrictions": {
         "name": "Restrictions - Alimentation des fontaines à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "potagers_restrictions": {
         "name": "Restrictions - Arrosage des jardins potagers à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "roads_restrictions": {
         "name": "Restrictions - Arrosage voirie et trottoirs à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "lawn_restrictions": {
         "name": "Restrictions - Arrosage des pelouses à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "car_wash_restrictions": {
         "name": "Restrictions - Lavage des véhicules à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "nautical_vehicules_restrictions": {
         "name": "Restrictions - Lavage des engins nautiques à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "roof_clean_restrictions": {
         "name": "Restrictions - Lavage des toitures, façades à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "pool_restrictions": {
         "name": "Restrictions - Vidange et remplissage des piscines à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "ponds_restrictions": {
         "name": "Restrictions - Remplissage/Vidange des plans d'eau à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "river_rate_restrictions": {
         "name": "Restrictions - Travaux sur cours d'eau à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "river_movement_restrictions": {
         "name": "Restrictions - Navigation fluviale à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "golfs_restrictions": {
         "name": "Restrictions - Arrosage des golfs à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "canals_restrictions": {
         "name": "Restrictions - Prélèvement en canaux à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "trees_restrictions": {
         "name": "Restrictions - Arrosage des arbres et plantes à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "animals_restrictions": {
         "name": "Restrictions - Usage pour animaux à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "fields_restrictions": {
         "name": "Restrictions - Maraîchage et cultures à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       },
       "misc_restrictions": {
         "name": "Restrictions - Restriction spécifique à {city}",
         "state": {
-          "no_restriction": "Aucune restriction",
-          "time_based_ban": "Interdiction sur plage horaire",
-          "ban_with_exceptions": "Interdiction sauf exception",
-          "ban": "Interdiction",
-          "ban_except_strictly_necessary": "Interdiction sauf strict nécessaire",
-          "water_withdrawal_reduction": "Réduction de prélèvement",
-          "error_check_decree": "Erreur : consulter l'arrêté",
-          "allowed_except_specific_decree": "Autorisé sauf exception",
-          "awareness": "Sensibilisation",
-          "reduction": "Réduction"
+          "Aucune restriction": "Aucune restriction",
+          "Interdiction sur plage horaire": "Interdiction sur plage horaire",
+          "Interdiction sauf exception": "Interdiction sauf exception",
+          "Interdiction": "Interdiction",
+          "Interdiction sauf strict nécessaire": "Interdiction sauf strict nécessaire",
+          "Réduction de prélèvement": "Réduction de prélèvement",
+          "Erreur : consulter l'arrêté": "Erreur : consulter l'arrêté",
+          "Autorisé sauf exception": "Autorisé sauf exception",
+          "Sensibilisation": "Sensibilisation",
+          "Réduction": "Réduction"
         }
       }
     },

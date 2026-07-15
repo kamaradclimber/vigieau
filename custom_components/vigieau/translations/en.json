@@ -26,8 +26,8 @@
         "data": {
           "city": "City"
         },
-        "title": "Several INSEE codes were found for this postcode",
-        "description": "Select the city"
+        "title": "Multiple INSEE codes found for this postcode",
+        "description": "Select the municipality"
       },
       "location_map": {
         "data": {
@@ -43,13 +43,13 @@
       "options": {
         "ha_coord": "Home Assistant coordinates",
         "zip_code": "Postcode",
-        "select_coord": "Select on map"
+        "select_coord": "Map selection"
       }
     },
     "zone_type": {
       "options": {
         "SUP": "Surface water",
-        "AEP": "Drinking water supply",
+        "AEP": "Drinking water",
         "SOU": "Groundwater"
       }
     }
@@ -59,11 +59,11 @@
       "alert_level": {
         "name": "Alert level in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "vigilance": "Vigilance",
-          "alert": "Alert",
-          "reinforced_alert": "Reinforced alert",
-          "crisis": "Crisis"
+          "Pas de restriction": "No restriction",
+          "Vigilance": "Vigilance",
+          "Alerte": "Alert",
+          "Alerte renforcée": "Reinforced alert",
+          "Crise": "Crisis"
         }
       },
       "alert_level_numeric": {
@@ -72,256 +72,256 @@
       "fountains_restrictions": {
         "name": "Fountain supply restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "potagers_restrictions": {
         "name": "Vegetable garden watering restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "roads_restrictions": {
         "name": "Road and pavement watering restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "lawn_restrictions": {
         "name": "Lawn watering restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "car_wash_restrictions": {
         "name": "Vehicle washing restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "nautical_vehicules_restrictions": {
-        "name": "Boat washing restrictions in {city}",
+        "name": "Watercraft washing restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "roof_clean_restrictions": {
         "name": "Roof and facade washing restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "pool_restrictions": {
-        "name": "Swimming pool filling and draining restrictions in {city}",
+        "name": "Pool draining and filling restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "ponds_restrictions": {
-        "name": "Pond and lake filling/draining restrictions in {city}",
+        "name": "Pond filling/draining restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "river_rate_restrictions": {
-        "name": "Watercourse works restrictions in {city}",
+        "name": "River works restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "river_movement_restrictions": {
         "name": "River navigation restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "golfs_restrictions": {
         "name": "Golf course watering restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "canals_restrictions": {
         "name": "Canal water withdrawal restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "trees_restrictions": {
         "name": "Tree and plant watering restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "animals_restrictions": {
         "name": "Animal use restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "fields_restrictions": {
-        "name": "Market gardening and crops restrictions in {city}",
+        "name": "Market gardening and crop restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       },
       "misc_restrictions": {
-        "name": "Specific restriction restrictions in {city}",
+        "name": "Specific restrictions in {city}",
         "state": {
-          "no_restriction": "No restriction",
-          "time_based_ban": "Time-based ban",
-          "ban_with_exceptions": "Ban with exceptions",
-          "ban": "Ban",
-          "ban_except_strictly_necessary": "Ban except strictly necessary use",
-          "water_withdrawal_reduction": "Water withdrawal reduction",
-          "error_check_decree": "Error: check the decree",
-          "allowed_except_specific_decree": "Allowed except by specific decree",
-          "awareness": "Awareness",
-          "reduction": "Reduction"
+          "Aucune restriction": "No restriction",
+          "Interdiction sur plage horaire": "Time-based ban",
+          "Interdiction sauf exception": "Ban with exceptions",
+          "Interdiction": "Ban",
+          "Interdiction sauf strict nécessaire": "Ban except strictly necessary use",
+          "Réduction de prélèvement": "Water withdrawal reduction",
+          "Erreur : consulter l'arrêté": "Error: check the decree",
+          "Autorisé sauf exception": "Allowed except by specific decree",
+          "Sensibilisation": "Awareness",
+          "Réduction": "Reduction"
         }
       }
     },
@@ -342,19 +342,19 @@
         "name": "Vehicle washing allowed in {city}"
       },
       "nautical_vehicules_binary": {
-        "name": "Boat washing allowed in {city}"
+        "name": "Watercraft washing allowed in {city}"
       },
       "roof_clean_binary": {
         "name": "Roof and facade washing allowed in {city}"
       },
       "pool_binary": {
-        "name": "Swimming pool filling and draining allowed in {city}"
+        "name": "Pool draining and filling allowed in {city}"
       },
       "ponds_binary": {
-        "name": "Pond and lake filling/draining allowed in {city}"
+        "name": "Pond filling/draining allowed in {city}"
       },
       "river_rate_binary": {
-        "name": "Watercourse works allowed in {city}"
+        "name": "River works allowed in {city}"
       },
       "river_movement_binary": {
         "name": "River navigation allowed in {city}"
