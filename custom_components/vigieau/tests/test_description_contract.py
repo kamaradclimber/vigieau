@@ -32,7 +32,7 @@ HAND_VERIFIED_CASES = [
     # 1. Simple daytime restriction
     {
         "description": "Interdiction de 10h à 18h.",
-        "expected_level": "time_based_ban",
+        "expected_level": "Interdiction sur plage horaire",
         "expected_time_based": True,
         "expected_range": (dt_time(10, 0), dt_time(18, 0)),
         "restricted_at": dt_time(14, 0),
@@ -51,7 +51,7 @@ HAND_VERIFIED_CASES = [
     # 3. Overnight "interdit sauf" → swap to daytime restriction
     {
         "description": "Interdit sauf terrain de compétition engazonné entre 18h et 10h",
-        "expected_level": "time_based_ban",
+        "expected_level": "Interdiction sur plage horaire",
         "expected_time_based": True,
         "expected_range": (dt_time(10, 0), dt_time(18, 0)),
         "restricted_at": dt_time(14, 0),
@@ -60,7 +60,7 @@ HAND_VERIFIED_CASES = [
     # 4. Overnight "uniquement" with different hours
     {
         "description": "Interdit sauf plantations (arbres) et îlots de fraîcheur uniquement de 20 h à 8 h",
-        "expected_level": "time_based_ban",
+        "expected_level": "Interdiction sur plage horaire",
         "expected_time_based": True,
         "expected_range": (dt_time(8, 0), dt_time(20, 0)),
         "restricted_at": dt_time(14, 0),
@@ -69,7 +69,7 @@ HAND_VERIFIED_CASES = [
     # 5. Simple daytime restriction with spaces
     {
         "description": "Interdiction de 8 h à 20 h",
-        "expected_level": "time_based_ban",
+        "expected_level": "Interdiction sur plage horaire",
         "expected_time_based": True,
         "expected_range": (dt_time(8, 0), dt_time(20, 0)),
         "restricted_at": dt_time(12, 0),
@@ -78,28 +78,28 @@ HAND_VERIFIED_CASES = [
     # 6. No restriction
     {
         "description": "",
-        "expected_level": "no_restriction",
+        "expected_level": "Aucune restriction",
         "expected_time_based": False,
         "expected_range": None,
     },
     # 7. Simple interdiction (no time)
     {
         "description": "Interdiction totale",
-        "expected_level": "ban",
+        "expected_level": "Interdiction",
         "expected_time_based": False,
         "expected_range": None,
     },
     # 8. Sensibilisation
     {
         "description": "Sensibilisation aux règles de bon usage",
-        "expected_level": "awareness",
+        "expected_level": "Sensibilisation",
         "expected_time_based": False,
         "expected_range": None,
     },
     # 9. Interdiction sauf exception (no time)
     {
         "description": "Interdiction sauf abreuvement des animaux",
-        "expected_level": "ban_with_exceptions",
+        "expected_level": "Interdiction sauf exception",
         "expected_time_based": False,
         "expected_range": None,
     },
