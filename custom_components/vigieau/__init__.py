@@ -590,6 +590,10 @@ class RestrictionMixin:
             _LOGGER.warning(
                 f"The following restriction are hard to interpret by this integration, please report an issue with: {report_data}"
             )
+        else:
+            # states are limited to 255 chars, we should truncate
+            if len(result) > 255:
+                result = result[0:250] + '[...]'
         return result
 
     def _is_time_based(self) -> bool:
