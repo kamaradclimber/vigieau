@@ -385,6 +385,8 @@ class TestHandleCoordinatorUpdate(unittest.TestCase):
         entity._unsub_timer = None
         entity._native_is_time_based = False
         entity._attr_native_value = None
+        entity._config_entry = MagicMock()
+        entity._config_entry.data = {}
 
         entity._cancel_timer = MagicMock()
         entity.build_device = MagicMock(return_value=None)
