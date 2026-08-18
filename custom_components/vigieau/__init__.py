@@ -363,10 +363,10 @@ def classify_restrictions(restrictions):
         return False
 
     def has_non_time_interdiction():
-        r_inter = re.compile(r"interdiction", re.IGNORECASE)
+        r_ban = re.compile(r"interdiction|interdit", re.IGNORECASE)
         r_time = re.compile("|".join(_TIME_CLASSIFICATION_PATTERNS), re.IGNORECASE)
         for restriction in restrictions:
-            if r_inter.search(restriction) and not r_time.search(restriction):
+            if r_ban.search(restriction) and not r_time.search(restriction):
                 return True
         return False
 
