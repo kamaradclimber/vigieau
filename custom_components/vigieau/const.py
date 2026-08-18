@@ -518,6 +518,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
 "Arrosage de plantes et de fleurs des jardineries, des fleuristes, des pépiniéristes.*Arroser",
             "Cultures en godets et semis.*Arroser",
             ".*arbres.*",
+            ".*arborés.*",
+            ".*arbustif.*",
             "Irrigation pour jeunes plantations d'arbres ou arbustes de moins de 5 ans..*Irriguer",
             ".*horticulture.*",
             "Irrigation horticulture, jeunes plants, vergers, plantes médicinales ou aromatiques.*Irriguer",
