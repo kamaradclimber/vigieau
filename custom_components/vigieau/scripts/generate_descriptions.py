@@ -12,12 +12,12 @@ async def main():
         resp = await session.get(GEOJSON_URL)
         if resp.status != 200:
             raise Exception(f"Unable to get dataset from vigieau: {resp.status}")
-        data = await resp.json(content_type="binary/octet-stream")
+        data = await resp.json(content_type=None)
 
     descriptions = {}
     for feature in data["features"]:
         for r in feature["properties"].get("restrictions", []):
-            desc = r.get("description", "").strip()
+            desc = (r.get("description") or "").strip()
             if not desc:
                 continue
             if desc not in descriptions:

@@ -71,7 +71,7 @@ class VigieEauSensorEntityDescription(
             # it intentionally targets text with that keyword).
             if "hors" not in matcher.lower():
                 nom = re.sub(r"\(hors[^)]*\)", "", nom)
-            if re.search(matcher, nom + "|" + usage["thematique"]):
+            if re.search(matcher, nom + "|" + usage["thematique"], re.IGNORECASE):
                 return True
         return False
 
@@ -105,6 +105,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Arrosage des .*potagers",
             "Prélèvement pour le lavage de fruits.*",
             "plants destinés à l'alimentation",
+            "jardins potagers",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -145,6 +146,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Arrosage des espaces arborés",
             "Arrosage.+terrains de sport",
             "Arrosage terrain de sport et espaces verts",
+            "Arrosage terrain de sport",
             "Arrosage terrains sport.+",
             "Arrosage des îlots de fraîcheur validés par l’administration",
             "sols équestres et sports motorisés",
@@ -172,6 +174,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
 "Lavage automobile à domicile.*Nettoyer",
 "Centre de lavage automobile - recyclage 70 % d'eau.*Nettoyer",
 "Centre de lavage - sans recyclage et moins de 70% de recyclage.*Nettoyer",
+            "centres? de lavage",
             "Lavage des véhicules par des professionnels.*Nettoyer",
             "Lavage des véhicules et engins professionnels.*Nettoyer",
             "Lavage des véhicules en station.*Nettoyer",
@@ -264,6 +267,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "piscine à usage collectif",
             "piscine(s)? non collective",  # Remplissage et vidange de piscines non collectives (de plus de 1 m3)
             "baignades.+",
+            "baignades? artificielles?",
             "Remise à niveau des piscines à usage privé",
             "Remplissage des jeux d'eau",
             "Remplissage des piscine privées",
@@ -336,6 +340,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "remplissage.*retenues.*",
             "Alimentation des retenues collinaires",
             "Remplissage des réserves",
+            "Remplissage des mares",
+            "gestion des plans d.eau",
             "Remplissage des réserves  incendie",
             "Remplissage et vidange des étangs de pêche.*Remplir ou vidanger",
             "Vidange totale des plans d'eau vers le réseau hydrographique.*Remplir ou vidanger",
@@ -411,6 +417,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Installations de production d'électricité d'orignie hydraulique",
             "Prélèvements des centrales hydroélectriques, moulins, barrages",
             "Installations de production d'électricité hydraulique.*",
+            "Installations de production d.électricité",
             "Installations de production d’électricité d’origine nucléaire",
             "Prélèvement domestique directement dans le cours d'eau",
             "Prélèvements pour la production d’eau potable",
@@ -498,6 +505,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             ".*forages.*",
             "forage domestique",
             "prélèvement dans un cours d.eau",
+            "Prélèvements en rivière",
             "Alimentation des ouvrages nécessaires à la navigation fluviale.*Prélever",
             "Prélèvement par camion citerne dans le milieu naturel.*Prélever",
             "Prélèvements d'eau.*Prélever",
@@ -542,6 +550,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "irrigation.*arbres.*",
             "Jardinerie",
             "Irrigation pour jeunes arbustes et plantiers de vigne",
+            "Irrigation par système d.irrigation localisé des vignes",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -570,6 +579,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
 "Usages de l’eau au sein de pépinières et jardineries.*Activités économiques",
 "Prélèvement d’eau pour les périmètres irrigués‍.*Irriguer",
 "Irrigation à partir d'eaux souterraines profondes.*Irriguer",
+"Irrigation à partir d.eau souterraine",
+"Irrigation dans le cadre de la gestion OUGC",
 "Irrigation localisée.*des cultures",
 "Irrigation gravitaire.*Irriguer",
 "Irrigation des prairies naturelles.*Irriguer",
@@ -628,6 +639,7 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Irrigation par micro-aspersion.*Irriguer",
             "Irrigation par techique du goutte-à-goutte.*Irriguer",
             "Prélèvement d'eau pour les périmètres irrigués.*Irriguer",
+            "périmètres irrigués",
         ],
     ),
     VigieEauSensorEntityDescription(
@@ -680,6 +692,8 @@ SENSOR_DEFINITIONS: tuple[VigieEauSensorEntityDescription, ...] = (
             "Orpaillage.*",
             "Organisations collectives d’irrigation: asso. syndicales, collectivités, groupement d'agriculteurs.*Irriguer",
             "Manœuvre des bornes d’incendie.*Sécurité incendie",
+            "manoeuvre des bouches",
+            "défense de la forêt contre les incendies",
             "Aspersion relevant d'un régime d'autorisation ou déclaration R214-1.*Irriguer",
             "Forages.*Prélever",
             "Entreprises soumises à un APC relatif à la sécheresse.*Activités économiques",

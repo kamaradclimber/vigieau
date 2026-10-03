@@ -20,7 +20,7 @@ async def main():
         resp = await session.get("https://www.data.gouv.fr/fr/datasets/r/bfba7898-aed3-40ec-aa74-abb73b92a363")
         if resp.status != 200:
             raise Exception(f"Unable to get dataset from vigieau: {resp.status}")
-        data = await resp.json(content_type="binary/octet-stream")
+        data = await resp.json(content_type=None)
 
         # jq '.features | .[].properties.restrictions' ~/Downloads/zones_arretes_en_vigueur.geojson   |less
         for feature in data["features"]:
