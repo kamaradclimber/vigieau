@@ -472,6 +472,11 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
 
         self._attr_device_info = self.build_device()
 
+    @property
+    def available(self) -> bool:
+        """Keep the last known value visible while a refresh fails."""
+        return self.coordinator.data is not None
+
     def enrich_attributes(self, data: dict, key_source: str, key_target: str):
         if key_source in data:
             self._attr_state_attributes = self._attr_state_attributes or {}
@@ -557,6 +562,11 @@ class AlertLevelEntity(CoordinatorEntity, SensorEntity):
 
 class RestrictionMixin:
     """Shared logic for restriction entities (string sensors and binary sensors)"""
+
+    @property
+    def available(self) -> bool:
+        """Keep the last known value visible while a refresh fails."""
+        return self.coordinator.data is not None
 
     @property
     def state_attributes(self):
