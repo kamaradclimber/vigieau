@@ -166,20 +166,4 @@ class VigieauAPI:
                 repr(data),
             )
 
-        # enriching with numeric state value
-        data = data[0]
-        try:
-            data["_numeric_state_value"] = {
-                "Pas de restrictions": 0,
-                "vigilance": 1,
-                "alerte": 2,
-                "alerte_renforcée": 3,
-                "alerte_renforcee": 3,
-                "crise": 4,
-            }[data["niveauGravite"]]
-        except KeyError as err:
-            raise VigieauAPIError(
-                "Malformed response from Vigieau API: missing or unknown 'niveauGravite'",
-                repr(data),
-            ) from err
-        return data
+        return data[0]

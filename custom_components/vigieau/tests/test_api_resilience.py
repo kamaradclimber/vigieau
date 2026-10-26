@@ -52,7 +52,6 @@ class TestVigieauAPIResilience(unittest.IsolatedAsyncioTestCase):
         data, session = await self._get_data(FakeResponse(200, [VALID_ZONE]))
 
         self.assertEqual(data["niveauGravite"], "alerte")
-        self.assertEqual(data["_numeric_state_value"], 2)
         self.assertEqual(session.calls[0][1], CLIENT_TIMEOUT)
         self.assertEqual(CLIENT_TIMEOUT.total, 60)
 
@@ -60,7 +59,6 @@ class TestVigieauAPIResilience(unittest.IsolatedAsyncioTestCase):
         data, _ = await self._get_data(FakeResponse(200, []))
 
         self.assertEqual(data["niveauGravite"], "Pas de restrictions")
-        self.assertEqual(data["_numeric_state_value"], 0)
 
     async def test_404_no_zone_means_no_restriction(self):
         response = FakeResponse(
@@ -94,13 +92,6 @@ class TestVigieauAPIResilience(unittest.IsolatedAsyncioTestCase):
 
     async def test_non_list_payload_is_an_error(self):
         response = FakeResponse(200, {"niveauGravite": "alerte"})
-
-        with self.assertRaises(VigieauAPIError):
-            await self._get_data(response)
-
-    async def test_unknown_severity_is_an_error(self):
-        payload = dict(VALID_ZONE, niveauGravite="valeur-inconnue")
-        response = FakeResponse(200, [payload])
 
         with self.assertRaises(VigieauAPIError):
             await self._get_data(response)

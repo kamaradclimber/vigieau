@@ -85,6 +85,15 @@ ALERT_LEVEL_MAP = {
     "crise": ALERT_STATE_CRISIS,
 }
 
+ALERT_LEVEL_NUMERIC_MAP = {
+    "Pas de restrictions": 0,
+    "vigilance": 1,
+    "alerte": 2,
+    "alerte_renforcée": 3,
+    "alerte_renforcee": 3,
+    "crise": 4,
+}
+
 NON_RESTRICTED_STATES = {
     STATE_NO_RESTRICTION,
     STATE_ALLOWED_EXCEPT_SPECIFIC_DECREE,
@@ -265,8 +274,9 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             try:
                 # TODO(kamaradclimber): there 4 supported profils: particulier, entreprise, collectivite and exploitation
                 data = await vigieau.get_data(lat, long, city_code, "particulier", zone_type)
+                data = validate_vigieau_data(data)
             except VigieauAPIError as e:
-                raise UpdateFailed(f"Failed fetching vigieau data: {e.text}") from e
+                raise UpdateFailed(f"Failed fetching vigieau data: {e}") from e
 
             for usage in data["usages"]:
                 found = False
@@ -338,6 +348,55 @@ def _parse_time_str(time_str: str) -> Optional[dt_time]:
             return None
         return dt_time(hour, 0)
     return None
+
+
+def validate_vigieau_data(data) -> dict:
+    """Validate the payload before exposing it to entities.
+
+    The API is a government service which can occasionally return partial or
+    malformed responses. Raising here lets the coordinator keep the last known
+    good payload instead of updating entities with unusable data.
+    """
+    if not isinstance(data, dict):
+        raise VigieauAPIError(
+            "Malformed response from Vigieau API: expected a zone object", repr(data)
+        )
+
+    severity = data.get("niveauGravite")
+    if severity not in ALERT_LEVEL_NUMERIC_MAP:
+        raise VigieauAPIError(
+            f"Malformed response from Vigieau API: unknown severity {severity!r}",
+            repr(data),
+        )
+
+    usages = data.get("usages")
+    if not isinstance(usages, list):
+        raise VigieauAPIError(
+            "Malformed response from Vigieau API: 'usages' must be a list",
+            repr(data),
+        )
+
+    for index, usage in enumerate(usages):
+        if not isinstance(usage, dict):
+            raise VigieauAPIError(
+                f"Malformed response from Vigieau API: usage #{index} is not an object",
+                repr(data),
+            )
+        for field in ("nom", "thematique", "description"):
+            if not isinstance(usage.get(field), str):
+                raise VigieauAPIError(
+                    f"Malformed response from Vigieau API: usage #{index} has no valid '{field}'",
+                    repr(data),
+                )
+        for field in ("heureDebut", "heureFin"):
+            if field in usage and not isinstance(usage[field], str):
+                raise VigieauAPIError(
+                    f"Malformed response from Vigieau API: usage #{index} has an invalid '{field}'",
+                    repr(data),
+                )
+
+    data["_numeric_state_value"] = ALERT_LEVEL_NUMERIC_MAP[severity]
+    return data
 
 
 _TIME_CLASSIFICATION_PATTERNS = [r"interdiction sur plage horaire", r"(?:interdiction|interdit).*\d+\s*h"]
@@ -770,9 +829,11 @@ class RestrictionMixin:
                 self._attr_state_attributes = self._attr_state_attributes or {}
                 restriction = usage.get("description")
                 if restriction is None:
-                    raise UpdateFailed(
-                        "Restriction level is not specified"
+                    _LOGGER.warning(
+                        "Ignoring usage %s without a restriction description",
+                        usage.get("nom"),
                     )
+                    continue
                 self._attr_state_attributes[
                     f"usage: {usage['nom']}"
                 ] = restriction
