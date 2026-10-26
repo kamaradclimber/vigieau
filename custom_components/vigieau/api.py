@@ -8,7 +8,7 @@ from .const import ADDRESS_API_URL, GEOAPI_GOUV_URL, VIGIEAU_API_URL
 
 import re
 
-CLIENT_TIMEOUT = ClientTimeout(total=120)
+CLIENT_TIMEOUT = ClientTimeout(total=60)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -29,7 +29,7 @@ class InseeAPI:
     async def get_insee_list(self):
         """Get all INSEE codes"""
         session = aiohttp.ClientSession()
-        resp = await session.get(GEOAPI_GOUV_URL)
+        resp = await session.get(GEOAPI_GOUV_URL, timeout=self._timeout)
 
         if resp.status != 200:
             raise InseeAPIError(
@@ -42,7 +42,7 @@ class InseeAPI:
         """Get INSEE code for a given zip code"""
         url = f"{GEOAPI_GOUV_URL}&codePostal={zipcode}&format=json&geometry=centre"
 
-        resp = await self._session.get(url)
+        resp = await self._session.get(url, timeout=self._timeout)
         if resp.status != 200:
             raise InseeAPIError(
                 f"Unable to get INSEE Code for zip {zipcode}"
@@ -72,7 +72,7 @@ class AddressAPI:
 
     async def get_data(self, lat: float, lon: float) -> Tuple[str, str, float, float]:
         url = f"{ADDRESS_API_URL}/reverse/?lat={lat}&lon={lon}&type=housenumber"
-        resp = await self._session.get(url)
+        resp = await self._session.get(url, timeout=self._timeout)
         if resp.status != 200:
             raise AddressAPIError(
                 "Failed to fetch address from api-adresse.data.gouv.fr api"
@@ -116,7 +116,7 @@ class VigieauAPI:
         if lat is not None and long is not None:
             url += f"&lat={lat}&lon={long}"
         _LOGGER.debug(f"Requesting restrictions from {url}")
-        resp = await self._session.get(url)
+        resp = await self._session.get(url, timeout=self._timeout)
         if (
             resp.status == 404
             and "message" in await resp.json()
