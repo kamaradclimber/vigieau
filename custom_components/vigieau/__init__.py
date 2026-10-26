@@ -276,6 +276,8 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
                 data = await vigieau.get_data(lat, long, city_code, "particulier", zone_type)
                 data = validate_vigieau_data(data)
             except VigieauAPIError as e:
+                if not self.last_update_success:
+                    _LOGGER.error("Failed fetching vigieau data: %s", e)
                 raise UpdateFailed(f"Failed fetching vigieau data: {e}") from e
 
             for usage in data["usages"]:
@@ -295,6 +297,8 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
         except UpdateFailed:
             raise
         except Exception as err:
+            if not self.last_update_success:
+                _LOGGER.error("Error communicating with API: %s", err)
             raise UpdateFailed(f"Error communicating with API: {err}") from err
 
     def changed_location(self, location: dict) -> bool:
