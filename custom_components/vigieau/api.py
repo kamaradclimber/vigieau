@@ -1,12 +1,12 @@
+import json
 import logging
+import re
+from typing import Any, Optional, Tuple
+
 import aiohttp
-from typing import Optional, Tuple
 from aiohttp.client import ClientTimeout
-from homeassistant.helpers.update_coordinator import UpdateFailed
 
 from .const import ADDRESS_API_URL, GEOAPI_GOUV_URL, VIGIEAU_API_URL
-
-import re
 
 CLIENT_TIMEOUT = ClientTimeout(total=60)
 
@@ -93,13 +93,17 @@ class AddressAPI:
 
 
 class VigieauAPIError(RuntimeError):
-    def __init__(self, message, text):
+    def __init__(self, message: str, text: Optional[str] = None):
         super().__init__(message)
-        self._text = text
+        self._text = text if text is not None else message
 
     @property
     def text(self) -> str:
         return self._text
+
+
+def _no_restriction_data() -> list[dict]:
+    return [{"niveauGravite": "Pas de restrictions", "usages": [], "arrete": {}}]
 
 
 class VigieauAPI:
@@ -109,6 +113,14 @@ class VigieauAPI:
         self._timeout = timeout
         self._session = session or aiohttp.ClientSession()
 
+    async def _read_json(self, resp) -> Any:
+        try:
+            return await resp.json()
+        except (json.JSONDecodeError, aiohttp.ContentTypeError, UnicodeDecodeError) as err:
+            raise VigieauAPIError(
+                "Invalid JSON received from Vigieau API", str(err)
+            ) from err
+
     async def get_data(
             self, lat: Optional[float], long: Optional[float], insee_code: str, profil: str,
             zone_type: str) -> dict:
@@ -117,31 +129,57 @@ class VigieauAPI:
             url += f"&lat={lat}&lon={long}"
         _LOGGER.debug(f"Requesting restrictions from {url}")
         resp = await self._session.get(url, timeout=self._timeout)
-        if (
-            resp.status == 404
-            and "message" in await resp.json()
-            and re.match("Aucune zone.+en vigueur", (await resp.json())["message"])
-        ):
-            _LOGGER.debug(f"Vigieau replied with no restriction, faking data")
-            data = [{"niveauGravite": "Pas de restrictions",
-                     "usages": [], "arrete": {}}]
-        elif resp.status == 200 and (await resp.json()) == []:
-            _LOGGER.debug(f"Vigieau replied with no data at all, faking data")
-            data = [{"niveauGravite": "Pas de restrictions",
-                     "usages": [], "arrete": {}}]
+
+        if resp.status == 404:
+            payload = await self._read_json(resp)
+            message = payload.get("message") if isinstance(payload, dict) else None
+            if isinstance(message, str) and re.match("Aucune zone.+en vigueur", message):
+                _LOGGER.debug("Vigieau replied with no restriction, faking data")
+                data = _no_restriction_data()
+            else:
+                raise VigieauAPIError(
+                    "Failed fetching vigieau data (HTTP 404)",
+                    json.dumps(payload, ensure_ascii=False),
+                )
         elif resp.status in range(200, 300):
-            data = await resp.json()
+            payload = await self._read_json(resp)
+            if payload == []:
+                _LOGGER.debug("Vigieau replied with no data at all, faking data")
+                data = _no_restriction_data()
+            elif isinstance(payload, list):
+                data = payload
+            else:
+                raise VigieauAPIError(
+                    "Malformed response from Vigieau API: expected a list of zones",
+                    repr(payload),
+                )
         else:
-            raise VigieauAPIError(f"Failed fetching vigieau data", resp.text)
+            text = await resp.text()
+            raise VigieauAPIError(
+                f"Failed fetching vigieau data (HTTP {resp.status})", text
+            )
+
         _LOGGER.debug(f"Data fetched from vigieau: {data}")
+        if not isinstance(data, list) or not data or not isinstance(data[0], dict):
+            raise VigieauAPIError(
+                "Malformed response from Vigieau API: expected a non-empty list of zone objects",
+                repr(data),
+            )
+
         # enriching with numeric state value
         data = data[0]
-        data["_numeric_state_value"] = {
-            "Pas de restrictions": 0,
-            "vigilance": 1,
-            "alerte": 2,
-            "alerte_renforcée": 3,
-            "alerte_renforcee": 3,
-            "crise": 4,
-        }[data["niveauGravite"]]
+        try:
+            data["_numeric_state_value"] = {
+                "Pas de restrictions": 0,
+                "vigilance": 1,
+                "alerte": 2,
+                "alerte_renforcée": 3,
+                "alerte_renforcee": 3,
+                "crise": 4,
+            }[data["niveauGravite"]]
+        except KeyError as err:
+            raise VigieauAPIError(
+                "Malformed response from Vigieau API: missing or unknown 'niveauGravite'",
+                repr(data),
+            ) from err
         return data
