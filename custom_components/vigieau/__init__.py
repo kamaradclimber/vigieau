@@ -266,7 +266,7 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
                 # TODO(kamaradclimber): there 4 supported profils: particulier, entreprise, collectivite and exploitation
                 data = await vigieau.get_data(lat, long, city_code, "particulier", zone_type)
             except VigieauAPIError as e:
-                raise UpdateFailed(f"Failed fetching vigieau data: {e.text}")
+                raise UpdateFailed(f"Failed fetching vigieau data: {e.text}") from e
 
             for usage in data["usages"]:
                 found = False
@@ -282,8 +282,10 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
                         f"The following restriction is unknown from this integration, please report an issue with: {report_data}"
                     )
             return data
+        except UpdateFailed:
+            raise
         except Exception as err:
-            raise UpdateFailed(f"Error communicating with API: {err}")
+            raise UpdateFailed(f"Error communicating with API: {err}") from err
 
     def changed_location(self, location: dict) -> bool:
         """
