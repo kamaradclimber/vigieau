@@ -19,6 +19,7 @@ from homeassistant.const import (
     Platform,
 )
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.helpers import issue_registry as ir
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.entity import EntityCategory, DeviceInfo
 from homeassistant.helpers.device_registry import DeviceEntryType
@@ -58,6 +59,13 @@ MIGRATED_FROM_VERSION_1 = "migrated_from_version_1"
 MIGRATED_FROM_VERSION_3 = "migrated_from_version_3"
 MIGRATED_FROM_VERSION_5 = "migrated_from_version_5"
 MIGRATED_FROM_VERSION_6 = "migrated_from_version_6"
+
+LAST_SUCCESS_KEY = "last_successful_refresh"
+STALE_DATA_AFTER = timedelta(hours=24)
+
+
+def _stale_issue_id(config_entry_id: str) -> str:
+    return f"stale_data_{config_entry_id}"
 
 STATE_NO_RESTRICTION = "Aucune restriction"
 STATE_TIME_BASED_BAN = "Interdiction sur plage horaire"
@@ -198,6 +206,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         entry, [Platform.SENSOR, Platform.BINARY_SENSOR]
     )
     if unload_ok:
+        ir.async_delete_issue(hass, DOMAIN, _stale_issue_id(entry.entry_id))
         hass.data[DOMAIN].pop(entry.entry_id)
     return unload_ok
 
@@ -225,6 +234,13 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             minor_version=0,
             key=f"vigieau_current_location_{self.config_entry_id}",
         )
+        self._last_success_store = Store(
+            hass,
+            version=1,
+            minor_version=0,
+            key=f"vigieau_last_success_{self.config_entry_id}",
+        )
+        self._last_success_at = None
         self._location = None
 
     def location(self) -> dict:
@@ -235,12 +251,82 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             return self._location
         return self.config
 
+    async def _async_save_last_success(self):
+        if self._last_success_at is None:
+            return
+        try:
+            await self._last_success_store.async_save(
+                {LAST_SUCCESS_KEY: self._last_success_at.isoformat()}
+            )
+        except Exception as err:
+            _LOGGER.warning(
+                "Unable to persist last successful refresh time: %s", err
+            )
+
+    async def _async_load_last_success(self):
+        if self._last_success_at is not None:
+            return
+        try:
+            stored = await self._last_success_store.async_load()
+        except Exception as err:
+            _LOGGER.warning(
+                "Unable to load last successful refresh time: %s", err
+            )
+            stored = None
+
+        value = stored.get(LAST_SUCCESS_KEY) if isinstance(stored, dict) else None
+        if isinstance(value, str):
+            parsed = dt_util.parse_datetime(value)
+            if parsed is not None:
+                self._last_success_at = parsed
+
+        if self._last_success_at is None:
+            # Start the staleness clock at first setup when no successful
+            # refresh has ever been recorded.
+            self._last_success_at = dt_util.utcnow()
+            await self._async_save_last_success()
+
+    async def _async_record_success(self):
+        self._last_success_at = dt_util.utcnow()
+        await self._async_save_last_success()
+
+    @callback
+    def _async_check_stale_data(self):
+        if self._last_success_at is None:
+            return
+
+        age = dt_util.utcnow() - self._last_success_at
+        issue_id = _stale_issue_id(self.config_entry_id)
+        if age <= STALE_DATA_AFTER:
+            ir.async_delete_issue(self.hass, DOMAIN, issue_id)
+            return
+
+        location = self.location()
+        ir.async_create_issue(
+            self.hass,
+            DOMAIN,
+            issue_id,
+            is_fixable=False,
+            is_persistent=False,
+            severity=ir.IssueSeverity.WARNING,
+            translation_key="stale_data",
+            translation_placeholders={
+                "city": str(location.get(CONF_CITY) or self.config.get(CONF_CITY)),
+                "last_success": dt_util.as_local(self._last_success_at).strftime(
+                    "%Y-%m-%d %H:%M"
+                ),
+                "hours": str(int(age.total_seconds() // 3600)),
+            },
+        )
+
     async def update_method(self):
         """Fetch data from API endpoint."""
         try:
             _LOGGER.debug(
                 f"Calling update method, {len(self._listeners)} listeners subscribed"
             )
+
+            await self._async_load_last_success()
 
             if "VIGIEAU_APIFAIL" in os.environ:
                 raise UpdateFailed(
@@ -293,6 +379,7 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
                     _LOGGER.warn(
                         f"The following restriction is unknown from this integration, please report an issue with: {report_data}"
                     )
+            await self._async_record_success()
             return data
         except UpdateFailed:
             raise
@@ -300,6 +387,8 @@ class VigieauAPICoordinator(DataUpdateCoordinator):
             if not self.last_update_success:
                 _LOGGER.error("Error communicating with API: %s", err)
             raise UpdateFailed(f"Error communicating with API: {err}") from err
+        finally:
+            self._async_check_stale_data()
 
     def changed_location(self, location: dict) -> bool:
         """
