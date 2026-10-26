@@ -378,5 +378,11 @@
         "name": "Restriction spécifique autorisé à {city}"
       }
     }
+  },
+  "issues": {
+    "stale_data": {
+      "title": "Données Vigieau obsolètes",
+      "description": "Aucune actualisation réussie pour {city} depuis le {last_success} ({hours} heures). Vérifiez l'API Vigieau et votre connexion Internet."
+    }
   }
 }

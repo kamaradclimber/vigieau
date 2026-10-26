@@ -378,5 +378,11 @@
         "name": "Specific restriction allowed in {city}"
       }
     }
+  },
+  "issues": {
+    "stale_data": {
+      "title": "Vigieau data is stale",
+      "description": "No successful refresh for {city} since {last_success} ({hours} hours). Check the Vigieau API and your internet connection."
+    }
   }
 }

@@ -378,5 +378,11 @@
         "name": "Restrição específica permitido em {city}"
       }
     }
+  },
+  "issues": {
+    "stale_data": {
+      "title": "Dados do Vigieau desatualizados",
+      "description": "Nenhuma atualização bem-sucedida para {city} desde {last_success} ({hours} horas). Verifique a API do Vigieau e a sua ligação à Internet."
+    }
   }
 }
