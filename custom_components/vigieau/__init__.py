@@ -562,7 +562,12 @@ def classify_restrictions(restrictions):
         return (STATE_AWARENESS, False)
     if any_restriction_match("Réduction"):
         return (STATE_REDUCTION, False)
-    if len(set(restrictions)) == 1:
+    # https://github.com/kamaradclimber/vigieau/issues/137
+    # Normalize only for comparison; preserve the original text for display.
+    normalized_restrictions = [
+        " ".join(restriction.split()) for restriction in restrictions
+    ]
+    if len(set(normalized_restrictions)) == 1:
         return (restrictions[0], False)
     return (None, False)
 

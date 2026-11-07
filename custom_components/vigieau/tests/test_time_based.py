@@ -82,6 +82,22 @@ class TestClassifyRestrictions(unittest.TestCase):
         self.assertEqual(level, "Information via communiqué de presse")
         self.assertFalse(is_time)
 
+    def test_whitespace_only_differences_fallback(self):
+        description = "Application des règles de bon usage d’économie d’eau par les usagers"
+        variants = [
+            description.replace("règles de", "règles  de"),
+            f" \t{description}\n ",
+            description.replace("règles de", "règles\u00a0de"),
+            description.replace("règles de", "règles\tde"),
+            description.replace("règles de", "règles\nde"),
+        ]
+
+        for variant in variants:
+            with self.subTest(variant=repr(variant)):
+                level, is_time = classify_restrictions([variant, description])
+                self.assertEqual(level, variant)
+                self.assertFalse(is_time)
+
 
 class TestExtractTimeRangeStandalone(unittest.TestCase):
     def test_simple(self):
