@@ -33,13 +33,41 @@ jobs:
           cd "${{ github.workspace }}/custom_components/vigieau"
           zip vigieau.zip -r ./
 
+      # Signing goes through an external transparency log (Rekor) and can fail
+      # for reasons unrelated to this repository. That must not prevent the
+      # assets from being published: hacs.json declares zip_release with
+      # vigieau.zip, so a missing asset breaks updates for every user (404).
       - name: 🔏 Sign release package
+        id: sign
+        continue-on-error: true
         uses: sigstore/gh-action-sigstore-python@v3.0.0
         with:
           inputs: ${{ github.workspace }}/custom_components/vigieau/vigieau.zip
 
-      - name: ⬆️ Upload zip to release
+      # The sigstore action normally uploads vigieau.zip (with its bundle)
+      # itself. When signing failed, publish the unsigned archive anyway.
+      - name: ⬆️ Upload unsigned zip (signing failed)
+        if: steps.sign.outcome == 'failure'
         uses: softprops/action-gh-release@v2.1.0
         with:
           files: ${{ github.workspace }}/custom_components/vigieau/vigieau.zip
-  
+          fail_on_unmatched_files: true
+
+      - name: 🔍 Verify release assets
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -euo pipefail
+          assets=$(gh release view "$TAG" --repo "${{ github.repository }}" \
+            --json assets --jq '.assets[].name')
+          echo "Assets attached to $TAG:"
+          echo "$assets"
+          if ! grep -qx 'vigieau.zip' <<<"$assets"; then
+            echo "::error::vigieau.zip is missing from release $TAG: Home Assistant updates will fail with a 404"
+            exit 1
+          fi
+          if ! grep -qx 'vigieau.zip.sigstore.json' <<<"$assets"; then
+            echo "::warning::vigieau.zip is not signed (no sigstore bundle), but it is downloadable"
+          fi
